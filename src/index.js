@@ -1,14 +1,45 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import "@rainbow-me/rainbowkit/styles.css";
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+  darkTheme,
+} from "@rainbow-me/rainbowkit";
+import { configureChains, createClient, WagmiConfig } from "wagmi";
+import { mainnet, polygon, optimism, arbitrum } from "wagmi/chains";
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { publicProvider } from "wagmi/providers/public";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const { chains, provider } = configureChains(
+  // [BTTChain],
+  [mainnet, polygon, optimism, arbitrum],
+  [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
+);
+
+const { connectors } = getDefaultWallets({
+  appName: "My RainbowKit App",
+  chains,
+});
+
+const wagmiClient = createClient({
+  autoConnect: false,
+  connectors,
+  provider,
+});
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <WagmiConfig client={wagmiClient}>
+    <RainbowKitProvider chains={chains} theme={darkTheme()}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </RainbowKitProvider>
+  </WagmiConfig>
 );
 
 // If you want to start measuring performance in your app, pass a function

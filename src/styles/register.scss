@@ -1,0 +1,42 @@
+.register-main-div {
+  width: 50%;
+  margin: 20px auto;
+
+  .register-sub-div {
+    width: 100%;
+    margin: 20px 0px;
+  }
+  .form-flexlable {
+    height: 75px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 350px;
+    justify-content: space-evenly;
+  }
+  .form-button {
+    width: 50%;
+    text-align: center;
+    margin: 10px auto;
+  }
+  .form-btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+  }
+  .form-title {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .form-inputLable {
+    padding: 10px;
+  }
+  .form-file {
+    width: 35%;
+    margin: 0 auto;
+  }
+  .file-input-container {
+    width: 40%;
+    margin: 0 auto;
+  }
+}

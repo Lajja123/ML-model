@@ -1,0 +1,37 @@
+.dataset-main-div {
+  padding: 50px 100px;
+
+  .dataset-content {
+    line-height: 40px;
+  }
+  .data-btn {
+    width: 150px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .sort-icon {
+    width: 30px;
+    padding: 0px 10px;
+  }
+  .filter-flex {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    padding: 0px 20px;
+  }
+  .tab-list {
+    background-color: lightgray;
+    padding: 10px 20px;
+    border-radius: 15px;
+    letter-spacing: 2px;
+    border: none;
+  }
+  .tab-btn {
+    display: flex;
+    justify-content: space-evenly;
+    width: 70%;
+    padding: 20px 0px;
+    border: none;
+  }
+}

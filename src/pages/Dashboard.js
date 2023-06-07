@@ -8,10 +8,16 @@ import model from "../components/assets/model.png";
 import code from "../components/assets/code.png";
 import plus from "../components/assets/plus.png";
 import { useState } from "react";
+import Dataset from "../components/Dataset";
+import Model from "../components/Model";
+import Code from "../components/Code";
 
 function Dashboard() {
   const [showItem, setShowItem] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [addDataset, setAddDataset] = useState(false);
+  const [addModel, setAddModel] = useState(false);
+  const [addCode, setAddCode] = useState(false);
 
   const showItems = () => {
     setShowItem(!showItem);
@@ -19,69 +25,24 @@ function Dashboard() {
   const isactive = () => {
     setIsActive(!isActive);
   };
+  const dashboardLinks = (a) => {
+    if (a === "addDataset") {
+      setAddDataset(true);
+      setAddModel(false);
+      setAddCode(false);
+    }
+    if (a === "addModel") {
+      setAddModel(true);
+      setAddDataset(false);
+      setAddCode(false);
+    }
+    if (a === "addCode") {
+      setAddCode(true);
+      setAddDataset(false);
+      setAddModel(false);
+    }
+  };
 
-  //   const navigate = useNavigate();
-
-  //   const dashboardLinks = (a) => {
-  //     if (a === "AddProduct") {
-  //       setAddProduct(true);
-  //       setDeleteProduct(false);
-  //       setViewProduct(false);
-  //       setTransfer(false);
-  //       setTransferHistory(false);
-  //     }
-  //     if (a === "ViewProduct") {
-  //       setAddProduct(false);
-  //       setDeleteProduct(false);
-  //       setViewProduct(true);
-  //       setTransfer(false);
-  //       setTransferHistory(false);
-  //     }
-  //     if (a === "DeleteProduct") {
-  //       setAddProduct(false);
-  //       setDeleteProduct(true);
-  //       setViewProduct(false);
-  //       setTransfer(false);
-  //       setTransferHistory(false);
-  //       setStock(false);
-  //     } else if (a === "Transfer") {
-  //       setAddProduct(false);
-  //       setDeleteProduct(false);
-  //       setViewProduct(false);
-  //       setTransfer(true);
-  //       setTransferHistory(false);
-  //       setStock(false);
-  //     } else if (a === "TransferHistory") {
-  //       setAddProduct(false);
-  //       setDeleteProduct(false);
-  //       setViewProduct(false);
-  //       setTransfer(false);
-  //       setTransferHistory(true);
-  //       setStock(false);
-  //     } else if (a === "HistoryDetails") {
-  //       setAddProduct(false);
-  //       setDeleteProduct(false);
-  //       setViewProduct(false);
-  //       setTransfer(false);
-  //       setTransferHistory(false);
-  //       setStock(false);
-  //       setTransferHistoryDetails(true);
-  //     } else if (a === "RequestStock") {
-  //       setAddProduct(false);
-  //       setDeleteProduct(false);
-  //       setViewProduct(false);
-  //       setTransfer(false);
-  //       setTransferHistory(false);
-  //       setStock(true);
-  //       setTransferHistoryDetails(false);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     if (!isConnected) {
-  //       navigate("/");
-  //     }
-  //   }, [isConnected]);
   return (
     <>
       <div className="dashboard-main">
@@ -93,6 +54,7 @@ function Dashboard() {
               alignItems: "center",
               width: "100%",
               justifyContent: "flex-start",
+              margin: "20px 0px",
             }}
           >
             <img
@@ -112,9 +74,7 @@ function Dashboard() {
             </Link>
           </div>
           <div style={{ width: "100%" }}>
-            {" "}
             <button className="create-button-dashboard">
-              {" "}
               <img
                 src={plus}
                 alt="plus"
@@ -136,6 +96,7 @@ function Dashboard() {
                   margin: "10px 0px",
                   position: "absolute",
                   padding: "20px 0px",
+                  width: "250px",
                 }}
               >
                 <li style={{ margin: "0px" }}>
@@ -162,7 +123,12 @@ function Dashboard() {
 
           <ul>
             <>
-              <li>
+              <li
+                className={addDataset ? "active" : ""}
+                onClick={() => {
+                  dashboardLinks("addDataset");
+                }}
+              >
                 <img
                   src={dataset}
                   alt="dataset"
@@ -171,7 +137,12 @@ function Dashboard() {
                 />
                 <div> Dataset</div>
               </li>
-              <li>
+              <li
+                className={addModel ? "active" : ""}
+                onClick={() => {
+                  dashboardLinks("addModel");
+                }}
+              >
                 <img
                   src={model}
                   alt="model"
@@ -180,7 +151,12 @@ function Dashboard() {
                 />
                 <div>Model</div>
               </li>
-              <li>
+              <li
+                className={addCode ? "active" : ""}
+                onClick={() => {
+                  dashboardLinks("addCode");
+                }}
+              >
                 <img
                   src={code}
                   alt="code"
@@ -193,25 +169,21 @@ function Dashboard() {
           </ul>
         </div>
         <div className="right-db">
-          {/* {addProduct ? (
-            <>
-              <AddProduct></AddProduct>
-            </>
-          ) : viewProduct ? (
-            <ViewProduct />
-          ) : deleteProduct ? (
-            <DeleteProduct />
-          ) : transfer ? (
-            <Transfer />
-          ) : transferHistory ? (
-            <TransferHistory dashboardLinks={dashboardLinks} />
-          ) : transferHistoryDetails ? (
-            <HistoryDetails
-              setTransferHistoryDetails={setTransferHistoryDetails}
-            />
-          ) : stock ? (
-            <RequestStock dashboardLinks={dashboardLinks} />
-          ) : null} */}
+          <div>
+            {addDataset ? (
+              <>
+                <Dataset></Dataset>
+              </>
+            ) : addModel ? (
+              <>
+                <Model></Model>
+              </>
+            ) : addCode ? (
+              <>
+                <Code></Code>
+              </>
+            ) : null}
+          </div>
         </div>
       </div>
     </>

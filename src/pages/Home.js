@@ -9,22 +9,31 @@ function Home() {
   const dashboard = () => {
     navigate("/dashboard");
   };
-
+  const register = () => {
+    navigate("/register");
+  };
   return (
     <>
       <Navbar />
       <div className="hero">
         <div className="hero-left">
-          <p className="hero-p">Lorem, ipsum dolor.</p>
-          <h1 className="hero-h1">Lorem ipsum dolor sit amet.</h1>
+          <p className="hero-p">Welcome to ML-model</p>
+          <h1 className="hero-h1">ML-model</h1>
           <p className="hero-p">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci,
             dolorum?
           </p>
-          <div className="hero-left-buttons">
-            <button className="hero-btn-1" onClick={() => dashboard()}>
-              Get Started
-            </button>
+          <div style={{ display: "flex" }}>
+            <div className="hero-left-buttons">
+              <button className="hero-btn-1" onClick={() => dashboard()}>
+                Get Started
+              </button>
+            </div>
+            <div className="hero-left-buttons">
+              <button className="hero-btn-1" onClick={() => register()}>
+                Register
+              </button>
+            </div>
           </div>
         </div>
         <div className="hero-right">
