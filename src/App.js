@@ -17,6 +17,7 @@ import Model from "./components/Model.js";
 import "./App.css";
 import Home from "./pages/Home";
 import DashboardNavbar from "./components/DashboardNavbar";
+import CreateDataset from "./components/CreateDataset";
 
 function App() {
   // const { chains, provider } = configureChains(
@@ -47,6 +48,7 @@ function App() {
           <Route path="/code" element={<Code />} />
           <Route path="/model" element={<Model />} />
           <Route path="/dash-navbar" element={<DashboardNavbar />} />
+          <Route path="/createdataset" element={<CreateDataset />} />
         </Routes>
       </Router>
     </div>
