@@ -12,9 +12,11 @@ import Dataset from "../components/Dataset";
 import Model from "../components/Model";
 import Code from "../components/Code";
 import CreateDataset from "../components/CreateDataset";
+import CreateModel from "../components/CreateModel";
 
 function Dashboard() {
   const [openModal, setOpenModal] = useState(false);
+  const [openModal1, setOpenModal1] = useState(false);
   const [showItem, setShowItem] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [addDataset, setAddDataset] = useState(false);
@@ -121,8 +123,12 @@ function Dashboard() {
                     className="dashModel"
                     style={{ width: "30px", padding: "0px 20px" }}
                   />
-                  <div> Create Model</div>
-                </li>
+                  <div onClick={() => setOpenModal1(true)}> Create Model</div>
+                </li>{" "}
+                <CreateModel
+                  open={openModal1}
+                  onClose={() => setOpenModal1(false)}
+                />
               </ul>
             )}
           </div>

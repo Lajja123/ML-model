@@ -1,0 +1,38 @@
+.signledataset-main-div {
+  .single-data-btn {
+    padding: 10px;
+    font-size: 15px;
+    letter-spacing: 2px;
+    margin: 0px 20px;
+  }
+  .single-dataset-flex-sidebar {
+    display: flex;
+    height: 25vh;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+  }
+  .single-dataset-img {
+    width: 300px;
+  }
+  .single-data-title {
+    width: 50%;
+  }
+  .single-dataset-flex-content {
+    display: flex;
+    padding: 20px 50px;
+    justify-content: space-between;
+  }
+  .single-dataset {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 18vh;
+    justify-content: space-around;
+  }
+  .single-dataset-desc {
+    font-size: 15px;
+    text-align: justify;
+  }
+}
