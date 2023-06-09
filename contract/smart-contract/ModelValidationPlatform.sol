@@ -15,9 +15,25 @@ using Counters for Counters.Counter;
        // bool isRegistered;
     }
 
+     enum Categories{ 
+        education, drugsAndMedical, earthNature , scienceAndTechnology
+    }
+
+    struct Data {
+        uint id;
+        string title;
+        string description;
+        string uploadFile;
+        Categories categories;
+        bool status;      //true-> public   , false ->Private
+    }
+
 
     mapping(address => User) private userMapping;      // for user register 
     mapping (address =>bool) public isRegisteredMapping;   // for user register
+    mapping (uint256 => Data) private dataSetMapping;     // Dataset 
+    mapping(address => uint[]) public dataSetAddressMapping;   // Dataset
+    Counters.Counter public dataCount;
     
 
     function setUser(string memory _name, string memory _occupation, string memory _organization, string memory _location, string memory _image) public {
@@ -29,6 +45,18 @@ using Counters for Counters.Counter;
 
     function getUser(address _address) public view returns (User memory) {
         return userMapping[_address];
+    }
+
+    function setData(string memory _title, string memory _description, string memory _uploadFile,Categories _categories,bool _status) public {
+        require(isRegisteredMapping[msg.sender], "User is not registered");
+        dataCount.increment();
+        uint256 newDataSetId = dataCount.current();
+        dataSetMapping[newDataSetId] = Data(newDataSetId,_title, _description, _uploadFile , _categories,_status);
+        dataSetAddressMapping[msg.sender].push(newDataSetId);
+    }
+
+    function getData(uint256 id) public view returns (Data memory) {
+        return dataSetMapping[id];
     }
 
 }
