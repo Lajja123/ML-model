@@ -2,8 +2,15 @@ import React from "react";
 import DashboardNavbar from "./DashboardNavbar";
 import "../styles/dataset.scss";
 import sort from "../components/assets/sort.png";
+import { data } from "../dummyData/dataset";
+import CreateDataset from "./CreateDataset";
+import { useState } from "react";
+import FilterData from "./FilterData";
 
 function Dataset() {
+  const [openModal, setOpenModal] = useState(false);
+  const [openFilter, setOpenFilter] = useState(false);
+
   return (
     <>
       <DashboardNavbar />
@@ -17,15 +24,18 @@ function Dataset() {
             Explore, analyze, and share quality data.
           </div>
           <div className="dataset-content" style={{ margin: "20px 0px" }}>
-            <button className="data-btn">Create Dataset</button>
+            <button className="data-btn" onClick={() => setOpenModal(true)}>
+              Create Dataset
+            </button>
           </div>{" "}
+          <CreateDataset open={openModal} onClose={() => setOpenModal(false)} />
         </div>
         <div
           class="relative mb-4 flex w-full flex-wrap items-stretch"
           style={{
             display: "flex",
             alignItems: "center",
-            width: "75%",
+            width: "80%",
             position: "relative",
             padding: "20px 0px",
           }}
@@ -53,8 +63,16 @@ function Dataset() {
             style={{ padding: "10px 40px", margin: "0 auto", width: "100%" }}
           />
           <div className="filter-flex">
-            <img src={sort} className="sort-icon"></img>
+            <img
+              src={sort}
+              className="sort-icon"
+              onClick={() => setOpenFilter(true)}
+            ></img>
             <div>filter</div>
+            <FilterData
+              open={openFilter}
+              onClose={() => setOpenFilter(false)}
+            />
           </div>
         </div>
         <div className="tab-btn">
@@ -63,6 +81,30 @@ function Dataset() {
           <button className="tab-list">Drugs & Medical</button>
           <button className="tab-list">Earth & nature</button>
           <button className="tab-list">Scie & Technology</button>
+        </div>
+
+        <div className="main-dataset-grid">
+          {data.map((item, index) => (
+            <>
+              <div style={{ width: "100%" }}>
+                <img
+                  src={item.image_url}
+                  alt={`Image ${index}`}
+                  className="dataset-img"
+                />
+                <div>
+                  <h4 key={index}>{item.name}</h4>
+                  <div key={index}>
+                    {item.file_type} ( {item.file_size})
+                  </div>
+                  <div key={index} className="dataset-dec">
+                    {item.description}
+                  </div>
+                </div>
+                <button className="dataset-viewmore">View More</button>
+              </div>
+            </>
+          ))}
         </div>
       </div>
     </>
