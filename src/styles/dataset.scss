@@ -25,13 +25,39 @@
     padding: 10px 20px;
     border-radius: 15px;
     letter-spacing: 2px;
+    margin-right: 20px;
     border: none;
   }
   .tab-btn {
-    display: flex;
-    justify-content: space-evenly;
-    width: 70%;
+    width: 100%;
     padding: 20px 0px;
     border: none;
+    display: flex;
+  }
+  .dataset-img {
+    width: 250px;
+  }
+  .main-dataset-grid {
+    align-items: center;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    padding: 20px 0px;
+
+    align-items: flex-start;
+    width: 100%;
+  }
+  .dataset-viewmore {
+    border: none;
+    background-color: lightgray;
+    padding: 10px 30px;
+    border-radius: 10px;
+    margin: 20px 0px;
+  }
+  .dataset-dec {
+    width: 300px;
+    padding: 10px 0px;
+    letter-spacing: 1px;
+    font-size: 13px;
   }
 }

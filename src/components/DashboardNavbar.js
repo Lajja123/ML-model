@@ -12,10 +12,10 @@ function DashboardNavbar() {
           display: "flex",
           alignItems: "center",
           padding: "0px 100px",
-          justifyContent: "space-around",
+          justifyContent: "flex-end",
         }}
       >
-        <div
+        {/* <div
           class="relative mb-4 flex w-full flex-wrap items-stretch"
           style={{ display: "flex", alignItems: "center", width: "100%" }}
         >
@@ -42,10 +42,8 @@ function DashboardNavbar() {
               clip-rule="evenodd"
             />
           </svg>
-        </div>
-        <div
-          style={{ display: "flex", width: "40%", justifyContent: "flex-end" }}
-        >
+        </div> */}
+        <div>
           {" "}
           <ConnectButton />
         </div>

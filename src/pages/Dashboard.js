@@ -11,8 +11,10 @@ import { useState } from "react";
 import Dataset from "../components/Dataset";
 import Model from "../components/Model";
 import Code from "../components/Code";
+import CreateDataset from "../components/CreateDataset";
 
 function Dashboard() {
+  const [openModal, setOpenModal] = useState(false);
   const [showItem, setShowItem] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [addDataset, setAddDataset] = useState(false);
@@ -106,8 +108,12 @@ function Dashboard() {
                     className="dashDataset"
                     style={{ width: "30px", padding: "0px 20px" }}
                   />
-                  <div> Create Dataset</div>
+                  <div onClick={() => setOpenModal(true)}> Create Dataset</div>
                 </li>
+                <CreateDataset
+                  open={openModal}
+                  onClose={() => setOpenModal(false)}
+                />
                 <li style={{ margin: "0px" }}>
                   <img
                     src={model}
