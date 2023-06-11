@@ -8,6 +8,7 @@ import model from "../components/assets/model.png";
 import code from "../components/assets/code.png";
 import plus from "../components/assets/plus.png";
 import { useState } from "react";
+import Profile from "../components/Profile";
 import Dataset from "../components/Dataset";
 import Model from "../components/Model";
 import Code from "../components/Code";
@@ -182,6 +183,7 @@ function Dashboard() {
         </div>
         <div className="right-db">
           <div>
+            {/* <Profile/> */}
             {addDataset ? (
               <>
                 <Dataset></Dataset>
