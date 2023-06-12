@@ -23,6 +23,7 @@ function Dashboard() {
   const [addDataset, setAddDataset] = useState(false);
   const [addModel, setAddModel] = useState(false);
   const [addCode, setAddCode] = useState(false);
+  const [addHome, setAddHome] = useState(false);
 
   const showItems = () => {
     setShowItem(!showItem);
@@ -31,17 +32,26 @@ function Dashboard() {
     setIsActive(!isActive);
   };
   const dashboardLinks = (a) => {
+    if (a === "addHome") {
+      setAddHome(true);
+      setAddDataset(false);
+      setAddModel(false);
+      setAddCode(false);
+    }
     if (a === "addDataset") {
+      setAddHome(false);
       setAddDataset(true);
       setAddModel(false);
       setAddCode(false);
     }
     if (a === "addModel") {
+      setAddHome(false);
       setAddModel(true);
       setAddDataset(false);
       setAddCode(false);
     }
     if (a === "addCode") {
+      setAddHome(false);
       setAddCode(true);
       setAddDataset(false);
       setAddModel(false);
@@ -137,6 +147,20 @@ function Dashboard() {
           <ul>
             <>
               <li
+                className={addHome ? "active" : ""}
+                onClick={() => {
+                  dashboardLinks("addHome");
+                }}
+              >
+                <img
+                  src={dataset}
+                  alt="dataset"
+                  className="dashDataset"
+                  style={{ width: "30px", padding: "0px 20px" }}
+                />
+                <div> Home</div>
+              </li>
+              <li
                 className={addDataset ? "active" : ""}
                 onClick={() => {
                   dashboardLinks("addDataset");
@@ -183,8 +207,11 @@ function Dashboard() {
         </div>
         <div className="right-db">
           <div>
-            {/* <Profile/> */}
-            {addDataset ? (
+            {addHome ? (
+              <>
+                <Profile></Profile>
+              </>
+            ) : addDataset ? (
               <>
                 <Dataset></Dataset>
               </>

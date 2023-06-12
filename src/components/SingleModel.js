@@ -1,7 +1,21 @@
 import React from "react";
 import img1 from "../components/assets/dataset1.jpg";
 import { singlemodel } from "../dummyData/SingleModel";
+import codedata from "../dummyData/code.csv";
+
 function SingleModel() {
+  // const [data, setData] = useState(null);
+
+  // useEffect(() => {
+  //   fs.readFile("data.csv", "utf-8", (err, fileData) => {
+  //     if (err) {
+  //       console.error("Error reading the file:", err);
+  //       return;
+  //     }
+  //     setData(fileData);
+  //   });
+  // }, []);
+
   return (
     <>
       {singlemodel.map((item, index) => (
@@ -51,6 +65,12 @@ function SingleModel() {
               {item.description}
             </div>
             <div className="single-dataset"></div>
+          </div>
+          <div>
+            {" "}
+            {/* <pre>
+              <code>{data}</code>
+            </pre> */}
           </div>
         </div>
       ))}{" "}
