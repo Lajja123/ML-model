@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import "../styles/navbar.scss";
+import logo from "../components/assets/logo.png";
 // import ConnectCustomButton from "../components/ConnectCustomButton";
 
 function Navbar() {
@@ -17,11 +18,7 @@ function Navbar() {
         <nav className="navbar">
           <span className="logo">
             <Link to="/">
-              {/* <Image src={logo} alt="logo" /> */}
-              <h1 className="logo-h1">
-                LOGO
-                {/* UpToData */}
-              </h1>
+              <img src={logo} alt="logo" style={{ width: "350px" }} />
             </Link>
           </span>
           <ConnectButton />

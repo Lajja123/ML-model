@@ -2,13 +2,7 @@ import React from "react";
 import { data } from "../dummyData/dataset";
 import { useState } from "react";
 
-function AllDataset() {
-  const [singleDataset, setSingleDataset] = useState(false);
-
-  const toggleComponent = () => {
-    setSingleDataset(!singleDataset);
-  };
-
+function AllDataset(props) {
   return (
     <div className="main-dataset-grid-profile">
       {data.map((item, index) => (
@@ -30,7 +24,9 @@ function AllDataset() {
             </div>
             <button
               className="dataset-viewmore"
-              onClick={() => toggleComponent()}
+              onClick={() => {
+                props.profileLinks("singleDataset");
+              }}
             >
               View More
             </button>

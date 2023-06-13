@@ -8,21 +8,66 @@ import model from "../components/assets/model.png";
 import { useState } from "react";
 import AllModel from "./AllModel";
 import AllDataset from "./AllDataset";
+import SingleDataset from "./SingleDataset";
+import SingleModel from "./SingleModel";
 
 function Profile() {
   const [allDataset, setAllDataset] = useState(true);
   const [allModel, setAllModel] = useState(false);
+  const [singleDataset, setSingleDataset] = useState(false);
+  const [singleModel, setSingleModel] = useState(false);
+
+  const toggleComponent = () => {
+    setSingleDataset(!singleDataset);
+    setSingleModel(!singleModel);
+  };
 
   const profileLinks = (a) => {
     if (a === "allDataset") {
       setAllDataset(true);
       setAllModel(false);
+      setSingleModel(false);
+      setSingleDataset(false);
     }
     if (a === "allModel") {
       setAllDataset(false);
       setAllModel(true);
+      setSingleModel(false);
+      setSingleDataset(false);
+    }
+    if (a === "singleDataset") {
+      setAllDataset(false);
+      setAllModel(false);
+      setSingleModel(false);
+      setSingleDataset(true);
+    }
+    if (a === "singleModel") {
+      setAllDataset(false);
+      setAllModel(false);
+      setSingleModel(true);
+      setSingleDataset(false);
     }
   };
+  if (singleDataset) {
+    return (
+      <>
+        <SingleDataset
+          profileLinks={profileLinks}
+          onClick={() => toggleComponent()}
+        />
+      </>
+    );
+  }
+  if (singleModel) {
+    return (
+      <>
+        <SingleModel
+          profileLinks={profileLinks}
+          onClick={() => toggleComponent()}
+        />
+      </>
+    );
+  }
 
   return (
     <>
@@ -123,11 +168,11 @@ function Profile() {
       </div>
       {allDataset ? (
         <>
-          <AllDataset> </AllDataset>
+          <AllDataset profileLinks={profileLinks} />
         </>
       ) : allModel ? (
         <>
-          <AllModel></AllModel>
+          <AllModel profileLinks={profileLinks}></AllModel>
         </>
       ) : null}
     </>

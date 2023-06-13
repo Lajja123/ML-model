@@ -8,10 +8,10 @@ import upload from "../components/assets/upload.png";
 function Registrationpage() {
   const [userData, setUserData] = useState({
     file: null,
-    name: "",
-    occupation: "",
-    organization: "",
-    location: "",
+    name: null,
+    occupation: null,
+    organization: null,
+    location: null,
   });
 
   const handleChange = (event) => {
