@@ -15,7 +15,7 @@ using Counters for Counters.Counter;
        // bool isRegistered;
     }
 
-     enum Categories{ 
+    enum Categories{ 
         education, drugsAndMedical, earthNature , scienceAndTechnology
     }
 
@@ -28,13 +28,22 @@ using Counters for Counters.Counter;
         bool status;      //true-> public   , false ->Private
     }
 
+    struct Model {
+        string code;
+        string image;
+        string title;
+        string description;
+        bool status;      //true-> public   , false ->Private
+    }
 
     mapping(address => User) private userMapping;      // for user register 
     mapping (address =>bool) public isRegisteredMapping;   // for user register
     mapping (uint256 => Data) private dataSetMapping;     // Dataset 
     mapping(address => uint[]) public dataSetAddressMapping;   // Dataset
+    mapping (uint256 => Model) public modelMapping; // model
+    mapping (address =>uint[]) public modelAddressMapping; //model
     Counters.Counter public dataCount;
-    
+    Counters.Counter public modelCount;
 
     function setUser(string memory _name, string memory _occupation, string memory _organization, string memory _location, string memory _image) public {
         //  Check if the User is already registered
@@ -59,4 +68,115 @@ using Counters for Counters.Counter;
         return dataSetMapping[id];
     }
 
+    function getAllDataSet() public view returns(Data[] memory){
+       Data[] memory allUserDataSet = new Data[](dataCount.current());
+       uint count=0;
+        for(uint i=1;i<=dataCount.current();i++){
+            if(dataSetMapping[i].status)
+            {
+            allUserDataSet[count]=dataSetMapping[i];
+            count++;
+            }
+        }
+        assembly {
+        mstore(allUserDataSet, count)
+    }
+        return allUserDataSet;
+    } 
+
+    function getAllDataSetOfUser(address _address)  public view returns(Data[] memory) {
+        uint256[] memory  allId = dataSetAddressMapping[_address];
+        Data[] memory allUserDataSet = new Data[](allId.length);
+        for(uint i=0;i<allId.length;i++)
+        {
+            allUserDataSet[i]=dataSetMapping[allId[i]];
+        }
+        return allUserDataSet;
+    }
+
+    function modelData(string memory _code , string memory _image , string memory _title ,string memory _description,bool _status) public {
+        require(isRegisteredMapping[msg.sender], "User is not registered");
+       modelCount.increment();
+       uint256 newModelId = modelCount.current();
+       modelMapping[newModelId] = Model(_code,_image,_title,_description,_status);
+       modelAddressMapping[msg.sender].push(newModelId);
+    }
+
+    function getAllModelData() public view returns (Model[] memory){
+        Model[] memory allUserModel = new Model[](modelCount.current());
+        uint count=0;
+        for(uint i=1;i<=modelCount.current();i++){
+            if(modelMapping[i].status) 
+            {
+            allUserModel[count]=modelMapping[i];
+            count++;
+            }
+        }
+         assembly {
+        mstore(allUserModel, count)
+    }
+        return allUserModel;
+    }
+
+    function getAllModelDataOfUser(address _address) public view returns(Model[] memory) {
+        uint256[] memory allId = modelAddressMapping[_address];
+        Model[] memory allUserModel = new Model[](allId.length);
+        for(uint i=0;i<allId.length;i++){
+            allUserModel[i]=modelMapping[allId[i]];
+        }
+        return allUserModel;
+    }
+
+    function makeDataSetPrivate(uint _id) public {
+        bool isOwner = false;
+        for(uint i=0;i<dataSetAddressMapping[msg.sender].length;i++)
+        {
+            if(dataSetAddressMapping[msg.sender][i]==_id)
+            {
+                isOwner =true;
+            }
+        }
+        require(isOwner,"This dataset does not belongs to you");
+        dataSetMapping[_id].status = false;
+    }
+
+    function makeDataSetPublic(uint _id) public {
+        bool isOwner = false;
+        for(uint i=0;i<dataSetAddressMapping[msg.sender].length;i++)
+        {
+            if(dataSetAddressMapping[msg.sender][i]==_id)
+            {
+                isOwner =true;
+            }
+        }
+        require(isOwner,"This dataset does not belongs to you");
+        dataSetMapping[_id].status = true;
+    }
+
+     function makeModelSetPrivate(uint _id) public {
+        bool isOwner = false;
+        for(uint i=0;i<modelAddressMapping[msg.sender].length;i++)
+        {
+            if(modelAddressMapping[msg.sender][i]==_id)
+            {
+                isOwner =true;
+            }
+        }
+        require(isOwner,"This dataset does not belongs to you");
+        modelMapping[_id].status = false;
+    }
+
+     function makeModelSetPublic(uint _id) public {
+        bool isOwner = false;
+        for(uint i=0;i<modelAddressMapping[msg.sender].length;i++)
+        {
+            if(modelAddressMapping[msg.sender][i]==_id)
+            {
+                isOwner =true;
+            }
+        }
+        require(isOwner,"This dataset does not belongs to you");
+        modelMapping[_id].status = true;
+    }
+    
 }
