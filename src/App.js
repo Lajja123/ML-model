@@ -18,6 +18,8 @@ import "./App.css";
 import Home from "./pages/Home";
 import DashboardNavbar from "./components/DashboardNavbar";
 import CreateDataset from "./components/CreateDataset";
+import SingleDataset from "./components/SingleDataset";
+import Profile from "./components/Profile";
 
 function App() {
   // const { chains, provider } = configureChains(
@@ -49,6 +51,8 @@ function App() {
           <Route path="/model" element={<Model />} />
           <Route path="/dash-navbar" element={<DashboardNavbar />} />
           <Route path="/createdataset" element={<CreateDataset />} />
+          <Route path="/singledataset" element={<SingleDataset />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </Router>
     </div>

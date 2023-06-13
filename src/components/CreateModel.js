@@ -5,9 +5,9 @@ import "../styles/register.scss";
 import file from "../components/assets/file.png";
 import "../styles/createdataset.scss";
 
-function CreateDataset({ open, onClose }) {
+function CreateModel({ open, onClose }) {
   const [Data, setData] = useState({
-    title: "",
+    Name: "",
     description: "",
     catagory: "",
     file: null,
@@ -75,7 +75,7 @@ function CreateDataset({ open, onClose }) {
                   value={Data.title}
                   onChange={handleChange}
                   className="form-inputLable"
-                  placeholder="Enter Dataset Title"
+                  placeholder="Model name"
                 />
               </label>
               <label className="form-flexlable" style={{ width: "400px" }}>
@@ -88,23 +88,6 @@ function CreateDataset({ open, onClose }) {
                   placeholder="Description"
                 />
               </label>
-              <div className="form-flexlable" style={{ width: "400px" }}>
-                {" "}
-                <select
-                  name="category"
-                  id="category"
-                  value={Data.organization}
-                  onChange={handleChange}
-                  className=""
-                  style={{ padding: "10px" }}
-                >
-                  <option value="All dataset">All dataset</option>
-                  <option value="Eduaction">Eduaction</option>
-                  <option value="Drugs & Medical">Drugs & Medical</option>
-                  <option value="Earth & nature">Earth & nature</option>
-                  <option value="Scie & Technology">Scie & Technology</option>
-                </select>
-              </div>
               <div
                 style={{
                   display: "flex",
@@ -164,4 +147,4 @@ function CreateDataset({ open, onClose }) {
   );
 }
 
-export default CreateDataset;
+export default CreateModel;

@@ -8,18 +8,22 @@ import model from "../components/assets/model.png";
 import code from "../components/assets/code.png";
 import plus from "../components/assets/plus.png";
 import { useState } from "react";
+import Profile from "../components/Profile";
 import Dataset from "../components/Dataset";
 import Model from "../components/Model";
 import Code from "../components/Code";
 import CreateDataset from "../components/CreateDataset";
+import CreateModel from "../components/CreateModel";
 
 function Dashboard() {
   const [openModal, setOpenModal] = useState(false);
+  const [openModal1, setOpenModal1] = useState(false);
   const [showItem, setShowItem] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [addDataset, setAddDataset] = useState(false);
   const [addModel, setAddModel] = useState(false);
   const [addCode, setAddCode] = useState(false);
+  const [addHome, setAddHome] = useState(false);
 
   const showItems = () => {
     setShowItem(!showItem);
@@ -28,17 +32,26 @@ function Dashboard() {
     setIsActive(!isActive);
   };
   const dashboardLinks = (a) => {
+    if (a === "addHome") {
+      setAddHome(true);
+      setAddDataset(false);
+      setAddModel(false);
+      setAddCode(false);
+    }
     if (a === "addDataset") {
+      setAddHome(false);
       setAddDataset(true);
       setAddModel(false);
       setAddCode(false);
     }
     if (a === "addModel") {
+      setAddHome(false);
       setAddModel(true);
       setAddDataset(false);
       setAddCode(false);
     }
     if (a === "addCode") {
+      setAddHome(false);
       setAddCode(true);
       setAddDataset(false);
       setAddModel(false);
@@ -121,14 +134,32 @@ function Dashboard() {
                     className="dashModel"
                     style={{ width: "30px", padding: "0px 20px" }}
                   />
-                  <div> Create Model</div>
-                </li>
+                  <div onClick={() => setOpenModal1(true)}> Create Model</div>
+                </li>{" "}
+                <CreateModel
+                  open={openModal1}
+                  onClose={() => setOpenModal1(false)}
+                />
               </ul>
             )}
           </div>
 
           <ul>
             <>
+              <li
+                className={addHome ? "active" : ""}
+                onClick={() => {
+                  dashboardLinks("addHome");
+                }}
+              >
+                <img
+                  src={dataset}
+                  alt="dataset"
+                  className="dashDataset"
+                  style={{ width: "30px", padding: "0px 20px" }}
+                />
+                <div> Home</div>
+              </li>
               <li
                 className={addDataset ? "active" : ""}
                 onClick={() => {
@@ -176,7 +207,11 @@ function Dashboard() {
         </div>
         <div className="right-db">
           <div>
-            {addDataset ? (
+            {addHome ? (
+              <>
+                <Profile></Profile>
+              </>
+            ) : addDataset ? (
               <>
                 <Dataset></Dataset>
               </>
