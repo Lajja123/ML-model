@@ -4,6 +4,9 @@ import { useEffect } from "react";
 import "../styles/register.scss";
 import Navbar from "../pages/Navbar";
 import upload from "../components/assets/upload.png";
+import { modelInstance } from "./Contract";
+import { ethers } from 'ethers';
+import lighthouse from '@lighthouse-web3/sdk';
 
 function Registrationpage() {
   const [userData, setUserData] = useState({
@@ -16,9 +19,8 @@ function Registrationpage() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    const file = event.target.files[0];
-    setUserData((prevUserData) => ({
-      ...prevUserData,
+    const file = event.target.files;
+    setUserData(() => ({
       [name]: value,
       file: file,
     }));
@@ -26,6 +28,49 @@ function Registrationpage() {
   useEffect(() => {
     console.log(userData);
   }, [userData]);
+
+  const progressCallback = (progressData) => {
+    let percentageDone =
+      100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
+    console.log(percentageDone);
+  };
+
+  const uploadImage = async() => {
+    console.log("in upload image function")
+    const file = document.querySelector('input[type="file"]')
+    const output = await lighthouse.upload(file, "03a4f6fe.ff4ee70766d646dc90345131bb679658", progressCallback);
+    console.log('File Status:', output);
+
+    return output;
+  }
+
+  const createUserAccount = async () => {
+    try {
+      console.log("in create acoount function");
+      const output = await uploadImage();
+      const cids = output.data.Hash;
+      console.log("cids: ", cids);
+
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        // const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const con = await modelInstance();
+        console.log("Hello");
+        const tx = await con.setUser(userData.name, userData.occupation, userData.organization, userData.location, cids);
+
+        console.log(tx)
+        await tx.wait();
+        // window.location.reload();
+        console.log(con);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -87,7 +132,9 @@ function Registrationpage() {
             />
           </label>
           <div className="form-button">
-            <button className="form-btn">Register</button>
+            <button type="submit" className="form-btn" onClick={createUserAccount}>
+              Register
+            </button>
           </div>
         </div>
       </div>
