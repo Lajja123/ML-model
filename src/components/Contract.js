@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import modelValidationPlatformAbi from "../../src/contracts/artifacts/ModelValidationPlatformABI.json";
 export const MODEL_VALIDATION_PLATFORM_ADDRESS =
-  "0x257Ac6a9A76AA548676D7508B45667a4d455A9b1";
+  "0x9AC4A2B494C509de39C1eEB493AbA82B6a00A7De";
 
 export const modelInstance = async () => {
   const { ethereum } = window;
