@@ -3,7 +3,7 @@ import profile from "../components/assets/profile.jpg";
 import { Link } from "react-router-dom";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-function DashboardNavbar() {
+function DashboardNavbar(props) {
   return (
     <>
       <div
@@ -49,14 +49,13 @@ function DashboardNavbar() {
         </div>
 
         <div className="flex-div">
-          <Link to="/profile">
-            <img
-              className="p-user"
-              src={profile}
-              alt="Rounded avatar"
-              style={{ width: "70px", borderRadius: "100px", padding: "10px" }}
-            />{" "}
-          </Link>
+          <img
+            className="p-user"
+            src={profile}
+            alt="Rounded avatar"
+            style={{ width: "70px", borderRadius: "100px", padding: "10px" }}
+            onClick={() => props.dashboardLinks("addHome")}
+          />{" "}
         </div>
       </div>
     </>

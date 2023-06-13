@@ -20,6 +20,8 @@ import DashboardNavbar from "./components/DashboardNavbar";
 import CreateDataset from "./components/CreateDataset";
 import SingleDataset from "./components/SingleDataset";
 import Profile from "./components/Profile";
+import AllModel from "../src/components/AllModel";
+import AllDataset from "../src/components/AllDataset";
 
 function App() {
   // const { chains, provider } = configureChains(
@@ -53,6 +55,8 @@ function App() {
           <Route path="/createdataset" element={<CreateDataset />} />
           <Route path="/singledataset" element={<SingleDataset />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/allmodel" element={<AllModel />} />
+          <Route path="/alldataset" element={<AllDataset />} />
         </Routes>
       </Router>
     </div>

@@ -5,34 +5,40 @@ import "../styles/profile.scss";
 import DashboardNavbar from "./DashboardNavbar";
 import dataset from "../components/assets/dataset.png";
 import model from "../components/assets/model.png";
-import { data } from "../dummyData/dataset";
 import { useState } from "react";
+import AllModel from "./AllModel";
 import AllDataset from "./AllDataset";
 
 function Profile() {
-  const [allDataset, setAllDataset] = useState(false);
-  const showDataset = () => {
-    setAllDataset(!allDataset);
+  const [allDataset, setAllDataset] = useState(true);
+  const [allModel, setAllModel] = useState(false);
+
+  const profileLinks = (a) => {
+    if (a === "allDataset") {
+      setAllDataset(true);
+      setAllModel(false);
+    }
+    if (a === "allModel") {
+      setAllDataset(false);
+      setAllModel(true);
+    }
   };
 
   return (
     <>
-      <DashboardNavbar />
       <div>
         <div className="profile-main">
           <div>
-            <Link to="/profile">
-              <img
-                className="p-user"
-                src={img}
-                alt="Rounded avatar"
-                style={{
-                  width: "70px",
-                  borderRadius: "100px",
-                  padding: "10px",
-                }}
-              />{" "}
-            </Link>
+            <img
+              className="p-user"
+              src={img}
+              alt="Rounded avatar"
+              style={{
+                width: "70px",
+                borderRadius: "100px",
+                padding: "10px",
+              }}
+            />{" "}
           </div>
           <div>
             <h3>Welcome,Lajja</h3>
@@ -55,6 +61,7 @@ function Profile() {
               style={{ width: "30px", padding: "0px 20px" }}
             />
             <div> Dataset</div>
+            <div>20</div>
           </div>
           <div className="profile-progress">
             {" "}
@@ -65,6 +72,7 @@ function Profile() {
               style={{ width: "30px", padding: "0px 20px" }}
             />
             <div>Model</div>
+            <div>10</div>
           </div>
           <div className="profile-progress">
             <img
@@ -73,7 +81,7 @@ function Profile() {
               className="dashModel"
               style={{ width: "30px", padding: "0px 20px" }}
             />
-            <div> Model Downloads</div>{" "}
+            <div> Model Downloads</div> <div>10</div>
           </div>
           <div className="profile-progress">
             <img
@@ -82,18 +90,27 @@ function Profile() {
               className="dashModel"
               style={{ width: "30px", padding: "0px 20px" }}
             />
-            <div> Dataset Downloads</div>{" "}
+            <div> Dataset Downloads</div> <div>10</div>
           </div>
         </div>
         <div className="profile-third-section">
           <button
             style={{ margin: "0px 50px", border: "none" }}
-            onClick={() => showDataset()}
+            className={allDataset ? "active" : ""}
+            onClick={() => {
+              profileLinks("allDataset");
+            }}
           >
             All Datasets
           </button>
 
-          <button style={{ margin: "0px 50px", border: "none" }}>
+          <button
+            style={{ margin: "0px 50px", border: "none" }}
+            className={allModel ? "active" : ""}
+            onClick={() => {
+              profileLinks("allModel");
+            }}
+          >
             All Models
           </button>
           <button style={{ margin: "0px 50px", border: "none" }}>
@@ -104,34 +121,15 @@ function Profile() {
           </button>
         </div>
       </div>
-      {/* <div className="main-dataset-grid">
-        {data.map((item, index) => (
-          <>
-            <div style={{ width: "100%" }}>
-              <img
-                src={item.image_url}
-                alt={`Image ${index}`}
-                className="dataset-img"
-              />
-              <div>
-                <h4 key={index}>{item.name}</h4>
-                <div key={index}>
-                  {item.file_type} ( {item.file_size})
-                </div>
-                <div key={index}>
-                  <p className="dataset-dec">{item.description}</p>
-                </div>
-              </div>
-              <button
-                className="dataset-viewmore"
-                onClick={() => toggleComponent()}
-              >
-                View More
-              </button>
-            </div>
-          </>
-        ))}
-      </div> */}
+      {allDataset ? (
+        <>
+          <AllDataset> </AllDataset>
+        </>
+      ) : allModel ? (
+        <>
+          <AllModel></AllModel>
+        </>
+      ) : null}
     </>
   );
 }

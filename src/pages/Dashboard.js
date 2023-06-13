@@ -7,13 +7,14 @@ import dataset from "../components/assets/dataset.png";
 import model from "../components/assets/model.png";
 import code from "../components/assets/code.png";
 import plus from "../components/assets/plus.png";
-import { useState } from "react";
 import Profile from "../components/Profile";
 import Dataset from "../components/Dataset";
 import Model from "../components/Model";
 import Code from "../components/Code";
 import CreateDataset from "../components/CreateDataset";
 import CreateModel from "../components/CreateModel";
+import DashboardNavbar from "../components/DashboardNavbar";
+import { useState, useEffect, useRef } from "react";
 
 function Dashboard() {
   const [openModal, setOpenModal] = useState(false);
@@ -23,29 +24,53 @@ function Dashboard() {
   const [addDataset, setAddDataset] = useState(false);
   const [addModel, setAddModel] = useState(false);
   const [addCode, setAddCode] = useState(false);
-  const [addHome, setAddHome] = useState(false);
+  const [addHome, setAddHome] = useState(true);
+  const [openProfile, setOpenProfile] = useState(false);
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        setShowItem(false);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   const showItems = () => {
     setShowItem(!showItem);
   };
-  const isactive = () => {
+
+  const closeSidebar = () => {
     setIsActive(!isActive);
   };
+
   const dashboardLinks = (a) => {
     if (a === "addHome") {
       setAddHome(true);
+
       setAddDataset(false);
       setAddModel(false);
       setAddCode(false);
     }
     if (a === "addDataset") {
       setAddHome(false);
+      setOpenProfile(false);
       setAddDataset(true);
       setAddModel(false);
       setAddCode(false);
     }
     if (a === "addModel") {
       setAddHome(false);
+      setOpenProfile(false);
       setAddModel(true);
       setAddDataset(false);
       setAddCode(false);
@@ -54,6 +79,7 @@ function Dashboard() {
       setAddHome(false);
       setAddCode(true);
       setAddDataset(false);
+      setOpenProfile(false);
       setAddModel(false);
     }
   };
@@ -75,8 +101,11 @@ function Dashboard() {
             <img
               src={Menu}
               alt="menu"
-              className={isActive ? "" : ""}
-              onClick={isactive}
+              className={isActive ? "active" : ""}
+              onClick={() => {
+                showItems();
+                closeSidebar();
+              }}
               style={{ width: "30px", padding: "0px 20px" }}
             />
             <Link to="/">
@@ -88,7 +117,7 @@ function Dashboard() {
               />
             </Link>
           </div>
-          <div style={{ width: "100%" }}>
+          <div style={{ width: "100%" }} ref={containerRef}>
             <button className="create-button-dashboard">
               <img
                 src={plus}
@@ -207,6 +236,8 @@ function Dashboard() {
         </div>
         <div className="right-db">
           <div>
+            <DashboardNavbar dashboardLinks={dashboardLinks} />
+
             {addHome ? (
               <>
                 <Profile></Profile>
@@ -223,6 +254,8 @@ function Dashboard() {
               <>
                 <Code></Code>
               </>
+            ) : openProfile ? (
+              <Profile dashboardLinks={dashboardLinks} />
             ) : null}
           </div>
         </div>

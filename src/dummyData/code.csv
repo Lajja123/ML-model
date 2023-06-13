@@ -1,4 +1,19 @@
-id,name,age,email
-1,John Doe,25,johndoe@example.com
-2,Jane Smith,30,janesmith@example.com
-3,Mark Johnson,35,markjohnson@example.com
+import cv2
+import torch
+import kornia as K
+import numpy as np
+import urllib
+
+def load_torch_image(filename):
+    img = K.image_to_tensor(cv2.imread(filename), False).float() / 255.
+    img = K.color.bgr_to_rgb(img)
+    return img
+
+# Download two example images.
+url0 = 'https://raw.githubusercontent.com/zju3dv/LoFTR/master/assets/phototourism_sample_images/london_bridge_19481797_2295892421.jpg'
+url1 = 'https://raw.githubusercontent.com/zju3dv/LoFTR/master/assets/phototourism_sample_images/london_bridge_78916675_4568141288.jpg'
+urllib.request.urlretrieve(url0, 'image0.jpg')
+urllib.request.urlretrieve(url1, 'image1.jpg')
+
+img0 = load_torch_image('image0.jpg')
+img1 = load_torch_image('image1.jpg')

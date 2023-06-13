@@ -52,3 +52,13 @@
   letter-spacing: 1px;
   font-size: 13px;
 }
+.main-dataset-grid-profile {
+  align-items: center;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  padding: 20px 0px;
+  align-items: flex-start;
+  /* width: 100%; */
+  margin-left: 100px;
+}

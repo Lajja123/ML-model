@@ -15,7 +15,6 @@ function Model() {
 
   return (
     <>
-      <DashboardNavbar />
       {singleModel ? (
         <SingleModel />
       ) : (

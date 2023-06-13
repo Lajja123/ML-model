@@ -10,7 +10,7 @@ function AllDataset() {
   };
 
   return (
-    <div className="main-dataset-grid">
+    <div className="main-dataset-grid-profile">
       {data.map((item, index) => (
         <>
           <div style={{ width: "100%" }}>

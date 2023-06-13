@@ -1,20 +1,19 @@
 import React from "react";
 import img1 from "../components/assets/dataset1.jpg";
 import { singlemodel } from "../dummyData/SingleModel";
-import codedata from "../dummyData/code.csv";
-
+import { useState, useEffect } from "react";
 function SingleModel() {
-  // const [data, setData] = useState(null);
+  const [csvData, setCSVData] = useState("");
 
-  // useEffect(() => {
-  //   fs.readFile("data.csv", "utf-8", (err, fileData) => {
-  //     if (err) {
-  //       console.error("Error reading the file:", err);
-  //       return;
-  //     }
-  //     setData(fileData);
-  //   });
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("/data.csv");
+      const csvText = await response.text();
+      setCSVData(csvText);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -67,10 +66,7 @@ function SingleModel() {
             <div className="single-dataset"></div>
           </div>
           <div>
-            {" "}
-            {/* <pre>
-              <code>{data}</code>
-            </pre> */}
+            <div className="language-csv">{csvData}</div>
           </div>
         </div>
       ))}{" "}

@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardNavbar from "./DashboardNavbar";
+
 import "../styles/dataset.scss";
 import sort from "../components/assets/sort.png";
 import { data } from "../dummyData/dataset";
@@ -18,7 +18,6 @@ function Dataset() {
 
   return (
     <>
-      <DashboardNavbar />
       {singleDataset ? (
         <SingleDataset />
       ) : (

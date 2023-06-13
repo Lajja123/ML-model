@@ -1,9 +1,16 @@
 import React from "react";
 import { data } from "../dummyData/model";
+import { useState } from "react";
 
 function AllModel() {
+  const [singleModel, setSingleModel] = useState(false);
+
+  const toggleComponent = () => {
+    setSingleModel(!singleModel);
+  };
+
   return (
-    <div className="main-dataset-grid">
+    <div className="main-dataset-grid-profile">
       {data.map((item, index) => (
         <>
           <div style={{ width: "100%" }}>
