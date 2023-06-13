@@ -1,14 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import "@rainbow-me/rainbowkit/styles.css";
-// import {
-//   getDefaultWallets,
-//   RainbowKitProvider,
-//   darkTheme,
-// } from "@rainbow-me/rainbowkit";
-// import { configureChains, createClient, WagmiConfig } from "wagmi";
-// import { mainnet, polygon, optimism, arbitrum } from "wagmi/chains";
-// import { alchemyProvider } from "wagmi/providers/alchemy";
-// import { publicProvider } from "wagmi/providers/public";
 import Dashboard from "./pages/Dashboard";
 import Registrationpage from "./components/Registrationpage";
 import Dataset from "./components/Dataset";
@@ -24,23 +14,6 @@ import AllModel from "../src/components/AllModel";
 import AllDataset from "../src/components/AllDataset";
 
 function App() {
-  // const { chains, provider } = configureChains(
-  //   // [BTTChain],
-  //   [mainnet, polygon, optimism, arbitrum],
-  //   [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
-  // );
-
-  // const { connectors } = getDefaultWallets({
-  //   appName: "My RainbowKit App",
-  //   chains,
-  // });
-
-  // const wagmiClient = createClient({
-  //   autoConnect: false,
-  //   connectors,
-  //   provider,
-  // });
-
   return (
     <div className="App">
       <Router>

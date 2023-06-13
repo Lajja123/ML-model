@@ -1,11 +1,8 @@
 import React from "react";
-
 import "../styles/dataset.scss";
-import sort from "../components/assets/sort.png";
 import { data } from "../dummyData/dataset";
 import CreateDataset from "./CreateDataset";
 import { useState } from "react";
-
 import SingleDataset from "./SingleDataset";
 
 function Dataset() {
