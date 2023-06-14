@@ -12,6 +12,7 @@ import SingleDataset from "./components/SingleDataset";
 import Profile from "./components/Profile";
 import AllModel from "../src/components/AllModel";
 import AllDataset from "../src/components/AllDataset";
+import Compute from "./components/Compute";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/dataset" element={<Dataset />} />
           <Route path="/code" element={<Code />} />
           <Route path="/model" element={<Model />} />
+          <Route path="/compute" element={<Compute />} />
           <Route path="/dash-navbar" element={<DashboardNavbar />} />
           <Route path="/createdataset" element={<CreateDataset />} />
           <Route path="/singledataset" element={<SingleDataset />} />

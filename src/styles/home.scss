@@ -3,39 +3,43 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 100%;
   margin: auto;
+  min-height: 85vh;
+  background-color: #1f2123;
 
   .hero-left {
     width: 50%;
-    min-height: 90vh;
+    min-height: 33vh;
     display: flex;
     flex-direction: column;
     align-items: baseline;
-    justify-content: center;
+    justify-content: space-evenly;
 
     h1 {
-      //   font-size: 42px;
-      font-size: 3.75rem;
-      line-height: 4.5rem;
-      width: 80%;
+      font-family: "JosefinSans";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 3rem;
+      width: 100%;
       word-wrap: break-word;
       margin-bottom: 0;
       margin-top: 0;
-      color: #23262f;
     }
     p {
       font-size: 1.2rem;
-      font-weight: 500;
-      line-height: 1.5rem;
+      font-family: "JosefinSans";
+      font-style: normal;
+      font-weight: 600;
+      line-height: 2rem;
       margin-bottom: 2.5rem;
     }
     p:first-of-type {
       margin: 0;
       padding-left: 5px;
-      font-size: 15px;
-      font-weight: 700;
-      color: #777e90;
+      font-size: 20px;
+      font-weight: 500;
+      width: 70%;
     }
     .hero-left-buttons {
       display: flex;
@@ -54,10 +58,10 @@
         font-weight: 700;
       }
       button.hero-btn-1 {
-        background-color: #ff592c;
-        color: white;
+        background-color: #6bd0ff;
+        color: black;
         &:hover {
-          background-color: #f83500;
+          // background-color: #f83500;
         }
       }
       button.hero-btn-2 {
@@ -97,10 +101,10 @@
       -webkit-box-pack: end;
       z-index: 1;
 
-      animation: bns1 5s linear infinite;
+      animation: bns1 4s linear infinite;
       @keyframes bns1 {
         50% {
-          transform: rotate(-2deg);
+          transform: rotate(-3deg);
         }
         80% {
           transform: translateX(5px);
@@ -111,6 +115,7 @@
         z-index: 1;
         border-radius: 1rem;
         width: 500px;
+        height: 800px;
       }
       .hero-right-inside-box {
         position: absolute;
@@ -143,8 +148,11 @@
 .section2 {
   .section2-title {
     justify-content: center;
-    margin-top: 4%;
-    margin-bottom: 4%;
+    // margin-top: 4%;
+    // margin-bottom: 4%;
+    font-family: "JosefinSans";
+    font-style: normal;
+    font-weight: 600;
   }
   .section2-text {
     text-align: center;
@@ -160,11 +168,14 @@
   }
 
   .grid-item {
-    background-color: #ccc;
+    background-color: white;
     padding: 4%;
     border-radius: 2rem;
     justify-content: center;
     align-items: center;
+    color: black;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    text-align: center;
   }
 
   .grid-item-text {
@@ -174,16 +185,28 @@
     // justify-content: center;
   }
 }
+.card-title {
+  font-family: "Josefin Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  letter-spacing: 2px;
+}
+.card-dec {
+  font-family: "Josefin Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+  text-align: justify;
+}
 
 .section3 {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 5%;
-
   .section3-left {
     width: 50%;
     min-height: 90vh;
-    display: flex;
+    margin: 0 auto;
+    // display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -194,37 +217,61 @@
       justify-content: center;
     }
   }
-  .section3-right {
-    width: 50%;
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-    justify-content: center;
 
-    .section3-right-title {
-      p {
-        font-size: 2rem;
-        font-weight: 400;
-        text-align: center;
+  .section3-right-title {
+    font-size: 2.5rem;
+    text-align: center;
+    justify-content: center;
+    font-family: "JosefinSans";
+    font-style: normal;
+    font-weight: 600;
+    color: black;
+    margin: 20px;
+  }
+  .section3-left-bg2 {
+    width: 400px;
+    animation: bns1 4s linear infinite;
+    @keyframes bns1 {
+      50% {
+        transform: rotate(-2deg);
+      }
+      80% {
+        transform: translateX(5px);
       }
     }
+  }
+  .section3-right-content {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    align-items: center;
+    p {
+      font-size: 1rem;
+    }
 
-    .section3-right-content {
-      p {
-        font-size: 1rem;
-      }
-
-      .fa-circle {
-        font-size: 1rem;
-      }
+    .fa-circle {
+      font-size: 1rem;
+    }
+    .section3-card {
+      color: black;
+      margin: 20px 0px;
+      height: 25vh;
+      background-color: rgba(63, 160, 239, 0.2784313725);
+      padding: 40px 20px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
     }
   }
 }
 
 .copyright {
-  padding-top: 1%;
-  padding-bottom: 1%;
   text-align: center;
-  background-color: #efefef;
+  background-color: #1f2123;
+  color: white;
+  padding: 5px 0px;
 }

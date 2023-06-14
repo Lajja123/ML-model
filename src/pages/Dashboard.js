@@ -15,6 +15,7 @@ import CreateDataset from "../components/CreateDataset";
 import CreateModel from "../components/CreateModel";
 import DashboardNavbar from "../components/DashboardNavbar";
 import { useState, useEffect, useRef } from "react";
+import Compute from "../components/Compute";
 
 function Dashboard() {
   const [openModal, setOpenModal] = useState(false);
@@ -24,6 +25,7 @@ function Dashboard() {
   const [addDataset, setAddDataset] = useState(false);
   const [addModel, setAddModel] = useState(false);
   const [addCode, setAddCode] = useState(false);
+  const [addCompute, setAddCompute] = useState(false);
   const [addHome, setAddHome] = useState(true);
   const [openProfile, setOpenProfile] = useState(false);
 
@@ -56,30 +58,37 @@ function Dashboard() {
   const dashboardLinks = (a) => {
     if (a === "addHome") {
       setAddHome(true);
-
+      setAddCompute(false);
+      setAddDataset(false);
+      setAddModel(false);
+      setAddCode(false);
+    }
+    if (a === "addCompute") {
+      setAddCompute(true);
+      setAddHome(false);
       setAddDataset(false);
       setAddModel(false);
       setAddCode(false);
     }
     if (a === "addDataset") {
       setAddHome(false);
-      setOpenProfile(false);
+      setAddCompute(false);
       setAddDataset(true);
       setAddModel(false);
       setAddCode(false);
     }
     if (a === "addModel") {
       setAddHome(false);
-      setOpenProfile(false);
       setAddModel(true);
       setAddDataset(false);
       setAddCode(false);
+      setAddCompute(false);
     }
     if (a === "addCode") {
       setAddHome(false);
+      setAddCompute(false);
       setAddCode(true);
       setAddDataset(false);
-      setOpenProfile(false);
       setAddModel(false);
     }
   };
@@ -231,6 +240,20 @@ function Dashboard() {
                 />
                 <div>Code</div>
               </li>
+              <li
+                className={addCompute ? "active" : ""}
+                onClick={() => {
+                  dashboardLinks("addCompute");
+                }}
+              >
+                <img
+                  src={code}
+                  alt="code"
+                  className="dashCode"
+                  style={{ width: "30px", padding: "0px 20px" }}
+                />
+                <div>Decentralized Compute</div>
+              </li>
             </>
           </ul>
         </div>
@@ -253,6 +276,10 @@ function Dashboard() {
             ) : addCode ? (
               <>
                 <Code></Code>
+              </>
+            ) : addCompute ? (
+              <>
+                <Compute></Compute>
               </>
             ) : openProfile ? (
               <Profile dashboardLinks={dashboardLinks} />
