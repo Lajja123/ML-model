@@ -4,16 +4,21 @@ import { useEffect } from "react";
 import "../styles/register.scss";
 import file from "../components/assets/file.png";
 import "../styles/createdataset.scss";
+import { ethers } from "ethers";
+import { modelInstance } from "./Contract";
+import lighthouse from "@lighthouse-web3/sdk";
 
 function CreateDataset({ open, onClose }) {
+  // const [status, setStatus] = useState(false);
   const [Data, setData] = useState({
-    title: "",
-    description: "",
-    catagory: "",
+    title: null,
+    description: null,
+    category: null,
     file: null,
+    status: null,
   });
 
-  const handleChange = (event) => {
+  /* const handleChange = (event) => {
     const { name, value } = event.target;
     const file = event.target.files[0];
     setData((prevData) => ({
@@ -21,10 +26,68 @@ function CreateDataset({ open, onClose }) {
       [name]: value,
       file: file,
     }));
-  };
+  }; */
+
   useEffect(() => {
     console.log(Data);
   }, [Data]);
+
+  const progressCallback = (progressData) => {
+    let percentageDone =
+      100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
+    console.log(percentageDone);
+  };
+
+  const uploadDataset = async () => {
+    try {
+      console.log("in upload image function");
+      const file = Data.file; // Access the file from the array
+      const output = await lighthouse.upload(
+        file,
+        "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
+        progressCallback
+      );
+      console.log("File Status:", output);
+
+      return output;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const createDataset = async (e) => {
+    try {
+      console.log("in create account function");
+      const output = await uploadDataset();
+      const cids = output.data.Hash;
+      console.log("cids: ", cids);
+
+      console.log("Data: ", Data);
+
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const con = await modelInstance();
+        console.log("Hello");
+        const tx = await con.setData(
+          Data.title,
+          Data.description,
+          cids,
+          Data.category,
+          Data.status
+        );
+
+        console.log(tx);
+        await tx.wait();
+        console.log(con);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (!open) return null;
   return (
@@ -63,8 +126,10 @@ function CreateDataset({ open, onClose }) {
                     type="file"
                     name="file"
                     accept=".csv"
-                    onChange={handleChange}
-                    multiple
+                    onChange={(e) => {
+                      setData({ ...Data, file: e.target.value });
+                    }}
+                    // multiple
                   />
                 </div>
               </div>
@@ -73,7 +138,9 @@ function CreateDataset({ open, onClose }) {
                   type="text"
                   name="name"
                   value={Data.title}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    setData({ ...Data, title: e.target.value });
+                  }}
                   className="form-inputLable"
                   placeholder="Enter Dataset Title"
                 />
@@ -83,7 +150,9 @@ function CreateDataset({ open, onClose }) {
                   type="text"
                   name="occupation"
                   value={Data.description}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    setData({ ...Data, description: e.target.value });
+                  }}
                   className="form-inputLable"
                   placeholder="Description"
                 />
@@ -93,16 +162,18 @@ function CreateDataset({ open, onClose }) {
                 <select
                   name="category"
                   id="category"
-                  value={Data.organization}
-                  onChange={handleChange}
+                  value={Data.category}
+                  onChange={(e) => {
+                    setData({ ...Data, category: e.target.value });
+                  }}
                   className=""
                   style={{ padding: "10px" }}
                 >
-                  <option value="All dataset">All dataset</option>
-                  <option value="Eduaction">Eduaction</option>
-                  <option value="Drugs & Medical">Drugs & Medical</option>
-                  <option value="Earth & nature">Earth & nature</option>
-                  <option value="Scie & Technology">Scie & Technology</option>
+                  <option value="0">All dataset</option>
+                  <option value="1">Education</option>
+                  <option value="2">Drugs & Medical</option>
+                  <option value="3">Earth & nature</option>
+                  <option value="4">Science & Technology</option>
                 </select>
               </div>
               <div
@@ -121,6 +192,10 @@ function CreateDataset({ open, onClose }) {
                     type="radio"
                     name="flexRadioDefault"
                     id="radioDefault01"
+                    value="true"
+                    onChange={(e) => {
+                      setData({ ...Data, status: e.target.value });
+                    }}
                   />
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
@@ -135,13 +210,17 @@ function CreateDataset({ open, onClose }) {
                     type="radio"
                     name="flexRadioDefault"
                     id="radioDefault02"
+                    value="false"
+                    onChange={(e) => {
+                      setData({ ...Data, status: e.target.value });
+                    }}
                     checked
                   />
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
                     for="radioDefault02"
                   >
-                    pivate
+                    private
                   </label>
                 </div>
               </div>
@@ -152,6 +231,7 @@ function CreateDataset({ open, onClose }) {
                 <button
                   className="form-btn"
                   style={{ width: "100%", margin: "0px 20px" }}
+                  onClick={createDataset}
                 >
                   Create
                 </button>

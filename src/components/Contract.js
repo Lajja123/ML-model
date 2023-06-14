@@ -1,7 +1,8 @@
 import { ethers } from "ethers";
 import modelValidationPlatformAbi from "../../src/contracts/artifacts/ModelValidationPlatformABI.json";
 export const MODEL_VALIDATION_PLATFORM_ADDRESS =
-  "0x257Ac6a9A76AA548676D7508B45667a4d455A9b1";
+  // "0xF005dD3CAFc14D1FCD4cBe0A2689a1D989114375";
+  "0x4fB35F89E02A4f7822a273a9783600d96b0D5F01";
 
 export const modelInstance = async () => {
   const { ethereum } = window;
@@ -16,7 +17,7 @@ export const modelInstance = async () => {
       modelValidationPlatformAbi,
       signer
     );
-    // console.log(con);
+    console.log(con);
     return con;
   } else {
     console.log("error");
