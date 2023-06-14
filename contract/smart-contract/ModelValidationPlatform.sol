@@ -22,14 +22,16 @@ using Counters for Counters.Counter;
     struct Data {
         uint id;
         string title;
+        string image;
         string description;
         string uploadFile;
         Categories categories;
-        bool status;      //true-> public   , false ->Private
+        bool status;      //true-> public , false ->Private
     }
 
     struct Model {
-        string code;
+        string file;
+        string image;
         string title;
         string description;
         bool status;      //true-> public   , false ->Private
@@ -55,11 +57,11 @@ using Counters for Counters.Counter;
         return userMapping[_address];
     }
 
-    function setData(string memory _title, string memory _description, string memory _uploadFile,Categories _categories,bool _status) public {
+    function setData(string memory _title, string memory _image , string memory _description, string memory _uploadFile,Categories _categories,bool _status) public {
         require(isRegisteredMapping[msg.sender], "User is not registered");
         dataCount.increment();
         uint256 newDataSetId = dataCount.current();
-        dataSetMapping[newDataSetId] = Data(newDataSetId,_title, _description, _uploadFile , _categories,_status);
+        dataSetMapping[newDataSetId] = Data(newDataSetId,_title,_image, _description, _uploadFile , _categories,_status);
         dataSetAddressMapping[msg.sender].push(newDataSetId);
     }
 
@@ -93,11 +95,11 @@ using Counters for Counters.Counter;
         return allUserDataSet;
     }
 
-    function modelData(string memory _code , string memory _title ,string memory _description,bool _status) public {
+    function modelData(string memory _file , string memory _image , string memory _title ,string memory _description,bool _status) public {
         require(isRegisteredMapping[msg.sender], "User is not registered");
        modelCount.increment();
        uint256 newModelId = modelCount.current();
-       modelMapping[newModelId] = Model(_code,_title,_description,_status);
+       modelMapping[newModelId] = Model(_file,_image,_title,_description,_status);
        modelAddressMapping[msg.sender].push(newModelId);
     }
 
