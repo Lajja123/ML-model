@@ -33,7 +33,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "makeModelDataPrivate",
+		"name": "makeModelSetPrivate",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -46,7 +46,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "makeModelDataPublic",
+		"name": "makeModelSetPublic",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -56,11 +56,6 @@
 			{
 				"internalType": "string",
 				"name": "_code",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_image",
 				"type": "string"
 			},
 			{
@@ -296,11 +291,6 @@
 					},
 					{
 						"internalType": "string",
-						"name": "image",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
 						"name": "title",
 						"type": "string"
 					},
@@ -338,11 +328,6 @@
 					{
 						"internalType": "string",
 						"name": "code",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "image",
 						"type": "string"
 					},
 					{
@@ -517,45 +502,6 @@
 				"internalType": "uint256",
 				"name": "_value",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "modelMapping",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "code",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "image",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "title",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "description",
-				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "status",
-				"type": "bool"
 			}
 		],
 		"stateMutability": "view",

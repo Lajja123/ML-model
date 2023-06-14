@@ -30,7 +30,6 @@ using Counters for Counters.Counter;
 
     struct Model {
         string code;
-        string image;
         string title;
         string description;
         bool status;      //true-> public   , false ->Private
@@ -40,7 +39,7 @@ using Counters for Counters.Counter;
     mapping (address =>bool) public isRegisteredMapping;   // for user register
     mapping (uint256 => Data) private dataSetMapping;     // Dataset 
     mapping(address => uint[]) public dataSetAddressMapping;   // Dataset
-    mapping (uint256 => Model) public modelMapping; // model
+    mapping (uint256 => Model) private modelMapping; // model
     mapping (address =>uint[]) public modelAddressMapping; //model
     Counters.Counter public dataCount;
     Counters.Counter public modelCount;
@@ -68,7 +67,7 @@ using Counters for Counters.Counter;
         return dataSetMapping[id];
     }
 
-    function getAllDataSet() public view returns(Data[] memory){
+    function getAllDataSet() public view returns(Data[] memory) {
        Data[] memory allUserDataSet = new Data[](dataCount.current());
        uint count=0;
         for(uint i=1;i<=dataCount.current();i++){
@@ -94,11 +93,11 @@ using Counters for Counters.Counter;
         return allUserDataSet;
     }
 
-    function modelData(string memory _code , string memory _image , string memory _title ,string memory _description,bool _status) public {
+    function modelData(string memory _code , string memory _title ,string memory _description,bool _status) public {
         require(isRegisteredMapping[msg.sender], "User is not registered");
        modelCount.increment();
        uint256 newModelId = modelCount.current();
-       modelMapping[newModelId] = Model(_code,_image,_title,_description,_status);
+       modelMapping[newModelId] = Model(_code,_title,_description,_status);
        modelAddressMapping[msg.sender].push(newModelId);
     }
 
@@ -108,7 +107,7 @@ using Counters for Counters.Counter;
         for(uint i=1;i<=modelCount.current();i++){
             if(modelMapping[i].status) 
             {
-            allUserModel[count]=modelMapping[i];
+            allUserModel[i-1]=modelMapping[i];
             count++;
             }
         }
@@ -136,7 +135,7 @@ using Counters for Counters.Counter;
                 isOwner =true;
             }
         }
-        require(isOwner,"This dataset does not belongs to you");
+        require(isOwner,"This dataset doesnot belongs to you");
         dataSetMapping[_id].status = false;
     }
 
@@ -149,7 +148,7 @@ using Counters for Counters.Counter;
                 isOwner =true;
             }
         }
-        require(isOwner,"This dataset does not belongs to you");
+        require(isOwner,"This dataset doesnot belongs to you");
         dataSetMapping[_id].status = true;
     }
 
@@ -162,7 +161,7 @@ using Counters for Counters.Counter;
                 isOwner =true;
             }
         }
-        require(isOwner,"This dataset does not belongs to you");
+        require(isOwner,"This dataset doesnot belongs to you");
         modelMapping[_id].status = false;
     }
 
@@ -175,8 +174,8 @@ using Counters for Counters.Counter;
                 isOwner =true;
             }
         }
-        require(isOwner,"This dataset does not belongs to you");
+        require(isOwner,"This dataset doesnot belongs to you");
         modelMapping[_id].status = true;
     }
     
-}
+}    

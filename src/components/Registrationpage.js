@@ -14,22 +14,13 @@ function Registrationpage() {
     location: null,
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    const file = event.target.files;
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      [name]: value,
-      file: file,
-    }));
-  };
-
   useEffect(() => {
     console.log(userData);
   }, [userData]);
 
   const progressCallback = (progressData) => {
-    let percentageDone = 100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
+    let percentageDone =
+      100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
     console.log(percentageDone);
   };
 
@@ -37,7 +28,11 @@ function Registrationpage() {
     try {
       console.log("in upload image function");
       const file = userData.file; // Access the file from the array
-      const output = await lighthouse.upload(file, "2050bd01.2898399dcd884ffdb297e6cac0226db2", progressCallback);
+      const output = await lighthouse.upload(
+        file,
+        "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
+        progressCallback
+      );
       console.log("File Status:", output);
 
       return output;
@@ -92,7 +87,9 @@ function Registrationpage() {
               <input
                 type="file"
                 name="file"
-                onChange={handleChange}
+                onChange={(e) => {
+                  setUserData({ ...userData, file: e.target.value });
+                }}
                 accept=".jpg,.jpeg,.png,.pdf" // Optional: Set accepted file extensions
               />
             </div>
@@ -103,7 +100,9 @@ function Registrationpage() {
               type="text"
               name="name"
               value={userData.name}
-              onChange={handleChange}
+              onChange={(e) => {
+                setUserData({ ...userData, name: e.target.value });
+              }}
               className="form-inputLable"
             />
           </label>
@@ -113,7 +112,9 @@ function Registrationpage() {
               type="text"
               name="occupation"
               value={userData.occupation}
-              onChange={handleChange}
+              onChange={(e) => {
+                setUserData({ ...userData, occupation: e.target.value });
+              }}
               className="form-inputLable"
             />
           </label>
@@ -123,7 +124,9 @@ function Registrationpage() {
               type="text"
               name="organization"
               value={userData.organization}
-              onChange={handleChange}
+              onChange={(e) => {
+                setUserData({ ...userData, organization: e.target.value });
+              }}
               className="form-inputLable"
             />
           </label>
@@ -133,12 +136,18 @@ function Registrationpage() {
               type="text"
               name="location"
               value={userData.location}
-              onChange={handleChange}
+              onChange={(e) => {
+                setUserData({ ...userData, location: e.target.value });
+              }}
               className="form-inputLable"
             />
           </label>
           <div className="form-button">
-            <button type="submit" className="form-btn" onClick={createUserAccount}>
+            <button
+              type="submit"
+              className="form-btn"
+              onClick={createUserAccount}
+            >
               Register
             </button>
           </div>
@@ -149,3 +158,10 @@ function Registrationpage() {
 }
 
 export default Registrationpage;
+
+
+
+
+
+
+
