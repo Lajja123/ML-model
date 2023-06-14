@@ -91,7 +91,7 @@ function Registrationpage() {
                   setUserData({ ...userData, file: e.target.value });
                 }}
                 accept=".jpg,.jpeg,.png,.pdf" // Optional: Set accepted file extensions
-              />
+              style={{ fontFamily: "JosefinSans", fontSize:"13px"}}/>
             </div>
           </div>
           <label className="form-flexlable">

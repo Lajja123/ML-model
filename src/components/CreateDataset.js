@@ -129,6 +129,7 @@ function CreateDataset({ open, onClose }) {
                     onChange={(e) => {
                       setData({ ...Data, file: e.target.value });
                     }}
+                    style={{marginLeft:"40px"}}
                     // multiple
                   />
                 </div>
@@ -199,7 +200,7 @@ function CreateDataset({ open, onClose }) {
                   />
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
-                    for="radioDefault01"
+                    for="radioDefault01" style={{color:"black"}}
                   >
                     public
                   </label>
@@ -218,7 +219,7 @@ function CreateDataset({ open, onClose }) {
                   />
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
-                    for="radioDefault02"
+                    for="radioDefault02" style={{color:"black"}}
                   >
                     private
                   </label>

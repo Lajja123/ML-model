@@ -120,6 +120,7 @@ function CreateModel({ open, onClose }) {
                     onChange={(e) => {
                       setData({ ...Data, file: e.target.value });
                     }}
+                    style={{marginLeft:"40px"}}
                     // multiple
                   />
                 </div>
@@ -171,6 +172,7 @@ function CreateModel({ open, onClose }) {
                   />
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
+                    for="radioDefault02"style={{color:"black"}}style={{color:"black"}}
                     for="radioDefault01"
                   >
                     public
@@ -190,7 +192,7 @@ function CreateModel({ open, onClose }) {
                   />
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
-                    for="radioDefault02"
+                    for="radioDefault02"style={{color:"black"}}
                   >
                     private
                   </label>

@@ -16,6 +16,7 @@ import CreateModel from "../components/CreateModel";
 import DashboardNavbar from "../components/DashboardNavbar";
 import { useState, useEffect, useRef } from "react";
 import Compute from "../components/Compute";
+import logo from "../components/assets/logo.png";
 
 function Dashboard() {
   const [openModal, setOpenModal] = useState(false);
@@ -104,7 +105,7 @@ function Dashboard() {
               alignItems: "center",
               width: "100%",
               justifyContent: "flex-start",
-              margin: "20px 0px",
+              margin: "50px 0px",
             }}
           >
             <img
@@ -119,10 +120,10 @@ function Dashboard() {
             />
             <Link to="/">
               <img
-                src={dashLogo}
+                src={logo}
                 alt="logo"
                 className="dashLogo"
-                style={{ width: "100px" }}
+                style={{ width: "150px" }}
               />
             </Link>
           </div>
@@ -150,9 +151,10 @@ function Dashboard() {
                   position: "absolute",
                   padding: "20px 0px",
                   width: "250px",
+                  
                 }}
               >
-                <li style={{ margin: "0px" }}>
+                <li style={{ margin: "0px",color:"black" }}>
                   <img
                     src={dataset}
                     alt="dataset"
@@ -165,7 +167,7 @@ function Dashboard() {
                   open={openModal}
                   onClose={() => setOpenModal(false)}
                 />
-                <li style={{ margin: "0px" }}>
+                <li style={{ margin: "0px",color:"black" }}>
                   <img
                     src={model}
                     alt="model"
