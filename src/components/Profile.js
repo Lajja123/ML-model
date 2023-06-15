@@ -86,10 +86,8 @@ function Profile() {
             />{" "}
           </div>
           <div>
-            <h3 style={{ textAlign: "center",
-    fontFamily: "JosefinSans",
-    fontWeight: 600,
-    letterSpacing: "2px",textAlign:"start",fontSize:"30px"}}>Welcome,Lajja</h3>
+            <h3 style={{ textAlign: "center", fontFamily: "JosefinSans", 
+            fontWeight: 600, letterSpacing: "2px",textAlign:"start",fontSize:"30px"}}>Welcome,Lajja</h3>
             <div style={{ textAlign: "center",
     fontFamily: "JosefinSans",
     fontWeight: 500,

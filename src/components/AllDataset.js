@@ -3,10 +3,13 @@ import { data } from "../dummyData/dataset";
 import { useState, useEffect } from "react";
 import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
+import { useAccount } from "wagmi";
+
 
 function AllDataset(props) {
+  const {address} = useAccount();
   const [allDataSet, setAllDataSet] = useState([]);
-
+  // console.log("Address",address)
   const getData = async () => {
     try {
       const { ethereum } = window;
@@ -17,7 +20,8 @@ function AllDataset(props) {
           console.log("Metamask is not installed, please install!");
         }
         const con = await modelInstance();
-        const dataSet = await con.getAllDataSet();
+        console.log("get data function");
+        const dataSet = await con.getAllDataSetOfUser(address);
 
         setAllDataSet(dataSet);
         console.log(dataSet);
@@ -39,15 +43,19 @@ function AllDataset(props) {
       {allDataSet.map((item, index) => (
         <>
           <div style={{ width: "100%" }}>
-            {/* <img
-              src={item.image_url}
+            {/* <div>{item[2]}</div> */}
+            <img
+              src={`https://ipfs.io/ipfs/${item.image}`}
               alt={`Image ${index}`}
               className="dataset-image"
-            /> */}
+            />
             <div>
-              <h4 key={index}>{item.name}</h4>
-              <div key={index}>
+              {/* <h4 key={index}>{item.name}</h4> */}
+              {/* <div key={index}>
                 {item.file_type} ( {item.file_size})
+              </div> */}
+              <div key={index}>
+                <p className="dataset-dec">{item.title}</p>
               </div>
               <div key={index}>
                 <p className="dataset-dec">{item.description}</p>

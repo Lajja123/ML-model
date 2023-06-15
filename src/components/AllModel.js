@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { modelInstance } from "./Contract";
 import lighthouse from "@lighthouse-web3/sdk";
 import { ethers } from "ethers";
+import { useAccount } from "wagmi";
 
 
 function AllModel(props) {
-
+    const {address} = useAccount();
     const [allModelData , setAllModelData] = useState([]);
 
   const getModels = async () => {
@@ -20,7 +21,7 @@ function AllModel(props) {
                 console.log("Metamask is not installed, please install!");
             }
             const con = await modelInstance();
-            const modelData = await con.getAllModelData();
+            const modelData = await con.getAllModelDataOfUser(address);
 
             
             setAllModelData(modelData);
@@ -43,18 +44,18 @@ function AllModel(props) {
 
   return (
     <div className="main-dataset-grid-profile">
-      {data.map((item, index) => (
+      {allModelData.map((item, index) => (
         <>
           <div style={{ width: "100%" }}>
             <img
-              src={item.image_url}
+              src={`https://ipfs.io/ipfs/${item.image}`}
               alt={`Image ${index}`}
               className="dataset-img"
             />
             <div>
               <h4 key={index}>{item.name}</h4>
               <div key={index}>
-                {item.file_type} ( {item.file_size})
+                {/* {item.file_type} ( {item.file_size}) */}
               </div>
               <div key={index} className="dataset-dec">
                 {item.description}
@@ -63,7 +64,7 @@ function AllModel(props) {
             <button
               className="dataset-viewmore"
               onClick={() => {
-                props.profileLinks("singleModel");
+                props.profileLinks("singleModel",  { state: { data: item } })
               }}
             >
               View More

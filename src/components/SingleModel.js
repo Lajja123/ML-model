@@ -6,14 +6,27 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
 import CreateModel from "./CreateModel";
 import Model from "./Model";
+import { useAccount } from 'wagmi';
+import { useLocation } from "react-router-dom";
+
 
 function SingleModel() {
+
+  const { address } = useAccount();
+  const location = useLocation();
+  console.log(location.state.data);
+  const modelData = location.state ? location.state.data : "";
   const [openModal, setOpenModal] = useState(false);
   const [model, setModel] = useState(false);
 
   const toggleComponent = () => {
     setModel(!model);
   };
+
+  useEffect(() => {
+    console.log(modelData[0])
+  }, [])
+
 
   const codeText = `#!/usr/bin/env python
 
@@ -48,7 +61,7 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
       ) : (
         <>
           {" "}
-          {singlemodel.map((item, index) => (
+          {modelData.map((item, index) => (
             <div className="signledataset-main-div">
               <div
                 style={{
@@ -62,7 +75,7 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
                 <div style={{ width: "50%" }}>
                   {" "}
                   <h1 className="single-data-title" key={index}>
-                    {item.name}
+                    {item.title}
                   </h1>
                   <p>
                     {" "}

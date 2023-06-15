@@ -3,15 +3,49 @@ import DashboardNavbar from "./DashboardNavbar";
 import "../styles/dataset.scss";
 import SingleModel from "./SingleModel";
 import { data } from "../dummyData/model";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { modelInstance } from "./Contract";
+import { ethers } from "ethers";
 import CreateModel from "./CreateModel";
 
-function Model() {
+function Model(props) {
   const [singleModel, setSingleModel] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [allModelData , setAllModelData] = useState([]);
+
   const toggleComponent = () => {
     setSingleModel(!singleModel);
   };
+
+  const getModels = async () => {
+    try {
+        const { ethereum } = window;
+        if (ethereum) {
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            if (!provider) {
+                console.log("Metamask is not installed, please install!");
+            }
+            const con = await modelInstance();
+            const modelData = await con.getAllModelData();
+
+            
+            setAllModelData(modelData);
+            console.log(modelData);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+  useEffect(() => {
+    async function fetchModels() {
+        await getModels();
+    }
+    console.log("hello");
+    fetchModels()
+  }, [])
+
 
   return (
     <>
@@ -70,26 +104,28 @@ function Model() {
           </div>
 
           <div className="main-dataset-grid">
-            {data.map((item, index) => (
+            {allModelData.map((item, index) => (
               <>
                 <div style={{ width: "100%" }}>
                   <img
-                    src={item.image_url}
+                    src={`https://ipfs.io/ipfs/${item.image}`}
                     alt={`Image ${index}`}
                     className="dataset-img"
                   />
                   <div>
                     <h4 key={index}>{item.name}</h4>
-                    <div key={index}>
+                    {/* <div key={index}>
                       {item.file_type} ( {item.file_size})
-                    </div>
+                    </div> */}
                     <div key={index} className="dataset-dec">
                       {item.description}
                     </div>
                   </div>
                   <button
                     className="dataset-viewmore"
-                    onClick={() => toggleComponent()}
+                    onClick={() => {
+                      props.profileLinks("singleModel",  { state: { data: item } })
+                    }}
                   >
                     View More
                   </button>
