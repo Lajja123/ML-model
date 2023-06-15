@@ -11,15 +11,17 @@
   justify-content: flex-start;
 }
 .profile-progress {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin: 0px 20px;
-  border-radius: 50px;
-  border: 1px solid black;
-  width: 200px;
-  height: 150px;
+      display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 20px;
+    border-radius: 50px;
+    /* border: 1px solid black; */
+    width: 200px;
+    height: 150px;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    background-color: white;
 }
 .profile-third-section {
   display: flex;
@@ -39,7 +41,24 @@
   align-items: flex-start;
   width: 100%;
 }
-.dataset-viewmore {
+.tag-btn
+{
+  margin: 0px 50px;
+    border: none;
+    background-color: #1A74E2;
+    color: honeydew;
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: flex-start;
+}
+button.active{
+  margin: 0px 50px;
+  border: none;
+
+  
+  padding: 10px;
+  border-radius: 10px;
+}.dataset-viewmore {
   border: none;
   background-color: lightgray;
   padding: 10px 30px;

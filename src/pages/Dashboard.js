@@ -15,6 +15,8 @@ import CreateDataset from "../components/CreateDataset";
 import CreateModel from "../components/CreateModel";
 import DashboardNavbar from "../components/DashboardNavbar";
 import { useState, useEffect, useRef } from "react";
+import Compute from "../components/Compute";
+import logo from "../components/assets/logo.png";
 
 function Dashboard() {
   const [openModal, setOpenModal] = useState(false);
@@ -24,6 +26,7 @@ function Dashboard() {
   const [addDataset, setAddDataset] = useState(false);
   const [addModel, setAddModel] = useState(false);
   const [addCode, setAddCode] = useState(false);
+  const [addCompute, setAddCompute] = useState(false);
   const [addHome, setAddHome] = useState(true);
   const [openProfile, setOpenProfile] = useState(false);
 
@@ -56,30 +59,37 @@ function Dashboard() {
   const dashboardLinks = (a) => {
     if (a === "addHome") {
       setAddHome(true);
-
+      setAddCompute(false);
+      setAddDataset(false);
+      setAddModel(false);
+      setAddCode(false);
+    }
+    if (a === "addCompute") {
+      setAddCompute(true);
+      setAddHome(false);
       setAddDataset(false);
       setAddModel(false);
       setAddCode(false);
     }
     if (a === "addDataset") {
       setAddHome(false);
-      setOpenProfile(false);
+      setAddCompute(false);
       setAddDataset(true);
       setAddModel(false);
       setAddCode(false);
     }
     if (a === "addModel") {
       setAddHome(false);
-      setOpenProfile(false);
       setAddModel(true);
       setAddDataset(false);
       setAddCode(false);
+      setAddCompute(false);
     }
     if (a === "addCode") {
       setAddHome(false);
+      setAddCompute(false);
       setAddCode(true);
       setAddDataset(false);
-      setOpenProfile(false);
       setAddModel(false);
     }
   };
@@ -95,7 +105,7 @@ function Dashboard() {
               alignItems: "center",
               width: "100%",
               justifyContent: "flex-start",
-              margin: "20px 0px",
+              margin: "50px 0px",
             }}
           >
             <img
@@ -110,10 +120,10 @@ function Dashboard() {
             />
             <Link to="/">
               <img
-                src={dashLogo}
+                src={logo}
                 alt="logo"
                 className="dashLogo"
-                style={{ width: "100px" }}
+                style={{ width: "150px" }}
               />
             </Link>
           </div>
@@ -141,9 +151,10 @@ function Dashboard() {
                   position: "absolute",
                   padding: "20px 0px",
                   width: "250px",
+                  
                 }}
               >
-                <li style={{ margin: "0px" }}>
+                <li style={{ margin: "0px",color:"black" }}>
                   <img
                     src={dataset}
                     alt="dataset"
@@ -156,7 +167,7 @@ function Dashboard() {
                   open={openModal}
                   onClose={() => setOpenModal(false)}
                 />
-                <li style={{ margin: "0px" }}>
+                <li style={{ margin: "0px",color:"black" }}>
                   <img
                     src={model}
                     alt="model"
@@ -231,6 +242,20 @@ function Dashboard() {
                 />
                 <div>Code</div>
               </li>
+              <li
+                className={addCompute ? "active" : ""}
+                onClick={() => {
+                  dashboardLinks("addCompute");
+                }}
+              >
+                <img
+                  src={code}
+                  alt="code"
+                  className="dashCode"
+                  style={{ width: "30px", padding: "0px 20px" }}
+                />
+                <div>Decentralized Compute</div>
+              </li>
             </>
           </ul>
         </div>
@@ -253,6 +278,10 @@ function Dashboard() {
             ) : addCode ? (
               <>
                 <Code></Code>
+              </>
+            ) : addCompute ? (
+              <>
+                <Compute></Compute>
               </>
             ) : openProfile ? (
               <Profile dashboardLinks={dashboardLinks} />

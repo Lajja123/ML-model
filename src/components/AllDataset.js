@@ -5,47 +5,45 @@ import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
 
 function AllDataset(props) {
-
-  const [allDataSet , setAllDataSet] = useState([]);
+  const [allDataSet, setAllDataSet] = useState([]);
 
   const getData = async () => {
     try {
-        const { ethereum } = window;
-        if (ethereum) {
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            if (!provider) {
-                console.log("Metamask is not installed, please install!");
-            }
-            const con = await modelInstance();
-            const dataSet = await con.getAllDataSet();
-
-            
-            setAllDataSet(dataSet);
-            console.log(dataSet);
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
         }
+        const con = await modelInstance();
+        const dataSet = await con.getAllDataSet();
+
+        setAllDataSet(dataSet);
+        console.log(dataSet);
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
-useEffect(() => {
-  async function fetchModels() {
+  };
+  useEffect(() => {
+    async function fetchModels() {
       await getData();
-  }
-  console.log("hello");
-  fetchModels()
-}, [])
+    }
+    console.log("hello");
+    fetchModels();
+  }, []);
 
   return (
     <div className="main-dataset-grid-profile">
-      {data.map((item, index) => (
+      {allDataSet.map((item, index) => (
         <>
           <div style={{ width: "100%" }}>
-            <img
+            {/* <img
               src={item.image_url}
               alt={`Image ${index}`}
-              className="dataset-img"
-            />
+              className="dataset-image"
+            /> */}
             <div>
               <h4 key={index}>{item.name}</h4>
               <div key={index}>

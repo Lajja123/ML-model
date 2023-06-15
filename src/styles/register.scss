@@ -1,6 +1,11 @@
 .register-main-div {
-  width: 50%;
+  width: 40%;
+  padding: 20px;
   margin: 20px auto;
+  border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
 
   .register-sub-div {
     width: 100%;
@@ -13,23 +18,46 @@
     margin: 0 auto;
     width: 350px;
     justify-content: space-evenly;
+    font-family: "JosefinSans";
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: black;
   }
   .form-button {
     width: 50%;
     text-align: center;
     margin: 10px auto;
+    background-color: 3;
+    font-family: "JosefinSans";
   }
   .form-btn {
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 10px; font-family: "JosefinSans";
+    background-color: #6bd0ff;
+    color: black;
+    font-family: "JosefinSans";
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    letter-spacing: 2px;
   }
   .form-title {
     width: 50%;
     margin: 0 auto;
     text-align: center;
+    font-family: "JosefinSans";
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: black;
   }
   .form-inputLable {
     padding: 10px;
+    // font-family: "JosefinSans";
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: black;
   }
   .form-file {
     width: 35%;
@@ -39,4 +67,4 @@
     width: 40%;
     margin: 0 auto;
   }
-}
+

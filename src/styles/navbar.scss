@@ -12,7 +12,7 @@
     padding: 8px;
     position: relative;
     top: 0;
-    width: 70%;
+    width: 80%;
     // max-width: 1230px;
     color: white;
     /* background-color: #111; */
@@ -58,7 +58,9 @@
         }
       }
     }
-
+    .connect-btn {
+      background-color: #7effe0;
+    }
     .hamburger {
       background-color: #ff7700;
       display: none;

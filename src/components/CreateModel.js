@@ -14,6 +14,7 @@ function CreateModel({ open, onClose }) {
     description: null,
     file: null,
     status: null,
+    image: null,
   });
 
   useEffect(() => {
@@ -43,10 +44,8 @@ function CreateModel({ open, onClose }) {
     }
   };
 
-
   const createModel = async () => {
     try {
-
       console.log("in create account function");
       const output = await uploadModel();
       const cids = output.data.Hash;
@@ -63,22 +62,18 @@ function CreateModel({ open, onClose }) {
         const tx = await con.modelData(
           cids,
           Data.name,
-          Data.description, 
-          Data.status, 
+          Data.description,
+          Data.status
         );
 
         console.log(tx);
         await tx.wait();
         console.log(con);
       }
-    }  catch (error) {
+    } catch (error) {
       console.log(error);
     }
   };
-
-
-
-
 
   if (!open) return null;
   return (
@@ -120,6 +115,7 @@ function CreateModel({ open, onClose }) {
                     onChange={(e) => {
                       setData({ ...Data, file: e.target.value });
                     }}
+                    style={{ marginLeft: "40px" }}
                     // multiple
                   />
                 </div>
@@ -148,6 +144,18 @@ function CreateModel({ open, onClose }) {
                   placeholder="Description"
                 />
               </label>
+              <div className="file-input-container">
+                <input
+                  type="file"
+                  name="image"
+                  // accept=".csv"
+                  onChange={(e) => {
+                    setData({ ...Data, image: e.target.value });
+                  }}
+                  style={{ marginLeft: "40px" }}
+                  // multiple
+                />
+              </div>
               <div
                 style={{
                   display: "flex",
@@ -171,7 +179,8 @@ function CreateModel({ open, onClose }) {
                   />
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
-                    for="radioDefault01"
+                    for="radioDefault02"
+                    style={{ color: "black" }}
                   >
                     public
                   </label>
@@ -191,6 +200,7 @@ function CreateModel({ open, onClose }) {
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
                     for="radioDefault02"
+                    style={{ color: "black" }}
                   >
                     private
                   </label>

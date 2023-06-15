@@ -16,6 +16,7 @@ function CreateDataset({ open, onClose }) {
     category: null,
     file: null,
     status: null,
+    image: null,
   });
 
   /* const handleChange = (event) => {
@@ -129,6 +130,7 @@ function CreateDataset({ open, onClose }) {
                     onChange={(e) => {
                       setData({ ...Data, file: e.target.value });
                     }}
+                    style={{ marginLeft: "40px" }}
                     // multiple
                   />
                 </div>
@@ -176,6 +178,20 @@ function CreateDataset({ open, onClose }) {
                   <option value="4">Science & Technology</option>
                 </select>
               </div>
+
+              <div className="file-input-container">
+                <input
+                  type="file"
+                  name="image"
+                  // accept=".csv"
+                  onChange={(e) => {
+                    setData({ ...Data, image: e.target.value });
+                  }}
+                  style={{ marginLeft: "40px" }}
+                  // multiple
+                />
+              </div>
+
               <div
                 style={{
                   display: "flex",
@@ -200,6 +216,7 @@ function CreateDataset({ open, onClose }) {
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
                     for="radioDefault01"
+                    style={{ color: "black" }}
                   >
                     public
                   </label>
@@ -219,6 +236,7 @@ function CreateDataset({ open, onClose }) {
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
                     for="radioDefault02"
+                    style={{ color: "black" }}
                   >
                     private
                   </label>
