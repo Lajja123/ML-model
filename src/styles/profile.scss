@@ -11,23 +11,23 @@
   justify-content: flex-start;
 }
 .profile-progress {
-      display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin: 0px 20px;
-    border-radius: 50px;
-    /* border: 1px solid black; */
-    width: 200px;
-    height: 150px;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    background-color: white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px 20px;
+  border-radius: 50px;
+  /* border: 1px solid black; */
+  width: 200px;
+  height: 150px;
+  // box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  // background-color: #f1c137;
 }
 .profile-third-section {
   display: flex;
   /* width: 100%; */
   margin: 50px;
-  margin-left: 200px;
+  margin-left: 140px;
   /* margin: 20px 0px; */
   justify-content: flex-start;
 }
@@ -41,35 +41,51 @@
   align-items: flex-start;
   width: 100%;
 }
-.tag-btn
-{
-  margin: 0px 50px;
-    border: none;
-    background-color: #1A74E2;
-    color: honeydew;
-    padding: 10px;
-    border-radius: 10px;
-    justify-content: flex-start;
-}
-button.active{
-  margin: 0px 50px;
+.tag-btn {
   border: none;
-
-  
-  padding: 10px;
+  background-color: white;
+  color: "black";
+  padding: 20px 25px;
+  font-family: "JosefinSans";
   border-radius: 10px;
-}.dataset-viewmore {
+  justify-content: flex-start;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+button.active {
   border: none;
-  background-color: lightgray;
+  background-color: #6bd0ff;
+  padding: 20px 25px;
+  border-radius: 10px;
+  color: black;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-family: "JosefinSans";
+}
+.dataset-viewmore {
+  border: none;
+  background-color: #1a74e2;
   padding: 10px 30px;
   border-radius: 10px;
   margin: 20px 0px;
+  color: white;
+  margin-top: auto;
+  letter-spacing: 2px;
 }
 .dataset-dec {
-  width: 300px;
-  padding: 10px 0px;
-  letter-spacing: 1px;
-  font-size: 13px;
+  letter-spacing: 0px;
+  line-height: 22px;
+  font-family: "JosefinSans";
+  font-weight: 500;
+  text-align: justify;
+  font-size: 17px;
+  display: -webkit-box;
+  max-width: 300px;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .main-dataset-grid-profile {
   align-items: center;
@@ -78,6 +94,15 @@ button.active{
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   padding: 20px 0px;
   align-items: flex-start;
-  /* width: 100%; */
-  margin-left: 100px;
+  width: 75%;
+  margin-left: 140px;
+}
+.alldataset-grid {
+  font-family: "JosefinSans";
+  font-weight: 500;
+  line-height: 20px;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }

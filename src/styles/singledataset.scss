@@ -1,10 +1,19 @@
 .signledataset-main-div {
+  margin: 50px 0px;
   .single-data-btn {
+    width: 200px;
+    background-color: #1a74e2;
     padding: 10px;
-    font-size: 15px;
-    letter-spacing: 2px;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    font-size: 17px;
     margin: 0px 20px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-family: "JosefinSans";
   }
+
   .single-dataset-flex-sidebar {
     display: flex;
     height: 25vh;
@@ -17,7 +26,10 @@
     width: 300px;
   }
   .single-data-title {
-    width: 50%;
+    width: 100%;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-family: "JosefinSans";
   }
   .single-dataset-flex-content {
     display: flex;
@@ -48,4 +60,15 @@ code.language-csv {
   font-family: monospace;
   font-size: 14px;
   white-space: pre;
+}
+.back-btn {
+  background-color: #1a74e2;
+  padding: 0px 10px;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-family: "JosefinSans";
 }

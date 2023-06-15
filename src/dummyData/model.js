@@ -27,12 +27,4 @@ export const data = [
     access: "private",
     file_type: ".csv",
   },
-  {
-    image_url: img3,
-    name: "Ultimate University Ranking",
-    description:
-      "University rankings measure the greatness of universities worldwide based on research output, academic reputation, student satisfaction, and international outreach. They're useful for deciding which university to attend, teach at, or invest in. Despite criticisms, they're a valuable tool for universities to assess their performance and identify areas for improvement.",
-    access: "public",
-    file_type: ".csv",
-  },
 ];

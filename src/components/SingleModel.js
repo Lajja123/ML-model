@@ -1,11 +1,12 @@
 import React from "react";
 import img1 from "../components/assets/dataset1.jpg";
-import { singlemodel } from "../dummyData/SingleModel";
+import { singlemodel } from "../dummyData/singleModel";
 import { useState, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
 import CreateModel from "./CreateModel";
 import Model from "./Model";
+// import "../styles/signledataset.scss";
 
 function SingleModel() {
   const [openModal, setOpenModal] = useState(false);
@@ -56,7 +57,8 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
                   justifyContent: "flex-end",
                   alignItems: "center",
                   padding: "20px 50px",
-                  borderBottom: "1px solid black",
+                  borderBottom: "1px solid white",
+                  fontFamily: "JosefinSans",
                 }}
               >
                 <div style={{ width: "50%" }}>
@@ -64,15 +66,15 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
                   <h1 className="single-data-title" key={index}>
                     {item.name}
                   </h1>
-                  <p>
+                  <p style={{ fontSize: "20px" }}>
                     {" "}
                     The provided dataset contains information related to CBSE
                     Class-X results
                   </p>
                   <div
                     style={{
-                      backgroundColor: "lightgray",
-                      width: "50px",
+                      backgroundColor: "#1a74e2",
+                      width: "60px",
                       padding: "10px",
                       borderRadius: "10px",
                     }}
@@ -82,7 +84,12 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
                 </div>
                 <div className="single-dataset-flex-sidebar">
                   <div>
-                    <button onClick={() => toggleComponent()}>Back</button>
+                    <button
+                      onClick={() => toggleComponent()}
+                      className="back-btn"
+                    >
+                      ⇦
+                    </button>
                     <button
                       className="single-data-btn"
                       onClick={() => setOpenModal(true)}
@@ -101,12 +108,21 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
                 </div>{" "}
               </div>
               <div className="single-dataset-flex-content">
-                <div style={{ width: "55%" }} className="single-dataset-desc">
+                <div
+                  style={{
+                    width: "55%",
+                    fontSize: "20px",
+                    lineHeight: "37px",
+                    letterSpacing: "1px",
+                    fontFamily: "JosefinSans",
+                  }}
+                  className="single-dataset-desc"
+                >
                   {item.description}
                 </div>
                 <div className="single-dataset"></div>
               </div>
-              <div>
+              <div style={{ width: "70%", margin: "20px 50px" }}>
                 <SyntaxHighlighter language="python" style={solarizedlight}>
                   {codeText}
                 </SyntaxHighlighter>

@@ -21,10 +21,10 @@ function Dataset() {
         <div className="dataset-main-div">
           <div>
             {" "}
-            <h1 style={{ margin: "0" }} className="dataset-content">
+            <h1 style={{ margin: "10px 0px " }} className="dataset-content">
               Datasets
             </h1>
-            <div className="dataset-content">
+            <div className="dataset-content" style={{ margin: "10px 0px " }}>
               Explore, analyze, and share quality data.
             </div>
             <div className="dataset-content" style={{ margin: "20px 0px" }}>
@@ -53,7 +53,7 @@ function Dataset() {
               fill="currentColor"
               class="h-5 w-5"
               width={20}
-              style={{ padding: "10px", position: "absolute" }}
+              style={{ padding: "10px", position: "absolute", color: "black" }}
             >
               <path
                 fill-rule="evenodd"
@@ -67,7 +67,12 @@ function Dataset() {
               placeholder="Search"
               aria-label="Search"
               aria-describedby="button-addon2"
-              style={{ padding: "10px 40px", margin: "0 auto", width: "100%" }}
+              style={{
+                padding: "10px 40px",
+                margin: "0 auto",
+                width: "100%",
+                borderRadius: "15px",
+              }}
             />
           </div>
           <div className="tab-btn">
@@ -87,7 +92,7 @@ function Dataset() {
                     alt={`Image ${index}`}
                     className="dataset-img"
                   />
-                  <div>
+                  <div className="alldataset-grid">
                     <h4 key={index}>{item.name}</h4>
                     <div key={index}>
                       {item.file_type} ( {item.file_size})

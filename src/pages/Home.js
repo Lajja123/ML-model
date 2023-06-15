@@ -1,8 +1,8 @@
-import React from "react";
 import "../styles/home.scss";
 import bg1 from "../components/assets/ml.png";
 import bg2 from "../components/assets/homeImg.png";
 import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import shape from "../components/assets/banner-shape2.png";
 import Navbar from "../pages/Navbar";
 import wallete from "../components/assets/bitcoin.png";
@@ -10,11 +10,61 @@ import started from "../components/assets/launch.png";
 import dash from "../components/assets/browser.png";
 import dataset from "../components/assets/dataset.png";
 import model from "../components/assets/model.png";
-import compute from "../components/assets/cloud-computing.png";
+import compute from "../components/assets/computeImg.png";
+import {
+  useConnectModal,
+  useAccountModal,
+  useChainModal,
+} from "@rainbow-me/rainbowkit";
+
 import Sponcer from "../components/Sponcer";
+import { ethers } from "ethers";
+import { modelInstance } from "../components/Contract";
+
+import { useAccount } from "wagmi";
 
 function Home() {
   const navigate = useNavigate();
+  const { openConnectModal } = useConnectModal();
+  const { address } = useAccount();
+  const walletAddress = address;
+  console.log(walletAddress);
+
+  const verifyUserAccount = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const con = await modelInstance();
+        const verifyTx = await con.isRegisteredMapping(address);
+        // result = verifyTx
+        console.log(verifyTx);
+        // console.log(con);
+        return verifyTx;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const SignupWithWallet = async () => {
+    if (address) {
+      const test = await verifyUserAccount();
+      console.log(test);
+      if (test) {
+        navigate("/dashboard");
+        window.location.reload();
+      } else {
+        navigate("/register");
+      }
+    } else {
+      openConnectModal();
+    }
+  };
 
   const dashboard = () => {
     navigate("/dashboard");
@@ -37,15 +87,18 @@ function Home() {
             </p>
             <div style={{ display: "flex" }}>
               <div className="hero-left-buttons">
-                <button className="hero-btn-1" onClick={() => dashboard()}>
+                <button
+                  className="hero-btn-1"
+                  onClick={() => SignupWithWallet()}
+                >
                   Get Started
                 </button>
               </div>
-              <div className="hero-left-buttons">
+              {/* <div className="hero-left-buttons">
                 <button className="hero-btn-1" onClick={() => register()}>
                   Register
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="hero-right">

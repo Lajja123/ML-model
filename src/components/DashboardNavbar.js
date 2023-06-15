@@ -43,7 +43,7 @@ function DashboardNavbar(props) {
             />
           </svg>
         </div> */}
-        <div>
+        <div style={{ margin: "0px 30px" }}>
           {" "}
           <ConnectButton />
         </div>
@@ -53,7 +53,12 @@ function DashboardNavbar(props) {
             className="p-user"
             src={profile}
             alt="Rounded avatar"
-            style={{ width: "70px", borderRadius: "100px", padding: "10px" }}
+            style={{
+              width: "35px",
+              borderRadius: "100px",
+              padding: "10px",
+              backgroundColor: "white",
+            }}
             onClick={() => props.dashboardLinks("addHome")}
           />{" "}
         </div>
