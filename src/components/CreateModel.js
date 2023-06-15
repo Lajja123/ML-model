@@ -125,6 +125,7 @@ function CreateModel({ open, onClose }) {
                   flexDirection: "column",
                   height: "15vh",
                   justifyContent: "space-evenly",
+                  color: "black",
                 }}
               >
                 <div style={{ width: "50px", margin: "0 auto" }}>

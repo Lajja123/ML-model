@@ -15,6 +15,7 @@ function Model() {
 
   const toggleComponent = () => {
     setSingleModel(!singleModel);
+    window.location.pathname("/singlemodel");
   };
 
   const getModels = async () => {
