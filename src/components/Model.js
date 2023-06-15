@@ -11,6 +11,7 @@ function Model() {
   const [openModal, setOpenModal] = useState(false);
   const toggleComponent = () => {
     setSingleModel(!singleModel);
+    window.location.pathname("/singlemodel");
   };
 
   return (

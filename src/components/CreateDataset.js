@@ -109,26 +109,58 @@ function CreateDataset({ open, onClose }) {
           </p>
           <div className="register-main-div" style={{ width: "90%" }}>
             <div className="register-sub-div" style={{ margin: "0" }}>
-              <div
-                className="form-file"
-                style={{
-                  width: "80%",
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "15vh",
-                  justifyContent: "space-evenly",
-                }}
-              >
-                <div style={{ width: "50px", margin: "0 auto" }}>
-                  <img src={file} alt="" style={{ width: "50px" }} />
+              <div>
+                <lable style={{ color: "black" }}>Upload Your CSV file </lable>
+                <div
+                  className="form-file"
+                  style={{
+                    width: "80%",
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "15vh",
+                    justifyContent: "space-evenly",
+                    color: "black",
+                  }}
+                >
+                  <div style={{ width: "50px", margin: "0 auto" }}>
+                    <img src={file} alt="" style={{ width: "50px" }} />
+                  </div>
+                  <div
+                    className="file-input-container"
+                    style={{
+                      width: "80%",
+                      display: "flex",
+                      flexDirection: "column",
+                      height: "15vh",
+                      justifyContent: "space-evenly",
+                      color: "black",
+                    }}
+                  >
+                    {" "}
+                    <input
+                      type="file"
+                      name="file"
+                      accept=".csv"
+                      onChange={(e) => {
+                        setData({ ...Data, file: e.target.value });
+                      }}
+                      style={{ marginLeft: "40px" }}
+                      // multiple
+                    />
+                  </div>
                 </div>
                 <div className="file-input-container">
+                  <lable style={{ color: "black" }}>Upload Your Image </lable>
+                  <div style={{ width: "50px", margin: "0 auto" }}>
+                    <img src={file} alt="" style={{ width: "50px" }} />
+                  </div>
                   <input
                     type="file"
-                    name="file"
-                    accept=".csv"
+                    name="image"
+                    // accept=".csv"
+                    placeholder="Upload Image"
                     onChange={(e) => {
-                      setData({ ...Data, file: e.target.value });
+                      setData({ ...Data, image: e.target.value });
                     }}
                     style={{ marginLeft: "40px" }}
                     // multiple
@@ -177,19 +209,6 @@ function CreateDataset({ open, onClose }) {
                   <option value="3">Earth & nature</option>
                   <option value="4">Science & Technology</option>
                 </select>
-              </div>
-
-              <div className="file-input-container">
-                <input
-                  type="file"
-                  name="image"
-                  // accept=".csv"
-                  onChange={(e) => {
-                    setData({ ...Data, image: e.target.value });
-                  }}
-                  style={{ marginLeft: "40px" }}
-                  // multiple
-                />
               </div>
 
               <div

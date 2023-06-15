@@ -153,9 +153,10 @@ function Dashboard() {
                   position: "absolute",
                   padding: "20px 0px",
                   width: "250px",
+                  backgroundColor: " hsl(39deg, 100%, 68%)",
                 }}
               >
-                <li style={{ margin: "0px" }}>
+                <li style={{ margin: "0px", color: "black" }}>
                   <img
                     src={datasetimg}
                     alt="dataset"

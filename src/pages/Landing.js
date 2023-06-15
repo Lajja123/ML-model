@@ -1,10 +1,10 @@
-import "../styles/home.scss";
+import "../styles/landing.scss";
 import bg1 from "../components/assets/ml.png";
 import bg2 from "../components/assets/homeImg.png";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import shape from "../components/assets/banner-shape2.png";
-import Navbar from "../pages/Navbar";
+import Navbar from "./Navbar";
 import wallete from "../components/assets/bitcoin.png";
 import started from "../components/assets/launch.png";
 import dash from "../components/assets/browser.png";
@@ -23,7 +23,7 @@ import { modelInstance } from "../components/Contract";
 
 import { useAccount } from "wagmi";
 
-function Home() {
+function Landing() {
   const navigate = useNavigate();
   const { openConnectModal } = useConnectModal();
   const { address } = useAccount();
@@ -257,4 +257,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Landing;
