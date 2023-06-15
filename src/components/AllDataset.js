@@ -2,6 +2,7 @@ import React from "react";
 import { data } from "../dummyData/dataset";
 import { useState, useEffect } from "react";
 import { modelInstance } from "./Contract";
+import { ethers } from "ethers";
 
 function AllDataset(props) {
 
