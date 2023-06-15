@@ -1,14 +1,13 @@
 import React from "react";
 import { data } from "../dummyData/dataset";
 import { useState, useEffect } from "react";
-import { ethers } from "ethers";
 import { modelInstance } from "./Contract";
-import lighthouse from "@lighthouse-web3/sdk";
+import { ethers } from "ethers";
 
 function AllDataset(props) {
-  const [allDataset, setAllDataset] = useState([]);
+  const [allDataSet, setAllDataSet] = useState([]);
 
-  const getAllDatasets = async () => {
+  const getData = async () => {
     try {
       const { ethereum } = window;
       if (ethereum) {
@@ -18,25 +17,26 @@ function AllDataset(props) {
           console.log("Metamask is not installed, please install!");
         }
         const con = await modelInstance();
-        const getDataset = await con.getAllDataSet();
-        setAllDataset(getDataset);
-        console.log(allDataset);
+        const dataSet = await con.getAllDataSet();
+
+        setAllDataSet(dataSet);
+        console.log(dataSet);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
   useEffect(() => {
-    async function fetchDatasets() {
-      await getAllDatasets();
+    async function fetchModels() {
+      await getData();
     }
-    fetchDatasets();
+    console.log("hello");
+    fetchModels();
   }, []);
 
   return (
     <div className="main-dataset-grid-profile">
-      {allDataset.map((item, index) => (
+      {allDataSet.map((item, index) => (
         <>
           <div style={{ width: "100%" }}>
             {/* <img
