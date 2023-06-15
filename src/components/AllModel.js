@@ -23,30 +23,29 @@ function AllModel(props) {
             const con = await modelInstance();
             const modelData = await con.getAllModelDataOfUser(address);
 
-            
-            setAllModelData(modelData);
-            console.log(modelData);
-        }
+        setAllModelData(modelData);
+        console.log(modelData);
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
+  };
 
   useEffect(() => {
     async function fetchModels() {
-        await getModels();
+      await getModels();
     }
     console.log("hello");
-    fetchModels()
-  }, [])
-
-
+    fetchModels();
+  }, []);
 
   return (
     <div className="main-dataset-grid-profile">
       {allModelData.map((item, index) => (
         <>
-          <div style={{ width: "100%" }}>
+          <div
+            style={{ width: "100%", display: "flex", flexDirection: "column" }}
+          >
             <img
               src={`https://ipfs.io/ipfs/${item.image}`}
               alt={`Image ${index}`}

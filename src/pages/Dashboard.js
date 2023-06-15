@@ -1,11 +1,10 @@
 import React from "react";
 import "../styles/dashboard.scss";
 import { Link } from "react-router-dom";
-import dashLogo from "../components/assets/Blockchain tribune Icon.png";
-import Menu from "../components/assets/menu.png";
-import dataset from "../components/assets/dataset.png";
-import model from "../components/assets/model.png";
-import code from "../components/assets/code.png";
+import Menu from "../components/assets/menu2.png";
+import dataset from "../components/assets/dataset2.png";
+import model from "../components/assets/model2.png";
+import code from "../components/assets/code2.png";
 import plus from "../components/assets/plus.png";
 import Profile from "../components/Profile";
 import Dataset from "../components/Dataset";
@@ -16,7 +15,11 @@ import CreateModel from "../components/CreateModel";
 import DashboardNavbar from "../components/DashboardNavbar";
 import { useState, useEffect, useRef } from "react";
 import Compute from "../components/Compute";
+import modelimg from "../components/assets/model.png";
 import logo from "../components/assets/logo.png";
+import home from "../components/assets/home.png";
+import datasetimg from "../components/assets/dataset.png";
+import computeimg from "../components/assets/computeImg.png";
 
 function Dashboard() {
   const [openModal, setOpenModal] = useState(false);
@@ -146,17 +149,15 @@ function Dashboard() {
             {showItem && (
               <ul
                 style={{
-                  backgroundColor: "lightgray",
                   margin: "10px 0px",
                   position: "absolute",
                   padding: "20px 0px",
                   width: "250px",
-                  
                 }}
               >
-                <li style={{ margin: "0px",color:"black" }}>
+                <li style={{ margin: "0px" }}>
                   <img
-                    src={dataset}
+                    src={datasetimg}
                     alt="dataset"
                     className="dashDataset"
                     style={{ width: "30px", padding: "0px 20px" }}
@@ -167,9 +168,9 @@ function Dashboard() {
                   open={openModal}
                   onClose={() => setOpenModal(false)}
                 />
-                <li style={{ margin: "0px",color:"black" }}>
+                <li style={{ margin: "0px", color: "black" }}>
                   <img
-                    src={model}
+                    src={modelimg}
                     alt="model"
                     className="dashModel"
                     style={{ width: "30px", padding: "0px 20px" }}
@@ -193,7 +194,7 @@ function Dashboard() {
                 }}
               >
                 <img
-                  src={dataset}
+                  src={home}
                   alt="dataset"
                   className="dashDataset"
                   style={{ width: "30px", padding: "0px 20px" }}
@@ -249,7 +250,7 @@ function Dashboard() {
                 }}
               >
                 <img
-                  src={code}
+                  src={computeimg}
                   alt="code"
                   className="dashCode"
                   style={{ width: "30px", padding: "0px 20px" }}

@@ -1,10 +1,10 @@
 import React from "react";
 import img from "../components/assets/profile.jpg";
-import { Link } from "react-router-dom";
 import "../styles/profile.scss";
 import DashboardNavbar from "./DashboardNavbar";
-import dataset from "../components/assets/dataset.png";
-import model from "../components/assets/model.png";
+import dataset from "../components/assets/dataset2.png";
+import model from "../components/assets/model2.png";
+import download from "../components/assets/down.png";
 import { useState } from "react";
 import AllModel from "./AllModel";
 import AllDataset from "./AllDataset";
@@ -71,42 +71,87 @@ function Profile() {
 
   return (
     <>
-      <div>
+      <div style={{ margin: "50px, 0px" }}>
         <div className="profile-main">
-          <div>
+          <div style={{ margin: "20px 0px" }}>
             <img
               className="p-user"
               src={img}
               alt="Rounded avatar"
               style={{
-                width: "70px",
+                width: "35px",
                 borderRadius: "100px",
                 padding: "10px",
+                backgroundColor: "white",
               }}
             />{" "}
           </div>
-          <div>
-            <h3 style={{ textAlign: "center", fontFamily: "JosefinSans", 
-            fontWeight: 600, letterSpacing: "2px",textAlign:"start",fontSize:"30px"}}>Welcome,Lajja</h3>
-            <div style={{ textAlign: "center",
-    fontFamily: "JosefinSans",
-    fontWeight: 500,
-    letterSpacing: "2px",textAlign:"start",fontSize:"15px",lineHeight:"25px"}}>
+          <div style={{ margin: "0px 20px" }}>
+            <h3
+              style={{
+                textAlign: "center",
+                fontFamily: "JosefinSans",
+                fontWeight: 600,
+                letterSpacing: "2px",
+                textAlign: "start",
+                fontSize: "30px",
+              }}
+            >
+              Welcome,Lajja
+            </h3>
+            <div
+              style={{
+                textAlign: "center",
+                fontFamily: "JosefinSans",
+                fontWeight: 500,
+                letterSpacing: "1px",
+                textAlign: "start",
+                fontSize: "20px",
+                lineHeight: "25px",
+              }}
+            >
               This plateform evaluation and sharing of dataset as well as ML
               Models
             </div>
-            <div style={{ textAlign: "center",
-    fontFamily: "JosefinSans",
-    fontWeight: 500,
-    letterSpacing: "2px",textAlign:"start",fontSize:"15px" ,lineHeight:"25px"}}>Occupation</div>
-            <div style={{ textAlign: "center",
-    fontFamily: "JosefinSans",
-    fontWeight: 500,
-    letterSpacing: "2px",textAlign:"start",fontSize:"15px",lineHeight:"25px"}}>Organization</div>
-            <div style={{ textAlign: "center",
-    fontFamily: "JosefinSans",
-    fontWeight: 500,
-    letterSpacing: "2px",textAlign:"start",fontSize:"15px",lineHeight:"25px"}}>Location</div>
+            <div
+              style={{
+                textAlign: "center",
+                fontFamily: "JosefinSans",
+                fontWeight: 500,
+                letterSpacing: "1px",
+                textAlign: "start",
+                fontSize: "20px",
+                lineHeight: "25px",
+              }}
+            >
+              Occupation
+            </div>
+            <div
+              style={{
+                textAlign: "center",
+                fontFamily: "JosefinSans",
+                fontWeight: 500,
+                letterSpacing: "1px",
+                textAlign: "start",
+                fontSize: "20px",
+                lineHeight: "25px",
+              }}
+            >
+              Organization
+            </div>
+            <div
+              style={{
+                textAlign: "center",
+                fontFamily: "JosefinSans",
+                fontWeight: 500,
+                letterSpacing: "1px",
+                textAlign: "start",
+                fontSize: "20px",
+                lineHeight: "25px",
+              }}
+            >
+              Location
+            </div>
           </div>
         </div>
         <div className="profile-second-section">
@@ -116,14 +161,22 @@ function Profile() {
               src={dataset}
               alt="dataset"
               className="dashDataset"
-              style={{ width: "30px", padding: "0px 20px",margin:"10px" }}
+              style={{ width: "30px", padding: "0px 20px", margin: "10px" }}
             />
-            <div style={{ textAlign: "center",
-    fontFamily: "JosefinSans",
-    fontWeight: 600,
-    letterSpacing: "2px",textAlign:"start",fontSize:"15px" ,color:"black"}}> Dataset</div>
-            <div style={{ textAlign: "center",
-    color:"black"}}>20</div>
+            <div
+              style={{
+                textAlign: "center",
+                fontFamily: "JosefinSans",
+                fontWeight: 600,
+                letterSpacing: "2px",
+                textAlign: "start",
+                fontSize: "15px",
+              }}
+            >
+              {" "}
+              Dataset
+            </div>
+            <div style={{ textAlign: "center" }}>20</div>
           </div>
           <div className="profile-progress">
             {" "}
@@ -131,45 +184,70 @@ function Profile() {
               src={model}
               alt="model"
               className="dashModel"
-              style={{ width: "30px", padding: "0px 20px",margin:"10px" }}
+              style={{ width: "30px", padding: "0px 20px", margin: "10px" }}
             />
-            <div style={{ textAlign: "center",
-    fontFamily: "JosefinSans",
-    fontWeight: 600,
-    letterSpacing: "2px",textAlign:"start",fontSize:"15px" ,color:"black"}} >Model</div>
-            <div  style={{ textAlign: "center",
-    color:"black"}}>10</div>
+            <div
+              style={{
+                textAlign: "center",
+                fontFamily: "JosefinSans",
+                fontWeight: 600,
+                letterSpacing: "2px",
+                textAlign: "start",
+                fontSize: "15px",
+              }}
+            >
+              Model
+            </div>
+            <div style={{ textAlign: "center" }}>10</div>
           </div>
           <div className="profile-progress">
             <img
-              src={model}
+              src={download}
               alt="model"
               className="dashModel"
-              style={{ width: "30px", padding: "0px 20px",margin:"10px" }}
+              style={{ width: "30px", padding: "0px 20px", margin: "10px" }}
             />
-            <div style={{ textAlign: "center",
-    fontFamily: "JosefinSans",
-    fontWeight: 600,
-    letterSpacing: "2px",textAlign:"start",fontSize:"15px" ,color:"black"}}> Model Downloads</div> <div  style={{ textAlign: "center",
-    color:"black"}}>10</div>
+            <div
+              style={{
+                textAlign: "center",
+                fontFamily: "JosefinSans",
+                fontWeight: 600,
+                letterSpacing: "2px",
+                textAlign: "start",
+                fontSize: "15px",
+              }}
+            >
+              {" "}
+              Model Downloads
+            </div>{" "}
+            <div style={{ textAlign: "center" }}>10</div>
           </div>
           <div className="profile-progress">
             <img
-              src={model}
+              src={download}
               alt="model"
               className="dashModel"
-              style={{ width: "30px", padding: "0px 20px",margin:"10px" }}
+              style={{ width: "30px", padding: "0px 20px", margin: "10px" }}
             />
-            <div style={{ textAlign: "center",
-    fontFamily: "JosefinSans",
-    fontWeight: 600,
-    letterSpacing: "2px",textAlign:"start",fontSize:"15px" ,color:"black"}}> Dataset Downloads</div> <div style={{ textAlign: "center",
-    color:"black"}} >10</div>
+            <div
+              style={{
+                textAlign: "center",
+                fontFamily: "JosefinSans",
+                fontWeight: 600,
+                letterSpacing: "2px",
+                textAlign: "start",
+                fontSize: "15px",
+              }}
+            >
+              {" "}
+              Dataset Downloads
+            </div>{" "}
+            <div style={{ textAlign: "center" }}>10</div>
           </div>
         </div>
         <div className="profile-third-section">
           <button
-            style={{ margin: "0px 50px", border: "none" }}
+            style={{ marginRight: "30px", border: "none" }}
             className={allDataset ? "active" : "tag-btn"}
             onClick={() => {
               profileLinks("allDataset");
@@ -179,7 +257,7 @@ function Profile() {
           </button>
 
           <button
-            style={{ margin: "0px 50px", border: "none" }}
+            style={{ marginRight: "30px", border: "none" }}
             className={allModel ? "active" : "tag-btn"}
             onClick={() => {
               profileLinks("allModel");
@@ -188,10 +266,16 @@ function Profile() {
           >
             All Models
           </button>
-          <button style={{ margin: "0px 50px", border: "none" }} className="tag-btn">
+          <button
+            style={{ marginRight: "30px", border: "none" }}
+            className="tag-btn"
+          >
             Model Downloads
           </button>
-          <button style={{ margin: "0px 50px", border: "none" }}className="tag-btn">
+          <button
+            style={{ marginRight: "30px", border: "none" }}
+            className="tag-btn"
+          >
             Dataset Downloads
           </button>
         </div>

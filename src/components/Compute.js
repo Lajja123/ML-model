@@ -22,10 +22,19 @@ function Compute() {
         <div className="dataset-main-div">
           <div style={{ borderBottom: "1px solid", padding: "10px 0px " }}>
             {" "}
-            <h1 style={{ margin: "0" }} className="dataset-content">
+            <h1 style={{ margin: "10px 0px" }} className="dataset-content">
               Compute Your Model
             </h1>
-            <div className="dataset-content">
+            <div
+              className="dataset-content"
+              style={{
+                width: "70%",
+                textAlign: "justify",
+                lineHeight: "25px",
+                fontWeight: "500",
+                fontSize: "20px",
+              }}
+            >
               "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
               quae ab illo inventore veritatis et quasi architecto beatae vitae
@@ -57,13 +66,13 @@ function Compute() {
                     <div key={index}>
                       <p className="dataset-dec">{item.description}</p>
                     </div>
+                    <button
+                      className="dataset-viewmore"
+                      onClick={() => toggleComponent()}
+                    >
+                      Use Now
+                    </button>
                   </div>
-                  <button
-                    className="dataset-viewmore"
-                    onClick={() => toggleComponent()}
-                  >
-                    Use Now
-                  </button>
                 </div>
               </>
             ))}

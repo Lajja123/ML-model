@@ -45,15 +45,20 @@ function SingleDataset() {
                   justifyContent: "flex-end",
                   alignItems: "center",
                   padding: "20px 50px",
-                  borderBottom: "1px solid black",
+                  borderBottom: "1px solid white",
+                  fontFamily: "JosefinSans",
                 }}
               >
-                <div style={{ width: "50%" }}>
+                <div
+                  style={{
+                    width: "50%",
+                  }}
+                >
                   {" "}
                   <h1 className="single-data-title" key={index}>
                     {item.name}
                   </h1>
-                  <p>
+                  <p style={{ fontSize: "20px" }}>
                     {" "}
                     The provided dataset contains information related to CBSE
                     Class-X results
@@ -61,7 +66,12 @@ function SingleDataset() {
                 </div>
                 <div className="single-dataset-flex-sidebar">
                   <div>
-                    <button onClick={() => toggleComponent()}>Back</button>
+                    <button
+                      onClick={() => toggleComponent()}
+                      className="back-btn"
+                    >
+                      ⇦
+                    </button>
                     <button
                       className="single-data-btn"
                       onClick={() => setOpenModal(true)}
@@ -83,7 +93,16 @@ function SingleDataset() {
                 </div>{" "}
               </div>
               <div className="single-dataset-flex-content">
-                <div style={{ width: "55%" }} className="single-dataset-desc">
+                <div
+                  style={{
+                    width: "55%",
+                    fontSize: "20px",
+                    lineHeight: "37px",
+                    letterSpacing: "1px",
+                    fontFamily: "JosefinSans",
+                  }}
+                  className="single-dataset-desc"
+                >
                   {item.description}
                 </div>
                 <div className="single-dataset">
@@ -91,37 +110,67 @@ function SingleDataset() {
                     <lable
                       style={{
                         fontWeight: "700",
-                        fontSize: "15px",
+                        fontSize: "20px",
                         lineHeight: "30px",
+                        fontFamily: "JosefinSans",
                       }}
                     >
-                      Categories
+                      Categories :
                     </lable>
-                    <div>{item.categories}</div>
+                    <div
+                      style={{
+                        fontWeight: "400",
+                        fontSize: "17px",
+                        lineHeight: "30px",
+                        fontFamily: "JosefinSans",
+                      }}
+                    >
+                      {item.categories}
+                    </div>
                   </div>
                   <div>
                     <lable
                       style={{
                         fontWeight: "700",
-                        fontSize: "15px",
+                        fontSize: "20px",
                         lineHeight: "30px",
+                        fontFamily: "JosefinSans",
                       }}
                     >
-                      File type
+                      File type :
                     </lable>
-                    <div>{item.file_type}</div>
+                    <div
+                      style={{
+                        fontWeight: "400",
+                        fontSize: "17px",
+                        lineHeight: "30px",
+                        fontFamily: "JosefinSans",
+                      }}
+                    >
+                      {item.file_type}
+                    </div>
                   </div>
                   <div>
                     <lable
                       style={{
                         fontWeight: "700",
-                        fontSize: "15px",
+                        fontSize: "20px",
                         lineHeight: "30px",
+                        fontFamily: "JosefinSans",
                       }}
                     >
-                      File tize
+                      File Size :
                     </lable>
-                    <div>{item.file_size}</div>
+                    <div
+                      style={{
+                        fontWeight: "400",
+                        fontSize: "17px",
+                        lineHeight: "30px",
+                        fontFamily: "JosefinSans",
+                      }}
+                    >
+                      {item.file_size}
+                    </div>
                   </div>
                 </div>
               </div>{" "}

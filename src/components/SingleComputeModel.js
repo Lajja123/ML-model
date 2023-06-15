@@ -29,6 +29,16 @@ function SingleComputeModel() {
     setModelUrls([...modelUrls, modelUrl]);
     setModelUrl("");
   };
+  const handleRemoveModelUrl = (index) => {
+    const updatedModelUrls = [...modelUrls];
+    updatedModelUrls.splice(index, 1);
+    setModelUrls(updatedModelUrls);
+  };
+  const handleRemoveDatasetUrl = (index) => {
+    const updatedDatasetUrls = [...datasetUrls];
+    updatedDatasetUrls.splice(index, 1);
+    setDatasetUrls(updatedDatasetUrls);
+  };
 
   return (
     <>
@@ -52,11 +62,27 @@ function SingleComputeModel() {
                   <h1 className="single-data-title" key={index}>
                     {item.name}
                   </h1>
-                  <p> {item.description}</p>
+                  <p
+                    style={{
+                      textAlign: "justify",
+                      fontSize: "20px",
+                      lineHeight: "27px",
+                      letterSpacing: "1px",
+                      fontFamily: "JosefinSans",
+                    }}
+                  >
+                    {" "}
+                    {item.description}
+                  </p>
                 </div>
                 <div className="single-dataset-flex-sidebar">
                   <div>
-                    <button onClick={() => toggleComponent()}>Back</button>
+                    <button
+                      onClick={() => toggleComponent()}
+                      className="back-btn"
+                    >
+                      ⇦
+                    </button>
                   </div>
                   <div>
                     <img
@@ -67,9 +93,17 @@ function SingleComputeModel() {
                 </div>{" "}
               </div>
               <div style={{ padding: "20px 50px" }}>
-                <h4 style={{ margin: "0" }} className="dataset-content">
+                <h3
+                  style={{
+                    margin: "0",
+                    letterSpacing: "1px",
+                    fontFamily: "JosefinSans",
+                    fontSize: "20px",
+                  }}
+                  className="dataset-content"
+                >
                   Compute Your Model
-                </h4>{" "}
+                </h3>{" "}
                 <div style={{ padding: "20px 0px" }}>
                   {" "}
                   <div>
@@ -93,8 +127,11 @@ function SingleComputeModel() {
                       onClick={handleAddDatasetUrl}
                       style={{
                         margin: "0px 20px",
-                        padding: "5px",
+                        padding: "10px",
                         width: "100px",
+                        backgroundColor: "#1a74e2",
+                        border: "none",
+                        borderRadius: "10px",
                       }}
                     >
                       Add
@@ -102,7 +139,30 @@ function SingleComputeModel() {
                     <div>
                       <h4>DataSet URLs:</h4>
                       {datasetUrls.map((url, index) => (
-                        <div key={index}>{url}</div>
+                        <div
+                          key={index}
+                          style={{
+                            backgroundColor: "white",
+                            color: "black",
+                            width: "500px",
+                            padding: "10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            {url}
+
+                            <button
+                              onClick={() => handleRemoveDatasetUrl(index)}
+                            >
+                              X
+                            </button>
+                          </div>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -127,8 +187,11 @@ function SingleComputeModel() {
                       onClick={handleAddModelUrl}
                       style={{
                         margin: "0px 20px",
-                        padding: "5px",
+                        padding: "10px",
                         width: "100px",
+                        backgroundColor: "#1a74e2",
+                        border: "none",
+                        borderRadius: "10px",
                       }}
                     >
                       Add{" "}
@@ -136,7 +199,27 @@ function SingleComputeModel() {
                     <div>
                       <h4> Model Link</h4>
                       {modelUrls.map((url, index) => (
-                        <div key={index}>{url}</div>
+                        <div
+                          key={index}
+                          style={{
+                            backgroundColor: "white",
+                            color: "black",
+                            width: "500px",
+                            padding: "10px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            {url}{" "}
+                            <button onClick={() => handleRemoveModelUrl(index)}>
+                              X
+                            </button>
+                          </div>
+                        </div>
                       ))}
                     </div>
                   </div>

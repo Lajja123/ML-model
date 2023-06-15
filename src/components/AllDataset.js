@@ -3,8 +3,8 @@ import { data } from "../dummyData/dataset";
 import { useState, useEffect } from "react";
 import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
+import "../styles/profile.scss";
 import { useAccount } from "wagmi";
-
 
 function AllDataset(props) {
   const {address} = useAccount();
@@ -40,35 +40,36 @@ function AllDataset(props) {
 
   return (
     <div className="main-dataset-grid-profile">
-      {allDataSet.map((item, index) => (
+      {data.map((item, index) => (
         <>
-          <div style={{ width: "100%" }}>
-            {/* <div>{item[2]}</div> */}
+          <div
+            style={{ width: "100%", display: "flex", flexDirection: "column" }}
+          >
             <img
-              src={`https://ipfs.io/ipfs/${item.image}`}
+               src={`https://ipfs.io/ipfs/${item.image}`}
               alt={`Image ${index}`}
               className="dataset-image"
             />
-            <div>
-              {/* <h4 key={index}>{item.name}</h4> */}
+            <div className="alldataset-grid">
+              <h4 key={index}>{item.name}</h4>
               {/* <div key={index}>
                 {item.file_type} ( {item.file_size})
-              </div> */}
+              </div>  */}
               <div key={index}>
                 <p className="dataset-dec">{item.title}</p>
               </div>
               <div key={index}>
                 <p className="dataset-dec">{item.description}</p>
               </div>
+              <button
+                className="dataset-viewmore"
+                onClick={() => {
+                  props.profileLinks("singleDataset");
+                }}
+              >
+                View More
+              </button>
             </div>
-            <button
-              className="dataset-viewmore"
-              onClick={() => {
-                props.profileLinks("singleDataset");
-              }}
-            >
-              View More
-            </button>
           </div>
         </>
       ))}

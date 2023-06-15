@@ -8,7 +8,7 @@ import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
 import CreateModel from "./CreateModel";
 
-function Model(props) {
+function Model() {
   const [singleModel, setSingleModel] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [allModelData , setAllModelData] = useState([]);
@@ -85,7 +85,7 @@ function Model(props) {
               fill="currentColor"
               class="h-5 w-5"
               width={20}
-              style={{ padding: "10px", position: "absolute" }}
+              style={{ padding: "10px", position: "absolute", color: "black" }}
             >
               <path
                 fill-rule="evenodd"
@@ -99,36 +99,49 @@ function Model(props) {
               placeholder="Search"
               aria-label="Search"
               aria-describedby="button-addon2"
-              style={{ padding: "10px 40px", margin: "0 auto", width: "100%" }}
+              style={{
+                padding: "10px 40px",
+                margin: "0 auto",
+                width: "100%",
+                borderRadius: "15px",
+              }}
             />
           </div>
 
           <div className="main-dataset-grid">
             {allModelData.map((item, index) => (
               <>
-                <div style={{ width: "100%" }}>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <img
                     src={`https://ipfs.io/ipfs/${item.image}`}
                     alt={`Image ${index}`}
                     className="dataset-img"
                   />
-                  <div>
+                  <div className="alldataset-grid">
                     <h4 key={index}>{item.name}</h4>
-                    {/* <div key={index}>
+                    {/* /* <div key={index}>
                       {item.file_type} ( {item.file_size})
                     </div> */}
-                    <div key={index} className="dataset-dec">
+                    <div
+                      key={index}
+                      className="dataset-dec"
+                      style={{ margin: "10px 0px" }}
+                    >
                       {item.description}
                     </div>
+                    <button
+                      className="dataset-viewmore"
+                      onClick={() => toggleComponent()}
+                    >
+                      View More
+                    </button>
                   </div>
-                  <button
-                    className="dataset-viewmore"
-                    onClick={() => {
-                      props.profileLinks("singleModel",  { state: { data: item } })
-                    }}
-                  >
-                    View More
-                  </button>
                 </div>
               </>
             ))}
