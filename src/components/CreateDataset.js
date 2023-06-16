@@ -2,15 +2,22 @@ import React from "react";
 import { useState, useRef } from "react";
 import { useEffect } from "react";
 import "../styles/register.scss";
-import file from "../components/assets/file.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/createdataset.scss";
 import { ethers } from "ethers";
 import { modelInstance } from "./Contract";
 import lighthouse from "@lighthouse-web3/sdk";
 
 function CreateDataset({ open, onClose }) {
+  const [file, setFile] = useState(null);
+  const [btnloading, setbtnloading] = useState(false);
+  const [inputImg, setInputImg] = useState(null);
+
+  const [fileName, setFileName] = useState("");
   const fileInputRefDataset = useRef(null);
   const fileInputRefDatasetImg = useRef(null);
+
   const [Data, setData] = useState({
     title: null,
     description: null,
@@ -62,7 +69,7 @@ function CreateDataset({ open, onClose }) {
       console.log("in upload image function");
       const file = Data.image; // Access the file from the array
       const output = await lighthouse.upload(
-        file,
+        [file],
         "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
         progressCallback
       );
@@ -73,11 +80,23 @@ function CreateDataset({ open, onClose }) {
       console.log(error);
     }
   };
-  const handleClick = () => {
-    fileInputRefDataset.current.click();
-    fileInputRefDatasetImg.current.click();
-  };
+  // const handleClick = () => {
+  //   fileInputRefDataset.current.click();
+  //   fileInputRefDatasetImg.current.click();
+  // };
+
   const createDataset = async (e) => {
+    toast.info("Process is in Progress", {
+      position: "top-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setbtnloading(true);
     try {
       console.log("in create account function");
       const output = await uploadDataset();
@@ -109,10 +128,12 @@ function CreateDataset({ open, onClose }) {
 
         console.log(tx);
         await tx.wait();
+        setbtnloading(false);
         console.log(con);
       }
     } catch (error) {
       console.log(error);
+      setbtnloading(false);
     }
   };
 
@@ -136,28 +157,22 @@ function CreateDataset({ open, onClose }) {
           <div className="register-main-div" style={{ width: "90%" }}>
             <div className="register-sub-div" style={{ margin: "0" }}>
               <div>
-                <div
-                  className="form-file"
-                  style={
-                    {
-                      // width: "80%",
-                      // display: "flex",
-                      // flexDirection: "column",
-                      // height: "15vh",
-                      // justifyContent: "space-evenly",
-                      // color: "black",
-                    }
-                  }
-                >
+                <div className="form-file">
                   <div
                     className="file-input-container"
                     style={{ border: "none" }}
                   >
                     <div style={{ width: "50px", margin: "0 auto" }}>
-                      <img src={file} alt="" style={{ width: "50px" }} />
+                      {inputImg && (
+                        <img
+                          src={URL.createObjectURL(inputImg)}
+                          alt=""
+                          style={{ width: "50px" }}
+                        />
+                      )}
                     </div>
                     <div
-                      onClick={handleClick}
+                      onClick={() => fileInputRefDatasetImg.current.click()}
                       style={{
                         border: "1px solid",
                         padding: "10px",
@@ -166,37 +181,28 @@ function CreateDataset({ open, onClose }) {
                         cursor: "pointer",
                       }}
                     >
-                      Upload Dataset Image{" "}
+                      {inputImg ? (
+                        <span>{inputImg.name}</span>
+                      ) : (
+                        <span>Upload Dataset Image</span>
+                      )}
                       <input
                         type="file"
                         name="image"
                         hidden
                         ref={fileInputRefDatasetImg}
-                        // accept=".csv"
-                        placeholder="Upload Image"
+                        accept="image/*"
                         onChange={(e) => {
-                          setData({ ...Data, image: e.target.files });
+                          setInputImg(e.target.files[0]);
+                          setData({ ...Data, image: e.target.value });
                         }}
                         style={{ marginLeft: "40px" }}
-                        // multiple
                       />
                     </div>
                   </div>
-                  <div
-                    className="file-input-container"
-                    style={
-                      {
-                        // width: "80%",
-                        // display: "flex",
-                        // flexDirection: "column",
-                        // height: "20vh",
-                        // justifyContent: "space-evenly",
-                        // color: "black",
-                      }
-                    }
-                  >
+                  <div className="file-input-container">
                     <div
-                      onClick={handleClick}
+                      onClick={() => fileInputRefDataset.current.click()}
                       style={{
                         fontWeight: "400",
                         textAlign: "start",
@@ -204,7 +210,12 @@ function CreateDataset({ open, onClose }) {
                         cursor: "pointer",
                       }}
                     >
-                      Upload CSV file*{" "}
+                      {" "}
+                      {file ? (
+                        <span>{file.name}</span>
+                      ) : (
+                        <span>Upload csv file*</span>
+                      )}
                       <input
                         type="file"
                         name="file"
@@ -212,7 +223,8 @@ function CreateDataset({ open, onClose }) {
                         ref={fileInputRefDataset}
                         accept=".csv"
                         onChange={(e) => {
-                          setData({ ...Data, file: e.target.files });
+                          setFile(e.target.files[0]);
+                          setData({ ...Data, file: e.target.value });
                         }}
                         style={{ marginLeft: "40px" }}
                         // multiple
@@ -220,6 +232,8 @@ function CreateDataset({ open, onClose }) {
                     </div>
                   </div>
                 </div>
+                {fileName && <p>Selected file: {fileName}</p>}{" "}
+                {/* Display the file name if it exists */}
               </div>
               <label className="form-flexlable" style={{ width: "400px" }}>
                 <input
@@ -325,8 +339,24 @@ function CreateDataset({ open, onClose }) {
                   style={{ width: "100%", margin: "0px 20px" }}
                   onClick={createDataset}
                 >
-                  Create
-                </button>
+                  {" "}
+                  {btnloading ? (
+                    <svg
+                      className="animate-spin button-spin-svg-pic"
+                      version="1.1"
+                      id="L9"
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 100 100"
+                    >
+                      <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+                    </svg>
+                  ) : (
+                    <> Create</>
+                  )}
+                </button>{" "}
+                <ToastContainer />
               </div>
             </div>
           </div>

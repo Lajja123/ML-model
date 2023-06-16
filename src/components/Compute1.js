@@ -1,15 +1,11 @@
 import React from "react";
 import "../styles/dataset.scss";
-
-import CreateDataset from "./CreateDataset";
 import { useState } from "react";
-import SingleDataset from "./SingleDataset";
 import SingleComputeModel1 from "./Container1";
 import img1 from "../components/assets/dataset1.jpg";
 import SingleComputeModel2 from "./Container2";
 
 function Compute1() {
-  const [openModal, setOpenModal] = useState(false);
   const [compute, setCompute] = useState({
     training: false,
     computeFinal: false,
@@ -17,12 +13,6 @@ function Compute1() {
   const [singleCompute1, setSingleCompute1] = useState(false);
   const [singleCompute2, setSingleCompute2] = useState(false);
 
-  const toggleComponent = () => {
-    setSingleCompute1(!singleCompute1);
-  };
-  const toggleComponent2 = () => {
-    setSingleCompute2(!singleCompute2);
-  };
   if (compute.training) {
     return <SingleComputeModel1 />;
   }

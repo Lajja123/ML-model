@@ -7,7 +7,7 @@ import "../styles/profile.scss";
 import { useAccount } from "wagmi";
 
 function AllDataset(props) {
-  const {address} = useAccount();
+  const { address } = useAccount();
   const [allDataSet, setAllDataSet] = useState([]);
   // console.log("Address",address)
   const getData = async () => {
@@ -46,15 +46,12 @@ function AllDataset(props) {
             style={{ width: "100%", display: "flex", flexDirection: "column" }}
           >
             <img
-               src={`https://ipfs.io/ipfs/${item.image}`}
+              src={`https://ipfs.io/ipfs/${item.image}`}
               alt={`Image ${index}`}
               className="dataset-image"
             />
             <div className="alldataset-grid">
               <h4 key={index}>{item.name}</h4>
-              {/* <div key={index}>
-                {item.file_type} ( {item.file_size})
-              </div>  */}
               <div key={index}>
                 <p className="dataset-dec">{item.title}</p>
               </div>

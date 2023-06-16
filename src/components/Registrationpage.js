@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ethers } from "ethers";
-import { useRef } from "react";
 import lighthouse from "@lighthouse-web3/sdk";
 import Navbar from "../pages/Navbar";
 import upload from "../components/assets/upload.png";
@@ -10,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 function Registrationpage() {
+  const [file, setFile] = useState(null);
   const [btnloading, setbtnloading] = useState(false);
   const [showInputField, setShowInputField] = useState(false);
   const fileInputRef = useRef(null);
@@ -35,9 +35,10 @@ function Registrationpage() {
   const uploadImage = async () => {
     try {
       console.log("in upload image function");
+
       const file = userData.file; // Access the file from the array
       const output = await lighthouse.upload(
-        file,
+        [file],
         "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
         progressCallback
       );
@@ -48,9 +49,11 @@ function Registrationpage() {
       console.log(error);
     }
   };
+
   const handleClick = () => {
     fileInputRef.current.click();
   };
+
   const createUserAccount = async () => {
     toast.info("Process is in Progress", {
       position: "top-left",
@@ -106,18 +109,35 @@ function Registrationpage() {
         <div className="register-sub-div">
           <div className="form-file">
             <div style={{ width: "50px", margin: "0 auto" }}>
-              <img src={upload} alt="" style={{ width: "50px" }} />
+              {file && (
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt=""
+                  style={{ width: "50px" }}
+                />
+              )}
             </div>
-            <div className="file-input-container">
-              <div onClick={handleClick} style={{ cursor: "pointer" }}>
-                Choose profile{" "}
+            <div
+              className="file-input-container"
+              style={{ width: "80%", margin: "15px auto" }}
+            >
+              <div
+                onClick={() => fileInputRef.current.click()}
+                style={{ cursor: "pointer" }}
+              >
+                {file ? (
+                  <span>{file.name}</span>
+                ) : (
+                  <span> Choose profile </span>
+                )}
                 <input
                   type="file"
                   hidden
                   ref={fileInputRef}
                   name="New File Name"
                   onChange={(e) => {
-                    setUserData({ ...userData, file: e.target.value });
+                    setFile(e.target.files[0]);
+                    setUserData({ ...userData, file: e.target.files[0] });
                   }}
                   accept=".jpg,.jpeg,.png,.pdf" // Optional: Set accepted file extensions
                   style={{
