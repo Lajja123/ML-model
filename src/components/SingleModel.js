@@ -1,6 +1,6 @@
 import React from "react";
 import img1 from "../components/assets/dataset1.jpg";
-import { singlemodel } from "../dummyData/singleModel";
+import { singlemodel } from "../dummyData/SingleModel";
 import { useState, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
