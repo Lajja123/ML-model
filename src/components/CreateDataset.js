@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useEffect } from "react";
 import "../styles/register.scss";
 import file from "../components/assets/file.png";
@@ -9,7 +9,8 @@ import { modelInstance } from "./Contract";
 import lighthouse from "@lighthouse-web3/sdk";
 
 function CreateDataset({ open, onClose }) {
-  // const [status, setStatus] = useState(false);
+  const fileInputRefDataset = useRef(null);
+  const fileInputRefDatasetImg = useRef(null);
   const [Data, setData] = useState({
     title: null,
     description: null,
@@ -72,7 +73,10 @@ function CreateDataset({ open, onClose }) {
       console.log(error);
     }
   };
-
+  const handleClick = () => {
+    fileInputRefDataset.current.click();
+    fileInputRefDatasetImg.current.click();
+  };
   const createDataset = async (e) => {
     try {
       console.log("in create account function");
@@ -132,61 +136,89 @@ function CreateDataset({ open, onClose }) {
           <div className="register-main-div" style={{ width: "90%" }}>
             <div className="register-sub-div" style={{ margin: "0" }}>
               <div>
-                <lable style={{ color: "black" }}>Upload Your CSV file </lable>
                 <div
                   className="form-file"
-                  style={{
-                    width: "80%",
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "15vh",
-                    justifyContent: "space-evenly",
-                    color: "black",
-                  }}
+                  style={
+                    {
+                      // width: "80%",
+                      // display: "flex",
+                      // flexDirection: "column",
+                      // height: "15vh",
+                      // justifyContent: "space-evenly",
+                      // color: "black",
+                    }
+                  }
                 >
-                  <div style={{ width: "50px", margin: "0 auto" }}>
-                    <img src={file} alt="" style={{ width: "50px" }} />
+                  <div
+                    className="file-input-container"
+                    style={{ border: "none" }}
+                  >
+                    <div style={{ width: "50px", margin: "0 auto" }}>
+                      <img src={file} alt="" style={{ width: "50px" }} />
+                    </div>
+                    <div
+                      onClick={handleClick}
+                      style={{
+                        border: "1px solid",
+                        padding: "10px",
+                        width: "58%",
+                        margin: "0 auto",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Upload Dataset Image{" "}
+                      <input
+                        type="file"
+                        name="image"
+                        hidden
+                        ref={fileInputRefDatasetImg}
+                        // accept=".csv"
+                        placeholder="Upload Image"
+                        onChange={(e) => {
+                          setData({ ...Data, image: e.target.files });
+                        }}
+                        style={{ marginLeft: "40px" }}
+                        // multiple
+                      />
+                    </div>
                   </div>
                   <div
                     className="file-input-container"
-                    style={{
-                      width: "80%",
-                      display: "flex",
-                      flexDirection: "column",
-                      height: "15vh",
-                      justifyContent: "space-evenly",
-                      color: "black",
-                    }}
+                    style={
+                      {
+                        // width: "80%",
+                        // display: "flex",
+                        // flexDirection: "column",
+                        // height: "20vh",
+                        // justifyContent: "space-evenly",
+                        // color: "black",
+                      }
+                    }
                   >
-                    {" "}
-                    <input
-                      type="file"
-                      name="file"
-                      accept=".csv"
-                      onChange={(e) => {
-                        setData({ ...Data, file: e.target.files });
+                    <div
+                      onClick={handleClick}
+                      style={{
+                        fontWeight: "400",
+                        textAlign: "start",
+                        width: "400px",
+                        cursor: "pointer",
                       }}
-                      style={{ marginLeft: "40px" }}
-                      // multiple
-                    />
+                    >
+                      Upload CSV file*{" "}
+                      <input
+                        type="file"
+                        name="file"
+                        hidden
+                        ref={fileInputRefDataset}
+                        accept=".csv"
+                        onChange={(e) => {
+                          setData({ ...Data, file: e.target.files });
+                        }}
+                        style={{ marginLeft: "40px" }}
+                        // multiple
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="file-input-container">
-                  <lable style={{ color: "black" }}>Upload Your Image </lable>
-                  <div style={{ width: "50px", margin: "0 auto" }}>
-                    <img src={file} alt="" style={{ width: "50px" }} />
-                  </div>
-                  <input
-                    type="file"
-                    name="image"
-                    // accept=".csv"
-                    placeholder="Upload Image"
-                    onChange={(e) => {
-                      setData({ ...Data, image: e.target.files });
-                    }}
-                    style={{ marginLeft: "40px" }}
-                    // multiple
-                  />
                 </div>
               </div>
               <label className="form-flexlable" style={{ width: "400px" }}>
@@ -198,13 +230,14 @@ function CreateDataset({ open, onClose }) {
                     setData({ ...Data, title: e.target.value });
                   }}
                   className="form-inputLable"
-                  placeholder="Enter Dataset Title"
+                  placeholder="Enter Dataset Title*"
                 />
               </label>
               <label className="form-flexlable" style={{ width: "400px" }}>
                 <input
                   type="text"
                   name="occupation"
+                  required
                   value={Data.description}
                   onChange={(e) => {
                     setData({ ...Data, description: e.target.value });

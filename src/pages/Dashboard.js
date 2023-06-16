@@ -14,7 +14,7 @@ import CreateDataset from "../components/CreateDataset";
 import CreateModel from "../components/CreateModel";
 import DashboardNavbar from "../components/DashboardNavbar";
 import { useState, useEffect, useRef } from "react";
-import Compute from "../components/Compute";
+import Compute1 from "../components/Compute1";
 import modelimg from "../components/assets/model.png";
 import logo from "../components/assets/logo.png";
 import home from "../components/assets/home.png";
@@ -283,7 +283,7 @@ function Dashboard() {
               </>
             ) : addCompute ? (
               <>
-                <Compute></Compute>
+                <Compute1></Compute1>
               </>
             ) : openProfile ? (
               <Profile dashboardLinks={dashboardLinks} />

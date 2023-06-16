@@ -62,10 +62,16 @@
   color: black;
 }
 .form-file {
-  width: 35%;
+  width: 80%;
   margin: 0 auto;
 }
 .file-input-container {
-  width: 40%;
-  margin: 0 auto;
+  margin: 20px;
+  border: 1px solid gray;
+  color: black;
+  padding: 10px;
+  text-align: center;
+
+  // font-family: "JosefinSans";
+  font-weight: 600;
 }

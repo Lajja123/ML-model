@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import { useRef } from "react";
 import lighthouse from "@lighthouse-web3/sdk";
 import Navbar from "../pages/Navbar";
 import upload from "../components/assets/upload.png";
@@ -10,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 function Registrationpage() {
   const [btnloading, setbtnloading] = useState(false);
+  const [showInputField, setShowInputField] = useState(false);
+  const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     file: null,
@@ -45,7 +48,9 @@ function Registrationpage() {
       console.log(error);
     }
   };
-
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
   const createUserAccount = async () => {
     toast.info("Process is in Progress", {
       position: "top-left",
@@ -104,19 +109,24 @@ function Registrationpage() {
               <img src={upload} alt="" style={{ width: "50px" }} />
             </div>
             <div className="file-input-container">
-              <input
-                type="file"
-                name="file"
-                onChange={(e) => {
-                  setUserData({ ...userData, file: e.target.value });
-                }}
-                accept=".jpg,.jpeg,.png,.pdf" // Optional: Set accepted file extensions
-                style={{
-                  fontFamily: "JosefinSans",
-                  fontSize: "13px",
-                  color: "black",
-                }}
-              />
+              <div onClick={handleClick} style={{ cursor: "pointer" }}>
+                Choose profile{" "}
+                <input
+                  type="file"
+                  hidden
+                  ref={fileInputRef}
+                  name="New File Name"
+                  onChange={(e) => {
+                    setUserData({ ...userData, file: e.target.value });
+                  }}
+                  accept=".jpg,.jpeg,.png,.pdf" // Optional: Set accepted file extensions
+                  style={{
+                    fontFamily: "JosefinSans",
+                    fontSize: "13px",
+                    color: "black",
+                  }}
+                />
+              </div>
             </div>
           </div>
 

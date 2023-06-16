@@ -3,7 +3,7 @@ import DashboardNavbar from "./DashboardNavbar";
 import "../styles/dataset.scss";
 import SingleModel from "./SingleModel";
 import { data } from "../dummyData/model";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
 import CreateModel from "./CreateModel";
@@ -11,42 +11,39 @@ import CreateModel from "./CreateModel";
 function Model() {
   const [singleModel, setSingleModel] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [allModelData , setAllModelData] = useState([]);
+  const [allModelData, setAllModelData] = useState([]);
 
   const toggleComponent = () => {
     setSingleModel(!singleModel);
-    window.location.pathname("/singlemodel");
   };
 
   const getModels = async () => {
     try {
-        const { ethereum } = window;
-        if (ethereum) {
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            if (!provider) {
-                console.log("Metamask is not installed, please install!");
-            }
-            const con = await modelInstance();
-            const modelData = await con.getAllModelData();
-
-            
-            setAllModelData(modelData);
-            console.log(modelData);
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
         }
+        const con = await modelInstance();
+        const modelData = await con.getAllModelData();
+
+        setAllModelData(modelData);
+        console.log(modelData);
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
+  };
 
   useEffect(() => {
     async function fetchModels() {
-        await getModels();
+      await getModels();
     }
     console.log("hello");
-    fetchModels()
-  }, [])
-
+    fetchModels();
+  }, []);
 
   return (
     <>

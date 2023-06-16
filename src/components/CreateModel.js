@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "../styles/register.scss";
 import file from "../components/assets/file.png";
 import "../styles/createdataset.scss";
@@ -9,6 +9,8 @@ import lighthouse from "@lighthouse-web3/sdk";
 import { ethers } from "ethers";
 
 function CreateModel({ open, onClose }) {
+  const fileInputRefModel = useRef(null);
+  const fileInputRefModelImg = useRef(null);
   const [Data, setData] = useState({
     name: null,
     description: null,
@@ -44,7 +46,6 @@ function CreateModel({ open, onClose }) {
     }
   };
 
-
   const uploadImage = async () => {
     try {
       console.log("in upload Image Model function");
@@ -71,7 +72,7 @@ function CreateModel({ open, onClose }) {
 
       const outputImage = await uploadImage();
       const cidsImage = outputImage.data.Hash;
-      console.log("CidsForImage ",cidsImage);
+      console.log("CidsForImage ", cidsImage);
 
       const { ethereum } = window;
       if (ethereum) {
@@ -97,7 +98,10 @@ function CreateModel({ open, onClose }) {
       console.log(error);
     }
   };
-
+  const handleClick = () => {
+    fileInputRefModel.current.click();
+    fileInputRefModelImg.current.click();
+  };
   if (!open) return null;
   return (
     <div onClick={onClose} className="overlay">
@@ -119,29 +123,81 @@ function CreateModel({ open, onClose }) {
             <div className="register-sub-div" style={{ margin: "0" }}>
               <div
                 className="form-file"
-                style={{
-                  width: "80%",
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "15vh",
-                  justifyContent: "space-evenly",
-                  color: "black",
-                }}
+                // style={{
+                //   width: "80%",
+                //   display: "flex",
+                //   flexDirection: "column",
+                //   height: "15vh",
+                //   justifyContent: "space-evenly",
+                //   color: "black",
+                // }}
               >
                 <div style={{ width: "50px", margin: "0 auto" }}>
                   <img src={file} alt="" style={{ width: "50px" }} />
                 </div>
-                <div className="file-input-container">
-                  <input
-                    type="file"
-                    name="file"
-                    // accept=".csv"
-                    onChange={(e) => {
-                      setData({ ...Data, file: e.target.files });
+                <div
+                  onClick={handleClick}
+                  style={{
+                    border: "1px solid",
+                    padding: "10px",
+                    width: "50%",
+                    margin: "0 auto",
+                    cursor: "pointer",
+                    fontSize: "15px",
+                    textAlign: "center",
+                    color: "black",
+                  }}
+                >
+                  Upload Model Image{" "}
+                  <div>
+                    <input
+                      type="file"
+                      name="image"
+                      hidden
+                      ref={fileInputRefModelImg}
+                      accept=".jpg, .png, .jpeg"
+                      onChange={(e) => {
+                        setData({ ...Data, image: e.target.files });
+                      }}
+                      style={{ marginLeft: "40px" }}
+                    />
+                  </div>
+                </div>
+                <div
+                  className="file-input-container"
+                  style={{
+                    color: "black",
+                    marginBottom: "10px",
+                    padding: "6px",
+                    fontWeight: "400",
+                  }}
+                >
+                  <div
+                    onClick={handleClick}
+                    style={{
+                      padding: "8px",
+
+                      margin: "0px auto",
+                      cursor: "pointer",
+                      fontSize: "15px",
+                      textAlign: "start",
+                      color: "black",
                     }}
-                    style={{ marginLeft: "40px" }}
-                    // multiple
-                  />
+                  >
+                    Upload Your File{" "}
+                    <input
+                      type="file"
+                      name="file"
+                      hidden
+                      ref={fileInputRefModel}
+                      // accept=".csv"
+                      onChange={(e) => {
+                        setData({ ...Data, file: e.target.files });
+                      }}
+                      style={{ marginLeft: "40px" }}
+                      // multiple
+                    />
+                  </div>
                 </div>
               </div>
               <label className="form-flexlable" style={{ width: "400px" }}>
@@ -168,17 +224,7 @@ function CreateModel({ open, onClose }) {
                   placeholder="Description"
                 />
               </label>
-              <div>
-                <input
-                  type="file"
-                  name="image"
-                  accept=".jpg, .png, .jpeg"
-                  onChange={(e) => {
-                    setData({ ...Data, image: e.target.files });
-                  }}
-                  style={{ marginLeft: "40px" }}
-                />
-              </div>
+
               <div
                 style={{
                   display: "flex",
