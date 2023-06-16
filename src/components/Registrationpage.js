@@ -119,11 +119,11 @@ function Registrationpage() {
             </div>
             <div
               className="file-input-container"
-              style={{ width: "80%", margin: "15px auto" }}
+              style={{ width: "40%", margin: "15px auto",padding:"0px" }}
             >
               <div
                 onClick={() => fileInputRef.current.click()}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer",backgroundColor:"lightgray",color:"black",padding:"10px" }}
               >
                 {file ? (
                   <span>{file.name}</span>

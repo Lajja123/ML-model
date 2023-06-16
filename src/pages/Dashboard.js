@@ -130,7 +130,7 @@ function Dashboard() {
               />
             </Link>
           </div>
-          <div style={{ width: "100%" }} ref={containerRef}>
+          <div style={{ width: "100%",marginTop:"30px " }} ref={containerRef}>
             <button className="create-button-dashboard">
               <img
                 src={plus}
@@ -142,7 +142,7 @@ function Dashboard() {
                   padding: "0px 20px",
                 }}
               />{" "}
-              <div style={{ fontSize: "1.1rem", fontWeight: "400" }}>
+              <div style={{ fontSize: "1.1rem", fontWeight: "500",borderStartEndRadius:"10px" }}>
                 Create
               </div>
             </button>

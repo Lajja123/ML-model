@@ -102,10 +102,11 @@ function Profile() {
             <div
               style={{
                 textAlign: "center",
-                fontFamily: "JosefinSans",
-                fontWeight: 500,
+                
+                fontWeight: 400,
                 letterSpacing: "1px",
                 textAlign: "start",
+                lineHeight:"30px",
                 fontSize: "20px",
                 lineHeight: "25px",
               }}
@@ -116,11 +117,13 @@ function Profile() {
             <div
               style={{
                 textAlign: "center",
-                fontFamily: "JosefinSans",
-                fontWeight: 500,
+             
+                fontWeight: 400,
                 letterSpacing: "1px",
                 textAlign: "start",
                 fontSize: "20px",
+                lineHeight:"30px",
+
                 lineHeight: "25px",
               }}
             >
@@ -129,8 +132,9 @@ function Profile() {
             <div
               style={{
                 textAlign: "center",
-                fontFamily: "JosefinSans",
-                fontWeight: 500,
+                lineHeight:"30px",
+                
+                fontWeight: 400,
                 letterSpacing: "1px",
                 textAlign: "start",
                 fontSize: "20px",
@@ -142,9 +146,10 @@ function Profile() {
             <div
               style={{
                 textAlign: "center",
-                fontFamily: "JosefinSans",
-                fontWeight: 500,
-                letterSpacing: "1px",
+                lineHeight:"30px",
+
+                fontWeight: 400,
+                letterSpacing: "1.8px",
                 textAlign: "start",
                 fontSize: "20px",
                 lineHeight: "25px",
@@ -167,10 +172,10 @@ function Profile() {
               style={{
                 textAlign: "center",
                 fontFamily: "JosefinSans",
-                fontWeight: 600,
+                fontWeight: 500,
                 letterSpacing: "2px",
                 textAlign: "start",
-                fontSize: "15px",
+                fontSize: "17px",
               }}
             >
               {" "}
@@ -190,10 +195,10 @@ function Profile() {
               style={{
                 textAlign: "center",
                 fontFamily: "JosefinSans",
-                fontWeight: 600,
+                fontWeight: 400,
                 letterSpacing: "2px",
                 textAlign: "start",
-                fontSize: "15px",
+                fontSize: "17px",
               }}
             >
               Model
@@ -211,10 +216,10 @@ function Profile() {
               style={{
                 textAlign: "center",
                 fontFamily: "JosefinSans",
-                fontWeight: 600,
+                fontWeight: 400,
                 letterSpacing: "2px",
                 textAlign: "start",
-                fontSize: "15px",
+                fontSize: "17px",
               }}
             >
               {" "}
@@ -233,10 +238,10 @@ function Profile() {
               style={{
                 textAlign: "center",
                 fontFamily: "JosefinSans",
-                fontWeight: 600,
+                fontWeight: 500,
                 letterSpacing: "2px",
                 textAlign: "start",
-                fontSize: "15px",
+                fontSize: "17px",
               }}
             >
               {" "}
