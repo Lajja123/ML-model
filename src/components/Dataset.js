@@ -5,18 +5,18 @@ import CreateDataset from "./CreateDataset";
 import { useState, useEffect } from "react";
 import SingleDataset from "./SingleDataset";
 import { modelInstance } from "./Contract";
+import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 
-function Dataset({single,setSingle,dashboardLinks}) {
+function Dataset({ single, setSingle, dashboardLinks }) {
   const [openModal, setOpenModal] = useState(false);
   const [singleDataset, setSingleDataset] = useState(false);
-  const [allModelData , setAllModelData] = useState([]);
-  const [allDataSet,setAllDataSet] = useState([]);
+  const [allModelData, setAllModelData] = useState([]);
+  const [allDataSet, setAllDataSet] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isProfile, setIsProfile] = useState(true);
-
-
+  const [loading, setLoading] = useState(true);
 
   const toggleComponent = () => {
     setSingleDataset(!singleDataset);
@@ -24,20 +24,20 @@ function Dataset({single,setSingle,dashboardLinks}) {
 
   const getDatas = async () => {
     try {
-        const { ethereum } = window;
-        if (ethereum) {
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            if (!provider) {
-                console.log("Metamask is not installed, please install!");
-            }
-            const con = await modelInstance();
-            const Data = await con.getAllDataSet();
-
-            
-            setAllDataSet(Data);
-            console.log(Data);
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
         }
+        const con = await modelInstance();
+        const Data = await con.getAllDataSet();
+
+        setAllDataSet(Data);
+        setLoading(false);
+        console.log(Data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +62,11 @@ function Dataset({single,setSingle,dashboardLinks}) {
   return (
     <>
       {singleDataset ? (
-        <SingleDataset single={single} toggleComponent={toggleComponent} isProfile={isProfile}/>
+        <SingleDataset
+          single={single}
+          toggleComponent={toggleComponent}
+          isProfile={isProfile}
+        />
       ) : (
         <div className="dataset-main-div">
           <div>
@@ -124,7 +128,7 @@ function Dataset({single,setSingle,dashboardLinks}) {
             />
           </div>
           <div className="tab-btn">
-            <button className="tab-list" >All dataset</button>
+            <button className="tab-list">All dataset</button>
             <button className="tab-list">Eduaction</button>
             <button className="tab-list">Drugs & Medical</button>
             <button className="tab-list">Earth & nature</button>
@@ -132,35 +136,44 @@ function Dataset({single,setSingle,dashboardLinks}) {
           </div>
 
           <div className="main-dataset-grid">
-            {allDataSet.map((item, index) => (
+            {loading ? (
+              <div className="loader-container">
+                <div className="loader-spinner"></div>
+              </div>
+            ) : (
               <>
-                <div style={{ width: "100%" }}>
-                  <img
-                    src={`https://ipfs.io/ipfs/${item.image}`}
-                    alt={`Image ${index}`}
-                    className="dataset-img"
-                  />
-                  <div className="alldataset-grid">
-                    <h4 key={index}>{item.name}</h4>
-                    {/* <div key={index}>
-                      {item.file_type} ( {item.file_size})
-                    </div> */}
-                    <div key={index}>
-                      <p className="dataset-dec">{item.description}</p>
+                {" "}
+                {allDataSet.map((item, index) => (
+                  <>
+                    <div style={{ width: "100%" }}>
+                      <img
+                        src={`https://ipfs.io/ipfs/${item.image}`}
+                        alt={`Image ${index}`}
+                        className="dataset-img"
+                      />
+                      <div className="alldataset-grid">
+                        <h4 key={index}>{item.name}</h4>
+                        {/* <div key={index}>
+                {item.file_type} ( {item.file_size})
+              </div> */}
+                        <div key={index}>
+                          <p className="dataset-dec">{item.description}</p>
+                        </div>
+                      </div>
+                      <button
+                        className="dataset-viewmore"
+                        onClick={() => {
+                          setSingle(allDataSet[index]);
+                          toggleComponent();
+                        }}
+                      >
+                        View More
+                      </button>
                     </div>
-                  </div>
-                  <button
-                    className="dataset-viewmore"
-                    onClick={() => {
-                      setSingle(allDataSet[index]);
-                      toggleComponent();
-                    }}
-                  >
-                    View More
-                  </button>
-                </div>
+                  </>
+                ))}
               </>
-            ))}
+            )}
           </div>
         </div>
       )}

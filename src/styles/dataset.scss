@@ -6,6 +6,7 @@
     font-family: "JosefinSans";
     justify-content: flex-start;
     font-weight: 600;
+    color: black;
     letter-spacing: 0.5px;
     margin: 10px 0px;
   }
@@ -49,10 +50,12 @@
   }
   .dataset-img {
     width: 250px;
+    height: 250px;
   }
   .main-dataset-grid {
     align-items: center;
     display: grid;
+    color: black;
     gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     padding: 20px 0px;
@@ -84,9 +87,10 @@
   }
 }
 table {
-  width: 60%;
+  max-width: 60%;
   border: 1px solid white;
   margin: 50px;
+  overflow: overlay;
   padding: 30px;
   background-color: white;
 }
@@ -110,4 +114,28 @@ td {
 }
 th {
   padding: 15px 0px;
+}
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35vh;
+}
+
+.loader-spinner {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
