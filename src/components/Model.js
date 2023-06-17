@@ -7,13 +7,14 @@ import { useState, useEffect } from "react";
 import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
 import CreateModel from "./CreateModel";
+import "react-toastify/dist/ReactToastify.css";
 
-function Model({single,setSingle}) {
+function Model({ single, setSingle }) {
   const [singleModel, setSingleModel] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [allModelData , setAllModelData] = useState([]);
+  const [allModelData, setAllModelData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isProfile, setIsProfile] = useState(true);
-
 
   const toggleComponent = () => {
     setSingleModel(!singleModel);
@@ -33,6 +34,7 @@ function Model({single,setSingle}) {
         const modelData = await con.getAllModelData();
 
         setAllModelData(modelData);
+        setLoading(false);
         console.log(modelData);
       }
     } catch (error) {
@@ -51,7 +53,11 @@ function Model({single,setSingle}) {
   return (
     <>
       {singleModel ? (
-        <SingleModel single={single} toggleComponent={toggleComponent} isProfile={isProfile}/>
+        <SingleModel
+          single={single}
+          toggleComponent={toggleComponent}
+          isProfile={isProfile}
+        />
       ) : (
         <div className="dataset-main-div">
           <div>
@@ -110,6 +116,13 @@ function Model({single,setSingle}) {
           </div>
 
           <div className="main-dataset-grid">
+          {loading ? (
+              <div className="loader-container">
+                <div className="loader-spinner"></div>
+              </div>
+            ) : (
+              <>
+                {" "}
             {allModelData.map((item, index) => (
               <>
                 <div
@@ -117,38 +130,44 @@ function Model({single,setSingle}) {
                     width: "100%",
                     display: "flex",
                     flexDirection: "column",
+                    backgroundColor: "black",
                   }}
                 >
-                  <img
+                  <div>       
+                     <img
                     src={`https://gateway.lighthouse.storage/ipfs/${item.image}`}
                     alt={`Image ${index}`}
                     className="dataset-img"
                   />
+                  </div>
+
                   <div className="alldataset-grid">
                     <h4 key={index}>{item.name}</h4>
                     {/* /* <div key={index}>
                       {item.file_type} ( {item.file_size})
                     </div> */}
-                    <div
-                      key={index}
-                      className="dataset-dec"
-                      style={{ margin: "10px 0px" }}
-                    >
-                      {item.description}
+                        <div
+                          key={index}
+                          className="dataset-dec"
+                          style={{ margin: "10px 0px" }}
+                        >
+                          {item.description}
+                        </div>
+                        <button
+                          className="dataset-viewmore"
+                          onClick={() => {
+                            setSingle(allModelData[index]);
+                            toggleComponent();
+                          }}
+                        >
+                          View More
+                        </button>
+                      </div>
                     </div>
-                    <button
-                      className="dataset-viewmore"
-                      onClick={()=> { 
-                        setSingle(allModelData[index]);
-                      toggleComponent();
-                      }}
-                    >
-                      View More
-                    </button>
-                  </div>
-                </div>
+                  </>
+                ))}
               </>
-            ))}
+            )}
           </div>
         </div>
       )}

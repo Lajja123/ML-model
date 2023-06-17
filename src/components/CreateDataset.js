@@ -7,13 +7,14 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/createdataset.scss";
 import { ethers } from "ethers";
 import { modelInstance } from "./Contract";
+import { useNavigate } from "react-router-dom";
 import lighthouse from "@lighthouse-web3/sdk";
 
 function CreateDataset({ open, onClose }) {
   const [file, setFile] = useState(null);
   const [btnloading, setbtnloading] = useState(false);
   const [inputImg, setInputImg] = useState(null);
-
+  const navigate = useNavigate();
   const [fileName, setFileName] = useState("");
   const fileInputRefDataset = useRef(null);
   const fileInputRefDatasetImg = useRef(null);
@@ -89,7 +90,7 @@ function CreateDataset({ open, onClose }) {
     toast.info("Process is in Progress", {
       position: "top-left",
       autoClose: 5000,
-      hideProgressBar: false,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
@@ -129,7 +130,9 @@ function CreateDataset({ open, onClose }) {
         console.log(tx);
         await tx.wait();
         setbtnloading(false);
+
         console.log(con);
+        onClose();
       }
     } catch (error) {
       console.log(error);
@@ -227,7 +230,7 @@ function CreateDataset({ open, onClose }) {
                           setData({ ...Data, file: e.target.files });
                         }}
                         style={{ marginLeft: "40px" }}
-                        // multiple
+                        multiple
                       />
                     </div>
                   </div>
@@ -260,7 +263,7 @@ function CreateDataset({ open, onClose }) {
                   placeholder="Description"
                 />
               </label>
-              <div className="form-flexlable" style={{ width: "400px" }}>
+              {/* <div className="form-flexlable" style={{ width: "400px" }}>
                 {" "}
                 <select
                   name="category"
@@ -278,7 +281,7 @@ function CreateDataset({ open, onClose }) {
                   <option value="3">Earth & nature</option>
                   <option value="4">Science & Technology</option>
                 </select>
-              </div>
+              </div> */}
 
               <div
                 style={{
@@ -319,7 +322,6 @@ function CreateDataset({ open, onClose }) {
                     onChange={(e) => {
                       setData({ ...Data, status: e.target.value });
                     }}
-                    checked
                   />
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
@@ -338,22 +340,27 @@ function CreateDataset({ open, onClose }) {
                   className="form-btn"
                   style={{ width: "100%", margin: "0px 20px" }}
                   onClick={createDataset}
+                  disabled={btnloading}
                 >
                   {" "}
                   {btnloading ? (
                     <svg
                       className="animate-spin button-spin-svg-pic"
                       version="1.1"
-                      id="L9"
+                      id="L9 spine-btn"
                       xmlns="http://www.w3.org/2000/svg"
                       x="0px"
                       y="0px"
                       viewBox="0 0 100 100"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                      }}
                     >
                       <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
                     </svg>
                   ) : (
-                    <> Create</>
+                    <> Create Dataset</>
                   )}
                 </button>{" "}
                 <ToastContainer />

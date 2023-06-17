@@ -5,18 +5,18 @@ import CreateDataset from "./CreateDataset";
 import { useState, useEffect } from "react";
 import SingleDataset from "./SingleDataset";
 import { modelInstance } from "./Contract";
+import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 
-function Dataset({single,setSingle,dashboardLinks}) {
+function Dataset({ single, setSingle, dashboardLinks }) {
   const [openModal, setOpenModal] = useState(false);
   const [singleDataset, setSingleDataset] = useState(false);
-  const [allModelData , setAllModelData] = useState([]);
-  const [allDataSet,setAllDataSet] = useState([]);
+  const [allModelData, setAllModelData] = useState([]);
+  const [allDataSet, setAllDataSet] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isProfile, setIsProfile] = useState(true);
-
-
+  const [loading, setLoading] = useState(true);
 
   const toggleComponent = () => {
     setSingleDataset(!singleDataset);
@@ -24,20 +24,20 @@ function Dataset({single,setSingle,dashboardLinks}) {
 
   const getDatas = async () => {
     try {
-        const { ethereum } = window;
-        if (ethereum) {
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            if (!provider) {
-                console.log("Metamask is not installed, please install!");
-            }
-            const con = await modelInstance();
-            const Data = await con.getAllDataSet();
-
-            
-            setAllDataSet(Data);
-            console.log(Data);
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
         }
+        const con = await modelInstance();
+        const Data = await con.getAllDataSet();
+
+        setAllDataSet(Data);
+        setLoading(false);
+        console.log(Data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -70,7 +70,10 @@ function Dataset({single,setSingle,dashboardLinks}) {
             <h1 style={{ margin: "10px 0px " }} className="dataset-content">
               Datasets
             </h1>
-            <div className="dataset-content" style={{ margin: "10px 0px " }}>
+            <div
+              className="dataset-content"
+              style={{ margin: "10px 0px ", fontWeight: "500" }}
+            >
               Explore, analyze, and share quality data.
             </div>
             <div className="dataset-content" style={{ margin: "20px 0px" }}>
@@ -122,13 +125,6 @@ function Dataset({single,setSingle,dashboardLinks}) {
               value={searchQuery}
               onChange={handleSearch}
             />
-          </div>
-          <div className="tab-btn">
-            <button className="tab-list" >All dataset</button>
-            <button className="tab-list">Eduaction</button>
-            <button className="tab-list">Drugs & Medical</button>
-            <button className="tab-list">Earth & nature</button>
-            <button className="tab-list">Scie & Technology</button>
           </div>
 
           <div className="main-dataset-grid">

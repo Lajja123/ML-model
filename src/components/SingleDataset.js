@@ -17,7 +17,7 @@ function SingleDataset(props) {
   console.log(props.single);
   const dataSetData = props.single ? props.single : "";
   // setCsvRows(dataSetData);
-  console.log("Single dataset ",dataSetData);
+  console.log("Single dataset ", dataSetData);
 
   const toggleComponent = () => {
     setOpenDataset(!openDataset);
@@ -27,38 +27,36 @@ function SingleDataset(props) {
     fetchCSVData();
   }, []);
 
-  const fetchCSVData = async() => {
-  
+  const fetchCSVData = async () => {
+    try {
+      const response = await fetch(
+        `https://gateway.lighthouse.storage/ipfs/${dataSetData.uploadFile}`
+      );
+      const data = await response.text();
 
-      try {
-        const response = await fetch(`https://gateway.lighthouse.storage/ipfs/${dataSetData.uploadFile}`);
-        const data = await response.text();
-  
-        // Parse CSV data
-        const rows = data.split("\n");
-        const headers = rows[0].split(",").map((header) => header.trim());
-        const parsedData = rows
-          .slice(1)
-          .filter((row) => row.trim() !== "") // Filter out empty rows
-          .map((row) => {
-            const values = row.split(",").map((value) => value.trim());
-            const rowData = {};
-            headers.forEach((header, index) => {
-              rowData[header] = values[index];
-            });
-            return rowData;
+      // Parse CSV data
+      const rows = data.split("\n");
+      const headers = rows[0].split(",").map((header) => header.trim());
+      const parsedData = rows
+        .slice(1)
+        .filter((row) => row.trim() !== "") // Filter out empty rows
+        .map((row) => {
+          const values = row.split(",").map((value) => value.trim());
+          const rowData = {};
+          headers.forEach((header, index) => {
+            rowData[header] = values[index];
           });
-  
-        setTableHeaders(headers);
-        setTableRows(parsedData);
-        setCSVData(parsedData);
-      } catch (error) {
-        console.error("Error fetching CSV file:", error);
-      }
-  }
+          return rowData;
+        });
 
+      setTableHeaders(headers);
+      setTableRows(parsedData);
+      setCSVData(parsedData);
+    } catch (error) {
+      console.error("Error fetching CSV file:", error);
+    }
+  };
 
-   
   return (
     <>
       {openDataset ? (

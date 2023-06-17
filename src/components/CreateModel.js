@@ -110,6 +110,7 @@ function CreateModel({ open, onClose }) {
         await tx.wait();
         setbtnloading(false);
         console.log(con);
+        onClose();
       }
     } catch (error) {
       console.log(error);
@@ -297,7 +298,6 @@ function CreateModel({ open, onClose }) {
                     onChange={(e) => {
                       setData({ ...Data, status: e.target.value });
                     }}
-                    checked
                   />
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
@@ -316,6 +316,7 @@ function CreateModel({ open, onClose }) {
                   className="form-btn"
                   style={{ width: "100%", margin: "0px 20px" }}
                   onClick={createModel}
+                  disabled={btnloading}
                 >
                   {btnloading ? (
                     <svg
@@ -330,7 +331,7 @@ function CreateModel({ open, onClose }) {
                       <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
                     </svg>
                   ) : (
-                    <> Create</>
+                    <> Create Model</>
                   )}
                 </button>
                 <ToastContainer />

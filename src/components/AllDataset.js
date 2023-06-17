@@ -4,15 +4,17 @@ import { useState, useEffect } from "react";
 import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
 import "../styles/profile.scss";
+
+import "react-toastify/dist/ReactToastify.css";
 import { useAccount } from "wagmi";
 import { useNavigate } from "react-router-dom";
 
 function AllDataset(props) {
-
-  const navigate = useNavigate()
-  const {address} = useAccount();
+  const navigate = useNavigate();
+  const { address } = useAccount();
   const [allDataSet, setAllDataSet] = useState([]);
-  // console.log("Address",address)
+  const [loading, setLoading] = useState(true);
+
   const getData = async () => {
     try {
       const { ethereum } = window;
@@ -27,6 +29,7 @@ function AllDataset(props) {
         const dataSet = await con.getAllDataSetOfUser(address);
 
         setAllDataSet(dataSet);
+        setLoading(false);
         console.log(dataSet);
       }
     } catch (error) {
@@ -43,6 +46,13 @@ function AllDataset(props) {
 
   return (
     <div className="main-dataset-grid-profile">
+      {loading ? (
+        <div className="loader-container">
+          <div className="loader-spinner"></div>
+        </div>
+      ) : (
+        <>
+          {" "}
       {allDataSet.map((item, index) => (
         <div key={index}>
           <div
@@ -72,8 +82,11 @@ function AllDataset(props) {
               </button>
             </div>
           </div>
+      
         </div>
       ))}
+      </>
+      )}
     </div>
   );
 }

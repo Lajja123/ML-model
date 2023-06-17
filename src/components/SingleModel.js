@@ -6,16 +6,14 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
 import CreateModel from "./CreateModel";
 import Model from "./Model";
-import { useAccount } from 'wagmi';
+import { useAccount } from "wagmi";
 import { useLocation } from "react-router-dom";
 // import "../styles/signledataset.scss";
-
-
 
 function SingleModel(props) {
   // const location = useLocation()
   const { address } = useAccount();
-  
+
   console.log(props.single);
   const modelData = props.single ? props.single : "";
   const [openModal, setOpenModal] = useState(false);
@@ -32,22 +30,18 @@ function SingleModel(props) {
     fetchCSVData();
   }, []);
 
-
-  const fetchCSVData = async() => {
-  
-
+  const fetchCSVData = async () => {
     try {
-      const response = await fetch(`https://gateway.lighthouse.storage/ipfs/${modelData.file}`);
+      const response = await fetch(
+        `https://gateway.lighthouse.storage/ipfs/${modelData.file}`
+      );
       const code = await response.text();
-    
+
       setCode(code);
     } catch (error) {
       console.error("Error fetching Python code:", error);
     }
-}
-
-
-
+  };
 
   const codeText = `#!/usr/bin/env python
 
@@ -82,26 +76,23 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
       ) : (
         <>
           {" "}
-          
-            <div className="signledataset-main-div">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  padding: "20px 50px",
-                  borderBottom: "1px solid white",
-                  fontFamily: "JosefinSans",
-                }}
-              >
-                <div style={{ width: "50%" }}>
+          <div className="signledataset-main-div">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                padding: "20px 50px",
+                borderBottom: "1px solid white",
+                fontFamily: "JosefinSans",
+              }}
+            >
+              <div style={{ width: "50%" }}>
+                {" "}
+                <h1 className="single-data-title">{modelData.title}</h1>
+                <p style={{ fontSize: "20px" }}>
                   {" "}
-                  <h1 className="single-data-title" >
-                    {modelData.title}
-                  </h1>
-                  <p style={{ fontSize: "20px" }}>
-                    {" "}
-                    {/* The provided dataset contains information related to CBSE
+                  {/* The provided dataset contains information related to CBSE
                     Class-X results */}
                   </p>
                   <div

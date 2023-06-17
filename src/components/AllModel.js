@@ -5,10 +5,12 @@ import { modelInstance } from "./Contract";
 import lighthouse from "@lighthouse-web3/sdk";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
+import "react-toastify/dist/ReactToastify.css";
 
 function AllModel(props) {
   const { address } = useAccount();
   const [allModelData, setAllModelData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getModels = async () => {
     try {
@@ -23,6 +25,7 @@ function AllModel(props) {
         const modelData = await con.getAllModelDataOfUser(address);
 
         setAllModelData(modelData);
+        setLoading(false);
         console.log(modelData);
       }
     } catch (error) {
@@ -40,6 +43,13 @@ function AllModel(props) {
 
   return (
     <div className="main-dataset-grid-profile">
+      {loading ? (
+        <div className="loader-container">
+          <div className="loader-spinner"></div>
+        </div>
+      ) : (
+        <>
+          {" "}
       {allModelData.map((item, index) => (
         <>
           <div
@@ -70,6 +80,8 @@ function AllModel(props) {
           </div>
         </>
       ))}
+      </>
+      )}
     </div>
   );
 }

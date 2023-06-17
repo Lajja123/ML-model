@@ -34,15 +34,15 @@
 }
 .form-btn {
   padding: 15px 30px;
-    border-radius: 10px;
-    background-color: #6bd0ff;
-    color: black;
-    font-family: "JosefinSans";
-    font-size: 18px;
-    font-weight: 600;
-    width: 50%;
-    border: none;
-    letter-spacing: 2px;
+  border-radius: 10px;
+  background-color: #6bd0ff;
+  color: black;
+  font-family: "JosefinSans";
+  font-size: 18px;
+  font-weight: 600;
+  width: 50%;
+  border: none;
+  letter-spacing: 2px;
 }
 .form-title {
   width: 50%;
@@ -74,4 +74,17 @@
 
   // font-family: "JosefinSans";
   font-weight: 600;
+}
+.button-spin-svg-pic {
+  animation: spin 1s linear infinite;
+  width: 30px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

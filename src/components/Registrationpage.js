@@ -119,11 +119,16 @@ function Registrationpage() {
             </div>
             <div
               className="file-input-container"
-              style={{ width: "40%", margin: "15px auto",padding:"0px" }}
+              style={{ width: "40%", margin: "15px auto", padding: "0px" }}
             >
               <div
                 onClick={() => fileInputRef.current.click()}
-                style={{ cursor: "pointer",backgroundColor:"lightgray",color:"black",padding:"10px" }}
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: "lightgray",
+                  color: "black",
+                  padding: "10px",
+                }}
               >
                 {file ? (
                   <span>{file.name}</span>
@@ -203,6 +208,7 @@ function Registrationpage() {
               type="submit"
               className="form-btn"
               onClick={createUserAccount}
+              disabled={btnloading}
             >
               {" "}
               {btnloading ? (
