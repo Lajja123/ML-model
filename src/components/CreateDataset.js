@@ -263,7 +263,7 @@ function CreateDataset({ open, onClose }) {
                   placeholder="Description"
                 />
               </label>
-              {/* <div className="form-flexlable" style={{ width: "400px" }}>
+              <div className="form-flexlable" style={{ width: "400px" }}>
                 {" "}
                 <select
                   name="category"
@@ -281,7 +281,7 @@ function CreateDataset({ open, onClose }) {
                   <option value="3">Earth & nature</option>
                   <option value="4">Science & Technology</option>
                 </select>
-              </div> */}
+              </div>
 
               <div
                 style={{
