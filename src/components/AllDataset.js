@@ -5,8 +5,11 @@ import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
 import "../styles/profile.scss";
 import { useAccount } from "wagmi";
+import { useNavigate } from "react-router-dom";
 
 function AllDataset(props) {
+
+  const navigate = useNavigate()
   const {address} = useAccount();
   const [allDataSet, setAllDataSet] = useState([]);
   // console.log("Address",address)
@@ -40,8 +43,8 @@ function AllDataset(props) {
 
   return (
     <div className="main-dataset-grid-profile">
-      {data.map((item, index) => (
-        <>
+      {allDataSet.map((item, index) => (
+        <div key={index}>
           <div
             style={{ width: "100%", display: "flex", flexDirection: "column" }}
           >
@@ -64,14 +67,15 @@ function AllDataset(props) {
               <button
                 className="dataset-viewmore"
                 onClick={() => {
-                  props.profileLinks("singleDataset");
+                  props.setSingle(allDataSet[index]);
+                  props.profileLinks("SingleDataset");
                 }}
               >
                 View More
               </button>
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );

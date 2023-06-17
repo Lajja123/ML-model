@@ -63,7 +63,9 @@ function AllModel(props) {
             <button
               className="dataset-viewmore"
               onClick={() => {
-                props.profileLinks("singleModel",  { state: { data: item } })
+                props.setSingle(allModelData[index]);
+                props.profileLinks("singleModel")
+
               }}
             >
               View More

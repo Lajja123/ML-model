@@ -7,11 +7,12 @@ import SingleDataset from "./SingleDataset";
 import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
 
-function Dataset() {
+function Dataset({single,setSingle,dashboardLinks}) {
   const [openModal, setOpenModal] = useState(false);
   const [singleDataset, setSingleDataset] = useState(false);
   const [allModelData , setAllModelData] = useState([]);
-
+  const [allDataSet, setAllDataSet] = useState([]);
+  const [isProfile, setIsProfile] = useState(true)
 
   const toggleComponent = () => {
     setSingleDataset(!singleDataset);
@@ -27,11 +28,11 @@ function Dataset() {
                 console.log("Metamask is not installed, please install!");
             }
             const con = await modelInstance();
-            const modelData = await con.getAllDataSet();
+            const dataSet = await con.getAllDataSet();
 
             
-            setAllModelData(modelData);
-            console.log(modelData);
+            setAllDataSet(dataSet);
+            console.log(dataSet);
         }
     } catch (error) {
         console.log(error);
@@ -49,7 +50,7 @@ function Dataset() {
   return (
     <>
       {singleDataset ? (
-        <SingleDataset />
+        <SingleDataset single={single} toggleComponent={toggleComponent} isProfile={isProfile}/>
       ) : (
         <div className="dataset-main-div">
           <div>
@@ -109,7 +110,7 @@ function Dataset() {
             />
           </div>
           <div className="tab-btn">
-            <button className="tab-list">All dataset</button>
+            <button className="tab-list" >All dataset</button>
             <button className="tab-list">Eduaction</button>
             <button className="tab-list">Drugs & Medical</button>
             <button className="tab-list">Earth & nature</button>
@@ -117,7 +118,7 @@ function Dataset() {
           </div>
 
           <div className="main-dataset-grid">
-            {allModelData.map((item, index) => (
+            {allDataSet.map((item, index) => (
               <>
                 <div style={{ width: "100%" }}>
                   <img
@@ -136,7 +137,10 @@ function Dataset() {
                   </div>
                   <button
                     className="dataset-viewmore"
-                    onClick={() => toggleComponent()}
+                    onClick={() => {
+                      setSingle(allDataSet[index]);
+                      toggleComponent();
+                    }}
                   >
                     View More
                   </button>

@@ -7,10 +7,17 @@ import { useState } from "react";
 import CreateDataset from "./CreateDataset";
 import Dataset from "./Dataset";
 
-function SingleDataset() {
-  const [csvRows, setCsvRows] = useState([]);
+function SingleDataset(props) {
+  const [csvData, setCSVData] = useState([]);
+  const [tableHeaders, setTableHeaders] = useState([]);
+  const [tableRows, setTableRows] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [openDataset, setOpenDataset] = useState(false);
+
+  console.log(props.single);
+  const dataSetData = props.single ? props.single : "";
+  // setCsvRows(dataSetData);
+  console.log("Single dataset ",dataSetData);
 
   const toggleComponent = () => {
     setOpenDataset(!openDataset);
@@ -20,24 +27,45 @@ function SingleDataset() {
     fetchCSVData();
   }, []);
 
-  const fetchCSVData = () => {
-    fetch(csvdata)
-      .then((response) => response.text())
-      .then((data) => {
+  const fetchCSVData = async() => {
+  
+
+      try {
+        const response = await fetch(`https://gateway.lighthouse.storage/ipfs/${dataSetData.uploadFile}`);
+        const data = await response.text();
+  
+        // Parse CSV data
         const rows = data.split("\n");
-        setCsvRows(rows);
-      })
-      .catch((error) => {
-        console.log("Error reading CSV file:", error);
-      });
-  };
+        const headers = rows[0].split(",").map((header) => header.trim());
+        const parsedData = rows
+          .slice(1)
+          .filter((row) => row.trim() !== "") // Filter out empty rows
+          .map((row) => {
+            const values = row.split(",").map((value) => value.trim());
+            const rowData = {};
+            headers.forEach((header, index) => {
+              rowData[header] = values[index];
+            });
+            return rowData;
+          });
+  
+        setTableHeaders(headers);
+        setTableRows(parsedData);
+        setCSVData(parsedData);
+      } catch (error) {
+        console.error("Error fetching CSV file:", error);
+      }
+  }
+
+
+   
   return (
     <>
       {openDataset ? (
         <Dataset />
       ) : (
         <>
-          {singledataset.map((item, index) => (
+          
             <div className="signledataset-main-div">
               <div
                 style={{
@@ -55,19 +83,18 @@ function SingleDataset() {
                   }}
                 >
                   {" "}
-                  <h1 className="single-data-title" key={index}>
-                    {item.name}
+                  <h1 className="single-data-title" >
+                    {dataSetData?.title}
                   </h1>
                   <p style={{ fontSize: "20px" }}>
                     {" "}
-                    The provided dataset contains information related to CBSE
-                    Class-X results
+                    {/* {dataSetData.description} */}
                   </p>
                 </div>
                 <div className="single-dataset-flex-sidebar">
                   <div>
                     <button
-                      onClick={() => toggleComponent()}
+                      onClick={() => props.isProfile ? props.toggleComponent() : props.profileLinks("allDataset") }
                       className="back-btn"
                     >
                       ⇦
@@ -86,7 +113,7 @@ function SingleDataset() {
                   </div>
                   <div>
                     <img
-                      src={item.image_url}
+                      src={`https://ipfs.io/ipfs/${dataSetData.image}`}
                       className="single-dataset-img"
                     ></img>
                   </div>
@@ -103,7 +130,7 @@ function SingleDataset() {
                   }}
                   className="single-dataset-desc"
                 >
-                  {item.description}
+                  {dataSetData.description}
                 </div>
                 <div className="single-dataset">
                   <div>
@@ -125,79 +152,40 @@ function SingleDataset() {
                         fontFamily: "JosefinSans",
                       }}
                     >
-                      {item.categories}
+                      {dataSetData.categories}
                     </div>
                   </div>
-                  <div>
-                    <lable
-                      style={{
-                        fontWeight: "700",
-                        fontSize: "20px",
-                        lineHeight: "30px",
-                        fontFamily: "JosefinSans",
-                      }}
-                    >
-                      File type :
-                    </lable>
-                    <div
-                      style={{
-                        fontWeight: "400",
-                        fontSize: "17px",
-                        lineHeight: "30px",
-                        fontFamily: "JosefinSans",
-                      }}
-                    >
-                      {item.file_type}
-                    </div>
-                  </div>
-                  <div>
-                    <lable
-                      style={{
-                        fontWeight: "700",
-                        fontSize: "20px",
-                        lineHeight: "30px",
-                        fontFamily: "JosefinSans",
-                      }}
-                    >
-                      File Size :
-                    </lable>
-                    <div
-                      style={{
-                        fontWeight: "400",
-                        fontSize: "17px",
-                        lineHeight: "30px",
-                        fontFamily: "JosefinSans",
-                      }}
-                    >
-                      {item.file_size}
-                    </div>
-                  </div>
+                 
+                 
                 </div>
               </div>{" "}
-              <table>
-                <thead>
-                  <tr>
-                    <th>Column 1</th>
-                    <th>Column 2</th>
-                    <th>Column 3</th>
-                    {/* Add more column headers if needed */}
-                  </tr>
-                </thead>
-                <tbody>
-                  {csvRows.map((row, index) => {
-                    const columns = row.split(",");
-                    return (
-                      <tr key={index}>
-                        {columns.map((column, columnIndex) => (
-                          <td key={columnIndex}>{column}</td>
-                        ))}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+              {/* <pre>{csvRows}</pre> */}
+              {tableRows.length > 0 && (
+        <div className="container">
+        <div className="scrollable-container">
+          <table>
+            <thead>
+              <tr>
+                {tableHeaders.map((header, index) => (
+                  <th key={index}>{header}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {tableRows.map((row, index) => (
+                <tr key={index}>
+                  {tableHeaders.map((header, index) => (
+                    <td key={index}>{row[header]}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      )}
             </div>
-          ))}
+          
         </>
       )}
     </>

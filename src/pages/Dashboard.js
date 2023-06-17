@@ -31,7 +31,12 @@ function Dashboard() {
   const [addCode, setAddCode] = useState(false);
   const [addCompute, setAddCompute] = useState(false);
   const [addHome, setAddHome] = useState(true);
+  const [singleDataSet, setSingleDataSet] = useState(false);
+  const [singleModelData, setSingleModelData] = useState(false);
+
   const [openProfile, setOpenProfile] = useState(false);
+
+  const [single, setSingle] = useState()
 
   const containerRef = useRef(null);
 
@@ -66,6 +71,8 @@ function Dashboard() {
       setAddDataset(false);
       setAddModel(false);
       setAddCode(false);
+      setSingleDataSet(false);
+      setSingleModelData(false);
     }
     if (a === "addCompute") {
       setAddCompute(true);
@@ -73,12 +80,17 @@ function Dashboard() {
       setAddDataset(false);
       setAddModel(false);
       setAddCode(false);
+      setSingleDataSet(false);
+      setSingleModelData(false);
+
     }
     if (a === "addDataset") {
       setAddHome(false);
       setAddCompute(false);
       setAddDataset(true);
       setAddModel(false);
+      setSingleDataSet(false);
+      setSingleModelData(false);
       setAddCode(false);
     }
     if (a === "addModel") {
@@ -87,6 +99,8 @@ function Dashboard() {
       setAddDataset(false);
       setAddCode(false);
       setAddCompute(false);
+      setSingleDataSet(false);
+      setSingleModelData(false);
     }
     if (a === "addCode") {
       setAddHome(false);
@@ -94,6 +108,26 @@ function Dashboard() {
       setAddCode(true);
       setAddDataset(false);
       setAddModel(false);
+      setSingleDataSet(false);
+      setSingleModelData(false);
+    }
+    if (a === "singleDataSet") {
+      setAddHome(false);
+      setAddCompute(false);
+      setAddCode(false);
+      setAddDataset(false);
+      setAddModel(false);
+      setSingleDataSet(true);
+      setSingleModelData(false);
+    }
+    if (a === "singleModelData") {
+      setAddHome(false);
+      setAddCompute(false);
+      setAddCode(false);
+      setAddDataset(false);
+      setAddModel(false);
+      setSingleDataSet(false);
+      setSingleModelData(true);
     }
   };
 
@@ -267,15 +301,15 @@ function Dashboard() {
 
             {addHome ? (
               <>
-                <Profile></Profile>
+                <Profile single={single} setSingle={setSingle}></Profile>
               </>
             ) : addDataset ? (
               <>
-                <Dataset></Dataset>
+                <Dataset setSingle={setSingle} dashboardLinks={dashboardLinks} single={single}></Dataset>
               </>
             ) : addModel ? (
               <>
-                <Model></Model>
+                <Model setSingle={setSingle} dashboardLinks={dashboardLinks} single={single}></Model>
               </>
             ) : addCode ? (
               <>
@@ -287,7 +321,7 @@ function Dashboard() {
               </>
             ) : openProfile ? (
               <Profile dashboardLinks={dashboardLinks} />
-            ) : null}
+            ) : singleDataSet ? <singleDataset />: singleModelData ? <singleModelData/> : null}
           </div>
         </div>
       </div>

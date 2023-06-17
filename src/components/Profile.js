@@ -5,22 +5,73 @@ import DashboardNavbar from "./DashboardNavbar";
 import dataset from "../components/assets/dataset2.png";
 import model from "../components/assets/model2.png";
 import download from "../components/assets/down.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AllModel from "./AllModel";
 import AllDataset from "./AllDataset";
 import SingleDataset from "./SingleDataset";
 import SingleModel from "./SingleModel";
+import { modelInstance } from "./Contract";
+import { useAccount } from "wagmi";
+import { ethers } from "ethers";
 
-function Profile() {
-  const [allDataset, setAllDataset] = useState(true);
+function Profile({single, setSingle}) {
+  const {address} = useAccount();
+
+  const [allDataset, setAllDataset] = useState(true); 
   const [allModel, setAllModel] = useState(false);
   const [singleDataset, setSingleDataset] = useState(false);
   const [singleModel, setSingleModel] = useState(false);
 
+  const [userName, setUserName] = useState();
+  const [occupation, setOccupation] = useState();
+  const [organization, setOrganization] = useState();
+  const [location, setLocation] = useState();
+  const [image, setImage] = useState();
+  
+
   const toggleComponent = () => {
-    setSingleDataset(!singleDataset);
+    setSingleDataset(!singleDataset); 
     setSingleModel(!singleModel);
   };
+
+  const MainUserData = {
+    userName: userName,
+    occupation: occupation,
+    organization: organization,
+    location:location,
+    image: image,
+};
+
+const getUserAccountDetails = async () => {
+  try {
+      const { ethereum } = window;
+      if (ethereum) {
+          const provider = new ethers.providers.Web3Provider(ethereum);
+          const signer = provider.getSigner();
+          if (!provider) {
+              console.log("Metamask is not installed, please install!");
+          }
+          const con = await modelInstance();
+          const userData = await con.getUser(address);
+
+          // console.log(userData)
+          // console.log(userData[0])
+          // console.log(userData[1])
+          setUserName(userData[0]);
+          setOccupation(userData[1]);
+          setOrganization(userData[2]);
+          setLocation(userData[3]);
+          setImage(userData[4]);
+          return userData;
+      }
+  } catch (error) {
+      console.log(error);
+  }
+};
+
+useEffect(() => {
+getUserAccountDetails();
+},[]);
 
   const profileLinks = (a) => {
     if (a === "allDataset") {
@@ -35,7 +86,7 @@ function Profile() {
       setSingleModel(false);
       setSingleDataset(false);
     }
-    if (a === "singleDataset") {
+    if (a === "SingleDataset") {
       setAllDataset(false);
       setAllModel(false);
       setSingleModel(false);
@@ -47,11 +98,13 @@ function Profile() {
       setSingleModel(true);
       setSingleDataset(false);
     }
+    
   };
   if (singleDataset) {
     return (
       <>
         <SingleDataset
+          single={single}
           profileLinks={profileLinks}
           onClick={() => toggleComponent()}
         />
@@ -62,12 +115,15 @@ function Profile() {
     return (
       <>
         <SingleModel
+        single={single}
           profileLinks={profileLinks}
           onClick={() => toggleComponent()}
         />
       </>
     );
   }
+
+  
 
   return (
     <>
@@ -97,7 +153,7 @@ function Profile() {
                 fontSize: "30px",
               }}
             >
-              Welcome,Lajja
+              Welcome, {userName}
             </h3>
             <div
               style={{
@@ -124,7 +180,7 @@ function Profile() {
                 lineHeight: "25px",
               }}
             >
-              Occupation
+              Occupation: {occupation}
             </div>
             <div
               style={{
@@ -137,7 +193,7 @@ function Profile() {
                 lineHeight: "25px",
               }}
             >
-              Organization
+              Organization: {organization}
             </div>
             <div
               style={{
@@ -150,7 +206,7 @@ function Profile() {
                 lineHeight: "25px",
               }}
             >
-              Location
+              Location: {location}
             </div>
           </div>
         </div>
@@ -282,11 +338,11 @@ function Profile() {
       </div>
       {allDataset ? (
         <>
-          <AllDataset profileLinks={profileLinks} />
+          <AllDataset profileLinks={profileLinks} setSingle={setSingle}/>
         </>
       ) : allModel ? (
         <>
-          <AllModel profileLinks={profileLinks}></AllModel>
+          <AllModel profileLinks={profileLinks} setSingle={setSingle}></AllModel>
         </>
       ) : null}
     </>

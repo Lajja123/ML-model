@@ -12,13 +12,16 @@ import { useLocation } from "react-router-dom";
 
 
 
-function SingleModel() {
-
+function SingleModel(props) {
+  // const location = useLocation()
   const { address } = useAccount();
-  const location = useLocation();
-  console.log(location.state.data);
-  const modelData = location.state ? location.state.data : "";
+  
+  console.log(props.single);
+  const modelData = props.single ? props.single : "";
   const [openModal, setOpenModal] = useState(false);
+  const [code, setCode] = useState([]);
+  const [tableHeaders, setTableHeaders] = useState([]);
+  const [tableRows, setTableRows] = useState([]);
   const [model, setModel] = useState(false);
 
   const toggleComponent = () => {
@@ -26,8 +29,24 @@ function SingleModel() {
   };
 
   useEffect(() => {
-    console.log(modelData[0])
-  }, [])
+    fetchCSVData();
+  }, []);
+
+
+  const fetchCSVData = async() => {
+  
+
+    try {
+      const response = await fetch(`https://gateway.lighthouse.storage/ipfs/${modelData.file}`);
+      const code = await response.text();
+    
+      setCode(code);
+    } catch (error) {
+      console.error("Error fetching Python code:", error);
+    }
+}
+
+
 
 
   const codeText = `#!/usr/bin/env python
@@ -63,7 +82,7 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
       ) : (
         <>
           {" "}
-          {modelData.map((item, index) => (
+          
             <div className="signledataset-main-div">
               <div
                 style={{
@@ -77,13 +96,13 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
               >
                 <div style={{ width: "50%" }}>
                   {" "}
-                  <h1 className="single-data-title" key={index}>
-                    {item.title}
+                  <h1 className="single-data-title" >
+                    {modelData.title}
                   </h1>
                   <p style={{ fontSize: "20px" }}>
                     {" "}
-                    The provided dataset contains information related to CBSE
-                    Class-X results
+                    {/* The provided dataset contains information related to CBSE
+                    Class-X results */}
                   </p>
                   <div
                     style={{
@@ -93,13 +112,13 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
                       borderRadius: "10px",
                     }}
                   >
-                    {item.access}
+                    {/* {item.access} */}
                   </div>
                 </div>
                 <div className="single-dataset-flex-sidebar">
                   <div>
                     <button
-                      onClick={() => toggleComponent()}
+                      onClick={() => props.isProfile ? props.toggleComponent() : props.profileLinks("allDataset") }
                       className="back-btn"
                     >
                       ⇦
@@ -117,7 +136,8 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
                     <button className="single-data-btn">Download</button>
                   </div>
                   <div>
-                    <img src={img1} className="single-dataset-img"></img>
+                    <img src={`https://ipfs.io/ipfs/${modelData.image}`}
+                  className="single-dataset-img"></img>
                   </div>
                 </div>{" "}
               </div>
@@ -132,17 +152,17 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
                   }}
                   className="single-dataset-desc"
                 >
-                  {item.description}
+                  {modelData.description}
                 </div>
                 <div className="single-dataset"></div>
               </div>
               <div style={{ width: "70%", margin: "20px 50px" }}>
                 <SyntaxHighlighter language="python" style={solarizedlight}>
-                  {codeText}
+                  {code}
                 </SyntaxHighlighter>
               </div>
             </div>
-          ))}
+         
         </>
       )}{" "}
     </>

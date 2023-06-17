@@ -14,6 +14,7 @@ import AllModel from "../src/components/AllModel";
 import AllDataset from "../src/components/AllDataset";
 import Compute from "./components/Compute";
 import Landing from "./pages/Landing";
+import SingleModel from "./components/SingleModel";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/allmodel" element={<AllModel />} />
           <Route path="/alldataset" element={<AllDataset />} />
+          <Route path="/singlemodel" element={<SingleModel />} />
+
         </Routes>
       </Router>
     </div>

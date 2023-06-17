@@ -8,14 +8,16 @@ import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
 import CreateModel from "./CreateModel";
 
-function Model() {
+function Model({single,setSingle}) {
   const [singleModel, setSingleModel] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [allModelData , setAllModelData] = useState([]);
+  const [isProfile, setIsProfile] = useState(true)
+
 
   const toggleComponent = () => {
     setSingleModel(!singleModel);
-    window.location.pathname("/singlemodel");
+    // window.location.pathname("/singlemodel");
   };
 
   const getModels = async () => {
@@ -51,7 +53,7 @@ function Model() {
   return (
     <>
       {singleModel ? (
-        <SingleModel />
+        <SingleModel single={single} toggleComponent={toggleComponent} isProfile={isProfile}/>
       ) : (
         <div className="dataset-main-div">
           <div>
@@ -138,7 +140,10 @@ function Model() {
                     </div>
                     <button
                       className="dataset-viewmore"
-                      onClick={() => toggleComponent()}
+                      onClick={()=> { 
+                        setSingle(allModelData[index]);
+                      toggleComponent();
+                      }}
                     >
                       View More
                     </button>
