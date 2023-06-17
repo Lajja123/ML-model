@@ -14,7 +14,7 @@ import CreateDataset from "../components/CreateDataset";
 import CreateModel from "../components/CreateModel";
 import DashboardNavbar from "../components/DashboardNavbar";
 import { useState, useEffect, useRef } from "react";
-import Compute from "../components/Compute";
+import Compute1 from "../components/Compute1";
 import modelimg from "../components/assets/model.png";
 import logo from "../components/assets/logo.png";
 import home from "../components/assets/home.png";
@@ -164,7 +164,7 @@ function Dashboard() {
               />
             </Link>
           </div>
-          <div style={{ width: "100%" }} ref={containerRef}>
+          <div style={{ width: "100%",marginTop:"30px " }} ref={containerRef}>
             <button className="create-button-dashboard">
               <img
                 src={plus}
@@ -176,7 +176,7 @@ function Dashboard() {
                   padding: "0px 20px",
                 }}
               />{" "}
-              <div style={{ fontSize: "1.1rem", fontWeight: "400" }}>
+              <div style={{ fontSize: "1.1rem", fontWeight: "500",borderStartEndRadius:"10px" }}>
                 Create
               </div>
             </button>
@@ -317,7 +317,7 @@ function Dashboard() {
               </>
             ) : addCompute ? (
               <>
-                <Compute></Compute>
+                <Compute1></Compute1>
               </>
             ) : openProfile ? (
               <Profile dashboardLinks={dashboardLinks} />

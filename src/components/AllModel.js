@@ -6,22 +6,21 @@ import lighthouse from "@lighthouse-web3/sdk";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 
-
 function AllModel(props) {
-    const {address} = useAccount();
-    const [allModelData , setAllModelData] = useState([]);
+  const { address } = useAccount();
+  const [allModelData, setAllModelData] = useState([]);
 
   const getModels = async () => {
     try {
-        const { ethereum } = window;
-        if (ethereum) {
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            if (!provider) {
-                console.log("Metamask is not installed, please install!");
-            }
-            const con = await modelInstance();
-            const modelData = await con.getAllModelDataOfUser(address);
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const con = await modelInstance();
+        const modelData = await con.getAllModelDataOfUser(address);
 
         setAllModelData(modelData);
         console.log(modelData);
@@ -53,9 +52,7 @@ function AllModel(props) {
             />
             <div>
               <h4 key={index}>{item.name}</h4>
-              <div key={index}>
-                {/* {item.file_type} ( {item.file_size}) */}
-              </div>
+              <div key={index}></div>
               <div key={index} className="dataset-dec">
                 {item.description}
               </div>

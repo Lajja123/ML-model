@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/dataset.scss";
 import { data } from "../dummyData/dataset";
 import CreateDataset from "./CreateDataset";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import SingleDataset from "./SingleDataset";
 import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
@@ -11,8 +11,9 @@ function Dataset({single,setSingle,dashboardLinks}) {
   const [openModal, setOpenModal] = useState(false);
   const [singleDataset, setSingleDataset] = useState(false);
   const [allModelData , setAllModelData] = useState([]);
-  const [allDataSet, setAllDataSet] = useState([]);
-  const [isProfile, setIsProfile] = useState(true)
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
 
   const toggleComponent = () => {
     setSingleDataset(!singleDataset);
@@ -28,24 +29,32 @@ function Dataset({single,setSingle,dashboardLinks}) {
                 console.log("Metamask is not installed, please install!");
             }
             const con = await modelInstance();
-            const dataSet = await con.getAllDataSet();
+            const modelData = await con.getAllDataSet();
 
             
-            setAllDataSet(dataSet);
-            console.log(dataSet);
+            setAllModelData(modelData);
+            console.log(modelData);
         }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
+  };
 
   useEffect(() => {
     async function fetchModels() {
-        await getDatas();
+      await getDatas();
     }
     console.log("hello");
-    fetchModels()
-  }, [])
+    fetchModels();
+  }, []);
+  const handleSearch = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    const filtered = allModelData.filter((item) =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredData(filtered);
+  };
 
   return (
     <>
@@ -97,7 +106,7 @@ function Dataset({single,setSingle,dashboardLinks}) {
             </svg>
             <input
               type="search"
-              class="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+              className="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
               placeholder="Search"
               aria-label="Search"
               aria-describedby="button-addon2"
@@ -107,6 +116,8 @@ function Dataset({single,setSingle,dashboardLinks}) {
                 width: "100%",
                 borderRadius: "15px",
               }}
+              value={searchQuery}
+              onChange={handleSearch}
             />
           </div>
           <div className="tab-btn">
