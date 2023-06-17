@@ -21,7 +21,7 @@ function Navbar() {
               <img src={logo} alt="logo" style={{ width: "350px" }} />
             </Link>
           </span>
-          <ConnectButton className="connect-btn" />
+          <ConnectButton className="connect-btn" style={{backgroundColor:"white"}}/>
           <button
             onClick={handleClick}
             className={isExpanded === false ? "hamburger" : "hamburger active"}

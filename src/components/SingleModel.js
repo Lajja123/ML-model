@@ -10,12 +10,16 @@ import { useAccount } from "wagmi";
 import { useLocation } from "react-router-dom";
 // import "../styles/signledataset.scss";
 
-function SingleModel() {
+function SingleModel(props) {
+  // const location = useLocation()
   const { address } = useAccount();
-  const location = useLocation();
-  console.log(location.state.data);
-  const modelData = location.state ? location.state.data : "";
+
+  console.log(props.single);
+  const modelData = props.single ? props.single : "";
   const [openModal, setOpenModal] = useState(false);
+  const [code, setCode] = useState([]);
+  const [tableHeaders, setTableHeaders] = useState([]);
+  const [tableRows, setTableRows] = useState([]);
   const [model, setModel] = useState(false);
 
   const toggleComponent = () => {
@@ -23,8 +27,21 @@ function SingleModel() {
   };
 
   useEffect(() => {
-    console.log(modelData[0]);
+    fetchCSVData();
   }, []);
+
+  const fetchCSVData = async () => {
+    try {
+      const response = await fetch(
+        `https://gateway.lighthouse.storage/ipfs/${modelData.file}`
+      );
+      const code = await response.text();
+
+      setCode(code);
+    } catch (error) {
+      console.error("Error fetching Python code:", error);
+    }
+  };
 
   const codeText = `#!/usr/bin/env python
 
@@ -59,86 +76,89 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
       ) : (
         <>
           {" "}
-          {modelData.map((item, index) => (
-            <div className="signledataset-main-div">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  padding: "20px 50px",
-                  borderBottom: "1px solid white",
-                  fontFamily: "JosefinSans",
-                }}
-              >
-                <div style={{ width: "50%" }}>
+          <div className="signledataset-main-div">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                padding: "20px 50px",
+                borderBottom: "1px solid white",
+                fontFamily: "JosefinSans",
+              }}
+            >
+              <div style={{ width: "50%" }}>
+                {" "}
+                <h1 className="single-data-title">{modelData.title}</h1>
+                <p style={{ fontSize: "20px" }}>
                   {" "}
-                  <h1 className="single-data-title" key={index}>
-                    {item.title}
-                  </h1>
-                  <p style={{ fontSize: "20px" }}>
-                    {" "}
-                    The provided dataset contains information related to CBSE
-                    Class-X results
-                  </p>
-                  <div
-                    style={{
-                      backgroundColor: "#1a74e2",
-                      width: "60px",
-                      padding: "10px",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    {item.access}
-                  </div>
-                </div>
-                <div className="single-dataset-flex-sidebar">
-                  <div>
-                    <button
-                      onClick={() => toggleComponent()}
-                      className="back-btn"
-                    >
-                      ⇦
-                    </button>
-                    <button
-                      className="single-data-btn"
-                      onClick={() => setOpenModal(true)}
-                    >
-                      Create Model
-                    </button>
-                    <CreateModel
-                      open={openModal}
-                      onClose={() => setOpenModal(false)}
-                    />
-                    <button className="single-data-btn">Download</button>
-                  </div>
-                  <div>
-                    <img src={img1} className="single-dataset-img"></img>
-                  </div>
-                </div>{" "}
-              </div>
-              <div className="single-dataset-flex-content">
+                  {/* The provided dataset contains information related to CBSE
+                    Class-X results */}
+                </p>
                 <div
                   style={{
-                    width: "55%",
-                    fontSize: "20px",
-                    lineHeight: "37px",
-                    letterSpacing: "1px",
-                    fontFamily: "JosefinSans",
+                    backgroundColor: "#f7d060",
+                    width: "60px",
+                    padding: "10px",
+                    borderRadius: "10px",
                   }}
-                  className="single-dataset-desc"
                 >
-                  {item.description}
+                  {/* {item.access} */}
                 </div>
-                <div className="single-dataset"></div>
               </div>
-              <div style={{ width: "70%", margin: "20px 50px" }}>
-                <SyntaxHighlighter language="python" style={solarizedlight}>
-                  {codeText}
-                </SyntaxHighlighter>
-              </div>
+              <div className="single-dataset-flex-sidebar">
+                <div>
+                  <button
+                    onClick={() =>
+                      props.isProfile
+                        ? props.toggleComponent()
+                        : props.profileLinks("allDataset")
+                    }
+                    className="back-btn"
+                  >
+                    ⇦
+                  </button>
+                  <button
+                    className="single-data-btn"
+                    onClick={() => setOpenModal(true)}
+                  >
+                    Create Model
+                  </button>
+                  <CreateModel
+                    open={openModal}
+                    onClose={() => setOpenModal(false)}
+                  />
+                  <button className="single-data-btn">Download</button>
+                </div>
+                <div>
+                  <img
+                    src={`https://ipfs.io/ipfs/${modelData.image}`}
+                    className="single-dataset-img"
+                  ></img>
+                </div>
+              </div>{" "}
             </div>
-          ))}
+            <div className="single-dataset-flex-content">
+              <div
+                style={{
+                  width: "55%",
+                  fontSize: "20px",
+                  lineHeight: "37px",
+                  letterSpacing: "1px",
+                  fontFamily: "JosefinSans",
+                }}
+                className="single-dataset-desc"
+              >
+                {modelData.description}
+              </div>
+              <div className="single-dataset"></div>
+            </div>
+            <div style={{ width: "70%", margin: "20px 50px" }}>
+              <SyntaxHighlighter language="python" style={solarizedlight}>
+                {code}
+              </SyntaxHighlighter>
+            </div>
+          </div>
         </>
       )}{" "}
     </>

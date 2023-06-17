@@ -25,7 +25,7 @@
       list-style-type: none;
       width: 100%;
       padding: 0;
-      margin: 0;
+      margin: 30px 0px;
 
       li {
         display: flex;
@@ -44,10 +44,10 @@
         color: white;
         font-size: 20px;
 
-        &:hover {
-          background-color: #cce4f0;
-          color: black;
-        }
+        // &:hover {
+        //   background-color: #cce4f0;
+        //   color: black;
+        // }
 
         svg {
           margin-right: 10px;
@@ -71,8 +71,11 @@
       justify-content: "flex-start";
       align-items: center;
       border: none;
+      font-weight: 500;
+      border-end-end-radius: 20px;
+      border-start-start-radius: 20px;
       padding: 10px 0px;
-      background-color: #b6c3cf;
+      background-color: lightgray;
       color: black;
     }
   }

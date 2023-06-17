@@ -2,16 +2,21 @@ import React from "react";
 import "../styles/dataset.scss";
 import { data } from "../dummyData/dataset";
 import CreateDataset from "./CreateDataset";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import SingleDataset from "./SingleDataset";
 import { modelInstance } from "./Contract";
+import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 
-function Dataset() {
+function Dataset({ single, setSingle, dashboardLinks }) {
   const [openModal, setOpenModal] = useState(false);
   const [singleDataset, setSingleDataset] = useState(false);
-  const [allModelData , setAllModelData] = useState([]);
-
+  const [allModelData, setAllModelData] = useState([]);
+  const [allDataSet, setAllDataSet] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isProfile, setIsProfile] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const toggleComponent = () => {
     setSingleDataset(!singleDataset);
@@ -19,37 +24,49 @@ function Dataset() {
 
   const getDatas = async () => {
     try {
-        const { ethereum } = window;
-        if (ethereum) {
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            if (!provider) {
-                console.log("Metamask is not installed, please install!");
-            }
-            const con = await modelInstance();
-            const modelData = await con.getAllDataSet();
-
-            
-            setAllModelData(modelData);
-            console.log(modelData);
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
         }
+        const con = await modelInstance();
+        const Data = await con.getAllDataSet();
+
+        setAllDataSet(Data);
+        setLoading(false);
+        console.log(Data);
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
+  };
 
   useEffect(() => {
     async function fetchModels() {
-        await getDatas();
+      await getDatas();
     }
     console.log("hello");
-    fetchModels()
-  }, [])
+    fetchModels();
+  }, []);
+  const handleSearch = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    const filtered = allDataSet.filter((item) =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredData(filtered);
+  };
 
   return (
     <>
       {singleDataset ? (
-        <SingleDataset />
+        <SingleDataset
+          single={single}
+          toggleComponent={toggleComponent}
+          isProfile={isProfile}
+        />
       ) : (
         <div className="dataset-main-div">
           <div>
@@ -57,7 +74,10 @@ function Dataset() {
             <h1 style={{ margin: "10px 0px " }} className="dataset-content">
               Datasets
             </h1>
-            <div className="dataset-content" style={{ margin: "10px 0px " }}>
+            <div
+              className="dataset-content"
+              style={{ margin: "10px 0px ", fontWeight: "500" }}
+            >
               Explore, analyze, and share quality data.
             </div>
             <div className="dataset-content" style={{ margin: "20px 0px" }}>
@@ -96,7 +116,7 @@ function Dataset() {
             </svg>
             <input
               type="search"
-              class="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+              className="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
               placeholder="Search"
               aria-label="Search"
               aria-describedby="button-addon2"
@@ -106,43 +126,50 @@ function Dataset() {
                 width: "100%",
                 borderRadius: "15px",
               }}
+              value={searchQuery}
+              onChange={handleSearch}
             />
-          </div>
-          <div className="tab-btn">
-            <button className="tab-list">All dataset</button>
-            <button className="tab-list">Eduaction</button>
-            <button className="tab-list">Drugs & Medical</button>
-            <button className="tab-list">Earth & nature</button>
-            <button className="tab-list">Scie & Technology</button>
           </div>
 
           <div className="main-dataset-grid">
-            {allModelData.map((item, index) => (
+            {loading ? (
+              <div className="loader-container">
+                <div className="loader-spinner"></div>
+              </div>
+            ) : (
               <>
-                <div style={{ width: "100%" }}>
-                  <img
-                    src={`https://ipfs.io/ipfs/${item.image}`}
-                    alt={`Image ${index}`}
-                    className="dataset-img"
-                  />
-                  <div className="alldataset-grid">
-                    <h4 key={index}>{item.name}</h4>
-                    {/* <div key={index}>
-                      {item.file_type} ( {item.file_size})
-                    </div> */}
-                    <div key={index}>
-                      <p className="dataset-dec">{item.description}</p>
+                {" "}
+                {allDataSet.map((item, index) => (
+                  <>
+                    <div style={{ width: "100%" }}>
+                      <img
+                        src={`https://ipfs.io/ipfs/${item.image}`}
+                        alt={`Image ${index}`}
+                        className="dataset-img"
+                      />
+                      <div className="alldataset-grid">
+                        <h4 key={index}>{item.name}</h4>
+                        {/* <div key={index}>
+                {item.file_type} ( {item.file_size})
+              </div> */}
+                        <div key={index}>
+                          <p className="dataset-dec">{item.description}</p>
+                        </div>
+                        <button
+                          className="dataset-viewmore"
+                          onClick={() => {
+                            setSingle(allDataSet[index]);
+                            toggleComponent();
+                          }}
+                        >
+                          View More
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <button
-                    className="dataset-viewmore"
-                    onClick={() => toggleComponent()}
-                  >
-                    View More
-                  </button>
-                </div>
+                  </>
+                ))}
               </>
-            ))}
+            )}
           </div>
         </div>
       )}

@@ -10,13 +10,11 @@ import CellComponents from "../examples/cell/CellComponents.tsx";
 
 function Code() {
   return (
-    <>
+    <div style={{margin: 20}}>
       <Jupyter startDefaultKernel={true}>
         <CellComponents />
-        <Cell />
-        <hr />
       </Jupyter>
-    </>
+    </div>
   );
 }
 

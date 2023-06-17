@@ -3,55 +3,61 @@ import DashboardNavbar from "./DashboardNavbar";
 import "../styles/dataset.scss";
 import SingleModel from "./SingleModel";
 import { data } from "../dummyData/model";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
 import CreateModel from "./CreateModel";
+import "react-toastify/dist/ReactToastify.css";
 
-function Model() {
+function Model({ single, setSingle }) {
   const [singleModel, setSingleModel] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [allModelData , setAllModelData] = useState([]);
+  const [allModelData, setAllModelData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isProfile, setIsProfile] = useState(true);
 
   const toggleComponent = () => {
     setSingleModel(!singleModel);
-    window.location.pathname("/singlemodel");
+    // window.location.pathname("/singlemodel");
   };
 
   const getModels = async () => {
     try {
-        const { ethereum } = window;
-        if (ethereum) {
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            if (!provider) {
-                console.log("Metamask is not installed, please install!");
-            }
-            const con = await modelInstance();
-            const modelData = await con.getAllModelData();
-
-            
-            setAllModelData(modelData);
-            console.log(modelData);
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
         }
+        const con = await modelInstance();
+        const modelData = await con.getAllModelData();
+
+        setAllModelData(modelData);
+        setLoading(false);
+        console.log(modelData);
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
+  };
 
   useEffect(() => {
     async function fetchModels() {
-        await getModels();
+      await getModels();
     }
     console.log("hello");
-    fetchModels()
-  }, [])
-
+    fetchModels();
+  }, []);
 
   return (
     <>
       {singleModel ? (
-        <SingleModel />
+        <SingleModel
+          single={single}
+          toggleComponent={toggleComponent}
+          isProfile={isProfile}
+        />
       ) : (
         <div className="dataset-main-div">
           <div>
@@ -110,42 +116,60 @@ function Model() {
           </div>
 
           <div className="main-dataset-grid">
-            {allModelData.map((item, index) => (
+            {loading ? (
+              <div className="loader-container">
+                <div className="loader-spinner"></div>
+              </div>
+            ) : (
               <>
-                <div
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <img
-                    src={`https://ipfs.io/ipfs/${item.image}`}
-                    alt={`Image ${index}`}
-                    className="dataset-img"
-                  />
-                  <div className="alldataset-grid">
-                    <h4 key={index}>{item.name}</h4>
-                    {/* /* <div key={index}>
+                {" "}
+                {allModelData.map((item, index) => (
+                  <>
+                    <div
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        backgroundColor: "black",
+
+                        boxShadow: "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+                      }}
+                    >
+                      <div>
+                        <img
+                          src={`https://ipfs.io/ipfs/${item.image}`}
+                          alt={`Image ${index}`}
+                          className="dataset-img"
+                        />
+                      </div>
+
+                      <div className="alldataset-grid">
+                        <h4 key={index}>{item.name}</h4>
+                        {/* /* <div key={index}>
                       {item.file_type} ( {item.file_size})
                     </div> */}
-                    <div
-                      key={index}
-                      className="dataset-dec"
-                      style={{ margin: "10px 0px" }}
-                    >
-                      {item.description}
+                        <div
+                          key={index}
+                          className="dataset-dec"
+                          style={{ margin: "10px 0px" }}
+                        >
+                          {item.description}
+                        </div>
+                        <button
+                          className="dataset-viewmore"
+                          onClick={() => {
+                            setSingle(allModelData[index]);
+                            toggleComponent();
+                          }}
+                        >
+                          View More
+                        </button>
+                      </div>
                     </div>
-                    <button
-                      className="dataset-viewmore"
-                      onClick={() => toggleComponent()}
-                    >
-                      View More
-                    </button>
-                  </div>
-                </div>
+                  </>
+                ))}
               </>
-            ))}
+            )}
           </div>
         </div>
       )}

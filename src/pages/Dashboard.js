@@ -14,7 +14,7 @@ import CreateDataset from "../components/CreateDataset";
 import CreateModel from "../components/CreateModel";
 import DashboardNavbar from "../components/DashboardNavbar";
 import { useState, useEffect, useRef } from "react";
-import Compute from "../components/Compute";
+import Compute1 from "../components/Compute1";
 import modelimg from "../components/assets/model.png";
 import logo from "../components/assets/logo.png";
 import home from "../components/assets/home.png";
@@ -31,7 +31,12 @@ function Dashboard() {
   const [addCode, setAddCode] = useState(false);
   const [addCompute, setAddCompute] = useState(false);
   const [addHome, setAddHome] = useState(true);
+  const [singleDataSet, setSingleDataSet] = useState(false);
+  const [singleModelData, setSingleModelData] = useState(false);
+
   const [openProfile, setOpenProfile] = useState(false);
+
+  const [single, setSingle] = useState()
 
   const containerRef = useRef(null);
 
@@ -66,6 +71,8 @@ function Dashboard() {
       setAddDataset(false);
       setAddModel(false);
       setAddCode(false);
+      setSingleDataSet(false);
+      setSingleModelData(false);
     }
     if (a === "addCompute") {
       setAddCompute(true);
@@ -73,12 +80,17 @@ function Dashboard() {
       setAddDataset(false);
       setAddModel(false);
       setAddCode(false);
+      setSingleDataSet(false);
+      setSingleModelData(false);
+
     }
     if (a === "addDataset") {
       setAddHome(false);
       setAddCompute(false);
       setAddDataset(true);
       setAddModel(false);
+      setSingleDataSet(false);
+      setSingleModelData(false);
       setAddCode(false);
     }
     if (a === "addModel") {
@@ -87,6 +99,8 @@ function Dashboard() {
       setAddDataset(false);
       setAddCode(false);
       setAddCompute(false);
+      setSingleDataSet(false);
+      setSingleModelData(false);
     }
     if (a === "addCode") {
       setAddHome(false);
@@ -94,6 +108,26 @@ function Dashboard() {
       setAddCode(true);
       setAddDataset(false);
       setAddModel(false);
+      setSingleDataSet(false);
+      setSingleModelData(false);
+    }
+    if (a === "singleDataSet") {
+      setAddHome(false);
+      setAddCompute(false);
+      setAddCode(false);
+      setAddDataset(false);
+      setAddModel(false);
+      setSingleDataSet(true);
+      setSingleModelData(false);
+    }
+    if (a === "singleModelData") {
+      setAddHome(false);
+      setAddCompute(false);
+      setAddCode(false);
+      setAddDataset(false);
+      setAddModel(false);
+      setSingleDataSet(false);
+      setSingleModelData(true);
     }
   };
 
@@ -130,7 +164,7 @@ function Dashboard() {
               />
             </Link>
           </div>
-          <div style={{ width: "100%" }} ref={containerRef}>
+          <div style={{ width: "100%",marginTop:"30px " }} ref={containerRef}>
             <button className="create-button-dashboard">
               <img
                 src={plus}
@@ -142,7 +176,7 @@ function Dashboard() {
                   padding: "0px 20px",
                 }}
               />{" "}
-              <div style={{ fontSize: "1.1rem", fontWeight: "400" }}>
+              <div style={{ fontSize: "1.1rem", fontWeight: "500",borderStartEndRadius:"10px" }}>
                 Create
               </div>
             </button>
@@ -267,15 +301,15 @@ function Dashboard() {
 
             {addHome ? (
               <>
-                <Profile></Profile>
+                <Profile single={single} setSingle={setSingle}></Profile>
               </>
             ) : addDataset ? (
               <>
-                <Dataset></Dataset>
+                <Dataset setSingle={setSingle} dashboardLinks={dashboardLinks} single={single}></Dataset>
               </>
             ) : addModel ? (
               <>
-                <Model></Model>
+                <Model setSingle={setSingle} dashboardLinks={dashboardLinks} single={single}></Model>
               </>
             ) : addCode ? (
               <>
@@ -283,11 +317,11 @@ function Dashboard() {
               </>
             ) : addCompute ? (
               <>
-                <Compute></Compute>
+                <Compute1></Compute1>
               </>
             ) : openProfile ? (
               <Profile dashboardLinks={dashboardLinks} />
-            ) : null}
+            ) : singleDataSet ? <singleDataset />: singleModelData ? <singleModelData/> : null}
           </div>
         </div>
       </div>
