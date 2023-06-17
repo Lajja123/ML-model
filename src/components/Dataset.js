@@ -2,16 +2,49 @@ import React from "react";
 import "../styles/dataset.scss";
 import { data } from "../dummyData/dataset";
 import CreateDataset from "./CreateDataset";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import SingleDataset from "./SingleDataset";
+import { modelInstance } from "./Contract";
+import { ethers } from "ethers";
 
 function Dataset() {
   const [openModal, setOpenModal] = useState(false);
   const [singleDataset, setSingleDataset] = useState(false);
+  const [allModelData , setAllModelData] = useState([]);
+
 
   const toggleComponent = () => {
     setSingleDataset(!singleDataset);
   };
+
+  const getDatas = async () => {
+    try {
+        const { ethereum } = window;
+        if (ethereum) {
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            if (!provider) {
+                console.log("Metamask is not installed, please install!");
+            }
+            const con = await modelInstance();
+            const modelData = await con.getAllDataSet();
+
+            
+            setAllModelData(modelData);
+            console.log(modelData);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+  useEffect(() => {
+    async function fetchModels() {
+        await getDatas();
+    }
+    console.log("hello");
+    fetchModels()
+  }, [])
 
   return (
     <>
@@ -84,19 +117,19 @@ function Dataset() {
           </div>
 
           <div className="main-dataset-grid">
-            {data.map((item, index) => (
+            {allModelData.map((item, index) => (
               <>
                 <div style={{ width: "100%" }}>
                   <img
-                    src={item.image_url}
+                    src={`https://ipfs.io/ipfs/${item.image}`}
                     alt={`Image ${index}`}
                     className="dataset-img"
                   />
                   <div className="alldataset-grid">
                     <h4 key={index}>{item.name}</h4>
-                    <div key={index}>
+                    {/* <div key={index}>
                       {item.file_type} ( {item.file_size})
-                    </div>
+                    </div> */}
                     <div key={index}>
                       <p className="dataset-dec">{item.description}</p>
                     </div>

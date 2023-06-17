@@ -56,12 +56,33 @@ function CreateDataset({ open, onClose }) {
     }
   };
 
+  const uploadDatasetImage = async () => {
+    try {
+      console.log("in upload image function");
+      const file = Data.image; // Access the file from the array
+      const output = await lighthouse.upload(
+        file,
+        "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
+        progressCallback
+      );
+      console.log("Image Status:", output);
+
+      return output;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const createDataset = async (e) => {
     try {
       console.log("in create account function");
       const output = await uploadDataset();
       const cids = output.data.Hash;
       console.log("cids: ", cids);
+
+      const outputImage = await uploadDatasetImage();
+      const cidsImage = outputImage.data.Hash;
+      console.log("cidsForImage: ", cidsImage);
 
       console.log("Data: ", Data);
 
@@ -75,6 +96,7 @@ function CreateDataset({ open, onClose }) {
         console.log("Hello");
         const tx = await con.setData(
           Data.title,
+          cidsImage,
           Data.description,
           cids,
           Data.category,
@@ -142,7 +164,7 @@ function CreateDataset({ open, onClose }) {
                       name="file"
                       accept=".csv"
                       onChange={(e) => {
-                        setData({ ...Data, file: e.target.value });
+                        setData({ ...Data, file: e.target.files });
                       }}
                       style={{ marginLeft: "40px" }}
                       // multiple
@@ -160,7 +182,7 @@ function CreateDataset({ open, onClose }) {
                     // accept=".csv"
                     placeholder="Upload Image"
                     onChange={(e) => {
-                      setData({ ...Data, image: e.target.value });
+                      setData({ ...Data, image: e.target.files });
                     }}
                     style={{ marginLeft: "40px" }}
                     // multiple

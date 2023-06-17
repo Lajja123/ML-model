@@ -4,22 +4,17 @@ import {
   IpyWidgetsComponent,
   Notebook,
   CellSidebarDefault,
+  Cell,
 } from "@datalayer/jupyter-react";
-import CellComponents from "../examples/cell/CellComponents";
-import IPyWidgetsSimple from "../examples/ipywidgets/IPyWidgetsSimple";
-import OutputsComponents from "../examples/outputs/OutputsComponents";
+import CellComponents from "../examples/cell/CellComponents.tsx";
 
 function Code() {
   return (
     <>
       <Jupyter startDefaultKernel={true}>
-        <IpyWidgetsComponent Widget={IPyWidgetsSimple} />
-        <hr />
-        <OutputsComponents />
-        <hr />
         <CellComponents />
+        <Cell />
         <hr />
-        <Notebook path="/ping.ipynb" CellSidebar={CellSidebarDefault} />
       </Jupyter>
     </>
   );

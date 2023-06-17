@@ -44,12 +44,34 @@ function CreateModel({ open, onClose }) {
     }
   };
 
+
+  const uploadImage = async () => {
+    try {
+      console.log("in upload Image Model function");
+      const image = Data.image; // Access the file from the array
+      const output = await lighthouse.upload(
+        image,
+        "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
+        progressCallback
+      );
+      console.log("Image Status:", output);
+
+      return output;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const createModel = async () => {
     try {
       console.log("in create account function");
       const output = await uploadModel();
       const cids = output.data.Hash;
       console.log("cids: ", cids);
+
+      const outputImage = await uploadImage();
+      const cidsImage = outputImage.data.Hash;
+      console.log("CidsForImage ",cidsImage);
 
       const { ethereum } = window;
       if (ethereum) {
@@ -61,6 +83,7 @@ function CreateModel({ open, onClose }) {
         console.log("Hello");
         const tx = await con.modelData(
           cids,
+          cidsImage,
           Data.name,
           Data.description,
           Data.status
@@ -114,7 +137,7 @@ function CreateModel({ open, onClose }) {
                     name="file"
                     // accept=".csv"
                     onChange={(e) => {
-                      setData({ ...Data, file: e.target.value });
+                      setData({ ...Data, file: e.target.files });
                     }}
                     style={{ marginLeft: "40px" }}
                     // multiple
@@ -145,16 +168,15 @@ function CreateModel({ open, onClose }) {
                   placeholder="Description"
                 />
               </label>
-              <div className="file-input-container">
+              <div>
                 <input
                   type="file"
                   name="image"
-                  // accept=".csv"
+                  accept=".jpg, .png, .jpeg"
                   onChange={(e) => {
-                    setData({ ...Data, image: e.target.value });
+                    setData({ ...Data, image: e.target.files });
                   }}
                   style={{ marginLeft: "40px" }}
-                  // multiple
                 />
               </div>
               <div

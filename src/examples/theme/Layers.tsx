@@ -19,11 +19,11 @@ export const color4 = colors[4];
 
 const Layers = (props: any) => (
   <svg xmlns="http://www.w3.org/2000/layers" width="100%" height="20">
-    <linearGradient id="a">
+    <linearGradient id="b">
       <stop offset="0" stopColor={color0} />
       <stop offset="1" stopColor={color1} />
     </linearGradient>
-    <linearGradient id="b">
+    <linearGradient id="a">
       <stop offset="0" stopColor={color2} />
       <stop offset=".5" stopColor={color3 }/>
       <stop offset="1" stopColor={color4} />

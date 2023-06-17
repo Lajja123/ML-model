@@ -1,5 +1,6 @@
 body {
-  background: white;
+  background: black;
+  color: white;
   overflow-y: scroll;
   margin: 0;
   padding: 0;
