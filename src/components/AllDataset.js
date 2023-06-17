@@ -49,7 +49,7 @@ function AllDataset(props) {
             style={{ width: "100%", display: "flex", flexDirection: "column" }}
           >
             <img
-              src={`https://ipfs.io/ipfs/${item.image}`}
+              src={`https://gateway.lighthouse.storage/ipfs/${item.image}`}
               alt={`Image ${index}`}
               className="dataset-image"
             />

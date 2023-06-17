@@ -79,7 +79,7 @@ function Dataset({single,setSingle,dashboardLinks}) {
               </button>
             </div>{" "}
             <CreateDataset
-              open={openModal}
+              open={openModal}  
               onClose={() => setOpenModal(false)}
             />
           </div>
@@ -136,7 +136,7 @@ function Dataset({single,setSingle,dashboardLinks}) {
               <>
                 <div style={{ width: "100%" }}>
                   <img
-                    src={`https://ipfs.io/ipfs/${item.image}`}
+                    src={`https://gateway.lighthouse.storage/ipfs/${item.image}`}
                     alt={`Image ${index}`}
                     className="dataset-img"
                   />

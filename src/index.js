@@ -14,9 +14,24 @@ import { polygonMumbai, optimism, arbitrum } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
+const filecoinCalibration = {
+  id: 314159,
+  name: 'Filecoin - Calibration ',
+  network: 'Filecoin — Calibration testnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'tFIl',
+    symbol: 'tFIL'
+  },
+  rpcUrls: {
+    default: 'https://filecoin-calibration.chainup.net/rpc/v1'
+  },
+  testnet: true
+}
+
 const { chains, provider } = configureChains(
   // [BTTChain],
-  [polygonMumbai, optimism, arbitrum],
+  [filecoinCalibration, polygonMumbai, optimism, arbitrum],
   [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
 );
 

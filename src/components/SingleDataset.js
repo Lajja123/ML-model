@@ -113,7 +113,7 @@ function SingleDataset(props) {
                   </div>
                   <div>
                     <img
-                      src={`https://ipfs.io/ipfs/${dataSetData.image}`}
+                      src={`https://gateway.lighthouse.storage/ipfs/${dataSetData.image}`}
                       className="single-dataset-img"
                     ></img>
                   </div>

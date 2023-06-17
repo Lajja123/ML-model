@@ -136,7 +136,7 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
                     <button className="single-data-btn">Download</button>
                   </div>
                   <div>
-                    <img src={`https://ipfs.io/ipfs/${modelData.image}`}
+                    <img src={`https://gateway.lighthouse.storage/ipfs/${modelData.image}`}
                   className="single-dataset-img"></img>
                   </div>
                 </div>{" "}

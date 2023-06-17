@@ -120,7 +120,7 @@ function Model({single,setSingle}) {
                   }}
                 >
                   <img
-                    src={`https://ipfs.io/ipfs/${item.image}`}
+                    src={`https://gateway.lighthouse.storage/ipfs/${item.image}`}
                     alt={`Image ${index}`}
                     className="dataset-img"
                   />
