@@ -94,71 +94,66 @@ call(['dd', 'if=/dev/zero', 'of=%s' % filepath, 'bs=%d' % num_bytes, 'count=1'])
                   {" "}
                   {/* The provided dataset contains information related to CBSE
                     Class-X results */}
-                </p>
+                  </p>
+                  <div
+                    style={{
+                      backgroundColor: "#1a74e2",
+                      width: "60px",
+                      padding: "10px",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    {/* {item.access} */}
+                  </div>
+                </div>
+                <div className="single-dataset-flex-sidebar">
+                  <div>
+                    <button
+                      onClick={() => props.isProfile ? props.toggleComponent() : props.profileLinks("allDataset") }
+                      className="back-btn"
+                    >
+                      ⇦
+                    </button>
+                    <button
+                      className="single-data-btn"
+                      onClick={() => setOpenModal(true)}
+                    >
+                      Create Model
+                    </button>
+                    <CreateModel
+                      open={openModal}
+                      onClose={() => setOpenModal(false)}
+                    />
+                    <button className="single-data-btn">Download</button>
+                  </div>
+                  <div>
+                    <img src={`https://gateway.lighthouse.storage/ipfs/${modelData.image}`}
+                  className="single-dataset-img"></img>
+                  </div>
+                </div>{" "}
+              </div>
+              <div className="single-dataset-flex-content">
                 <div
                   style={{
-                    backgroundColor: "#f7d060",
-                    width: "60px",
-                    padding: "10px",
-                    borderRadius: "10px",
+                    width: "55%",
+                    fontSize: "20px",
+                    lineHeight: "37px",
+                    letterSpacing: "1px",
+                    fontFamily: "JosefinSans",
                   }}
+                  className="single-dataset-desc"
                 >
-                  {/* {item.access} */}
+                  {modelData.description}
                 </div>
+                <div className="single-dataset"></div>
               </div>
-              <div className="single-dataset-flex-sidebar">
-                <div>
-                  <button
-                    onClick={() =>
-                      props.isProfile
-                        ? props.toggleComponent()
-                        : props.profileLinks("allDataset")
-                    }
-                    className="back-btn"
-                  >
-                    ⇦
-                  </button>
-                  <button
-                    className="single-data-btn"
-                    onClick={() => setOpenModal(true)}
-                  >
-                    Create Model
-                  </button>
-                  <CreateModel
-                    open={openModal}
-                    onClose={() => setOpenModal(false)}
-                  />
-                  <button className="single-data-btn">Download</button>
-                </div>
-                <div>
-                  <img
-                    src={`https://ipfs.io/ipfs/${modelData.image}`}
-                    className="single-dataset-img"
-                  ></img>
-                </div>
-              </div>{" "}
-            </div>
-            <div className="single-dataset-flex-content">
-              <div
-                style={{
-                  width: "55%",
-                  fontSize: "20px",
-                  lineHeight: "37px",
-                  letterSpacing: "1px",
-                  fontFamily: "JosefinSans",
-                }}
-                className="single-dataset-desc"
-              >
-                {modelData.description}
+              <div style={{ width: "70%", margin: "20px 50px" }}>
+                <SyntaxHighlighter language="python" style={solarizedlight}>
+                  {code}
+                </SyntaxHighlighter>
               </div>
-              <div className="single-dataset"></div>
             </div>
-            <div style={{ width: "70%", margin: "20px 50px" }}>
-              <SyntaxHighlighter language="python" style={solarizedlight}>
-                {code}
-              </SyntaxHighlighter>
-            </div>
-          </div>
+         
         </>
       )}{" "}
     </>

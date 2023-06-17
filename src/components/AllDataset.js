@@ -53,41 +53,39 @@ function AllDataset(props) {
       ) : (
         <>
           {" "}
-          {allDataSet.map((item, index) => (
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-              key={index}
-            >
-              <img
-                src={`https://ipfs.io/ipfs/${item.image}`}
-                alt={`Image ${index}`}
-                className="dataset-image"
-              />
-              <div className="alldataset-grid">
-                <h4 key={index}>{item.name}</h4>
-                <div key={index}>
-                  <p className="dataset-dec">{item.title}</p>
-                </div>
-                <div key={index}>
-                  <p className="dataset-dec">{item.description}</p>
-                </div>
-                <button
-                  className="dataset-viewmore"
-                  onClick={() => {
-                    props.setSingle(allDataSet[index]);
-                    props.profileLinks("SingleDataset");
-                  }}
-                >
-                  View More
-                </button>
+      {allDataSet.map((item, index) => (
+        <div key={index}>
+          <div
+            style={{ width: "100%", display: "flex", flexDirection: "column" }}
+          >
+            <img
+              src={`https://gateway.lighthouse.storage/ipfs/${item.image}`}
+              alt={`Image ${index}`}
+              className="dataset-image"
+            />
+            <div className="alldataset-grid">
+              <h4 key={index}>{item.name}</h4>
+              <div key={index}>
+                <p className="dataset-dec">{item.title}</p>
               </div>
+              <div key={index}>
+                <p className="dataset-dec">{item.description}</p>
+              </div>
+              <button
+                className="dataset-viewmore"
+                onClick={() => {
+                  props.setSingle(allDataSet[index]);
+                  props.profileLinks("SingleDataset");
+                }}
+              >
+                View More
+              </button>
             </div>
-          ))}
-        </>
+          </div>
+      
+        </div>
+      ))}
+      </>
       )}
     </div>
   );

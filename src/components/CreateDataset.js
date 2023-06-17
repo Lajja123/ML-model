@@ -54,7 +54,7 @@ function CreateDataset({ open, onClose }) {
       const file = Data.file; // Access the file from the array
       const output = await lighthouse.upload(
         file,
-        "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
+        "ee42a13a.3117f0d2e3bc4e73bb459ea3612a2471",
         progressCallback
       );
       console.log("File Status:", output);
@@ -68,10 +68,10 @@ function CreateDataset({ open, onClose }) {
   const uploadDatasetImage = async () => {
     try {
       console.log("in upload image function");
-      const file = Data.image; // Access the file from the array
+      const image = Data.image; // Access the file from the array
       const output = await lighthouse.upload(
-        [file],
-        "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
+        image,
+        "ee42a13a.3117f0d2e3bc4e73bb459ea3612a2471",
         progressCallback
       );
       console.log("Image Status:", output);
@@ -197,7 +197,7 @@ function CreateDataset({ open, onClose }) {
                         accept="image/*"
                         onChange={(e) => {
                           setInputImg(e.target.files[0]);
-                          setData({ ...Data, image: e.target.value });
+                          setData({ ...Data, image: e.target.files });
                         }}
                         style={{ marginLeft: "40px" }}
                       />
@@ -227,7 +227,7 @@ function CreateDataset({ open, onClose }) {
                         accept=".csv"
                         onChange={(e) => {
                           setFile(e.target.files[0]);
-                          setData({ ...Data, file: e.target.value });
+                          setData({ ...Data, file: e.target.files });
                         }}
                         style={{ marginLeft: "40px" }}
                         multiple
@@ -263,7 +263,7 @@ function CreateDataset({ open, onClose }) {
                   placeholder="Description"
                 />
               </label>
-              {/* <div className="form-flexlable" style={{ width: "400px" }}>
+              <div className="form-flexlable" style={{ width: "400px" }}>
                 {" "}
                 <select
                   name="category"
@@ -281,7 +281,7 @@ function CreateDataset({ open, onClose }) {
                   <option value="3">Earth & nature</option>
                   <option value="4">Science & Technology</option>
                 </select>
-              </div> */}
+              </div>
 
               <div
                 style={{

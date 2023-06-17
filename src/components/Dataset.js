@@ -62,11 +62,7 @@ function Dataset({ single, setSingle, dashboardLinks }) {
   return (
     <>
       {singleDataset ? (
-        <SingleDataset
-          single={single}
-          toggleComponent={toggleComponent}
-          isProfile={isProfile}
-        />
+        <SingleDataset single={single} toggleComponent={toggleComponent} isProfile={isProfile}/>
       ) : (
         <div className="dataset-main-div">
           <div>
@@ -86,7 +82,7 @@ function Dataset({ single, setSingle, dashboardLinks }) {
               </button>
             </div>{" "}
             <CreateDataset
-              open={openModal}
+              open={openModal}  
               onClose={() => setOpenModal(false)}
             />
           </div>
@@ -132,44 +128,35 @@ function Dataset({ single, setSingle, dashboardLinks }) {
           </div>
 
           <div className="main-dataset-grid">
-            {loading ? (
-              <div className="loader-container">
-                <div className="loader-spinner"></div>
-              </div>
-            ) : (
+            {allDataSet.map((item, index) => (
               <>
-                {" "}
-                {allDataSet.map((item, index) => (
-                  <>
-                    <div style={{ width: "100%" }}>
-                      <img
-                        src={`https://ipfs.io/ipfs/${item.image}`}
-                        alt={`Image ${index}`}
-                        className="dataset-img"
-                      />
-                      <div className="alldataset-grid">
-                        <h4 key={index}>{item.name}</h4>
-                        {/* <div key={index}>
-                {item.file_type} ( {item.file_size})
-              </div> */}
-                        <div key={index}>
-                          <p className="dataset-dec">{item.description}</p>
-                        </div>
-                        <button
-                          className="dataset-viewmore"
-                          onClick={() => {
-                            setSingle(allDataSet[index]);
-                            toggleComponent();
-                          }}
-                        >
-                          View More
-                        </button>
-                      </div>
+                <div style={{ width: "100%" }}>
+                  <img
+                    src={`https://gateway.lighthouse.storage/ipfs/${item.image}`}
+                    alt={`Image ${index}`}
+                    className="dataset-img"
+                  />
+                  <div className="alldataset-grid">
+                    <h4 key={index}>{item.name}</h4>
+                    {/* <div key={index}>
+                      {item.file_type} ( {item.file_size})
+                    </div> */}
+                    <div key={index}>
+                      <p className="dataset-dec">{item.description}</p>
                     </div>
-                  </>
-                ))}
+                  </div>
+                  <button
+                    className="dataset-viewmore"
+                    onClick={() => {
+                      setSingle(allDataSet[index]);
+                      toggleComponent();
+                    }}
+                  >
+                    View More
+                  </button>
+                </div>
               </>
-            )}
+            ))}
           </div>
         </div>
       )}

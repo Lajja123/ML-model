@@ -39,7 +39,7 @@ function Registrationpage() {
       const file = userData.file; // Access the file from the array
       const output = await lighthouse.upload(
         [file],
-        "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
+        "ee42a13a.3117f0d2e3bc4e73bb459ea3612a2471",
         progressCallback
       );
       console.log("File Status:", output);
