@@ -130,15 +130,19 @@ function Model({ single, setSingle }) {
                         width: "100%",
                         display: "flex",
                         flexDirection: "column",
-                        backgroundColor: "white",
+                        backgroundColor: "black",
+
                         boxShadow: "0 25px 50px -12px rgb(0 0 0 / 0.25)",
                       }}
                     >
-                      <img
-                        src={`https://ipfs.io/ipfs/${item.image}`}
-                        alt={`Image ${index}`}
-                        className="dataset-img"
-                      />
+                      <div>
+                        <img
+                          src={`https://ipfs.io/ipfs/${item.image}`}
+                          alt={`Image ${index}`}
+                          className="dataset-img"
+                        />
+                      </div>
+
                       <div className="alldataset-grid">
                         <h4 key={index}>{item.name}</h4>
                         {/* /* <div key={index}>

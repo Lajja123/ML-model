@@ -74,7 +74,10 @@ function Dataset({ single, setSingle, dashboardLinks }) {
             <h1 style={{ margin: "10px 0px " }} className="dataset-content">
               Datasets
             </h1>
-            <div className="dataset-content" style={{ margin: "10px 0px " }}>
+            <div
+              className="dataset-content"
+              style={{ margin: "10px 0px ", fontWeight: "500" }}
+            >
               Explore, analyze, and share quality data.
             </div>
             <div className="dataset-content" style={{ margin: "20px 0px" }}>
@@ -127,13 +130,6 @@ function Dataset({ single, setSingle, dashboardLinks }) {
               onChange={handleSearch}
             />
           </div>
-          <div className="tab-btn">
-            <button className="tab-list">All dataset</button>
-            <button className="tab-list">Eduaction</button>
-            <button className="tab-list">Drugs & Medical</button>
-            <button className="tab-list">Earth & nature</button>
-            <button className="tab-list">Scie & Technology</button>
-          </div>
 
           <div className="main-dataset-grid">
             {loading ? (
@@ -159,16 +155,16 @@ function Dataset({ single, setSingle, dashboardLinks }) {
                         <div key={index}>
                           <p className="dataset-dec">{item.description}</p>
                         </div>
+                        <button
+                          className="dataset-viewmore"
+                          onClick={() => {
+                            setSingle(allDataSet[index]);
+                            toggleComponent();
+                          }}
+                        >
+                          View More
+                        </button>
                       </div>
-                      <button
-                        className="dataset-viewmore"
-                        onClick={() => {
-                          setSingle(allDataSet[index]);
-                          toggleComponent();
-                        }}
-                      >
-                        View More
-                      </button>
                     </div>
                   </>
                 ))}
