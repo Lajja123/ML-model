@@ -11,8 +11,11 @@ function Dataset({single,setSingle,dashboardLinks}) {
   const [openModal, setOpenModal] = useState(false);
   const [singleDataset, setSingleDataset] = useState(false);
   const [allModelData , setAllModelData] = useState([]);
+  const [allDataSet,setAllDataSet] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isProfile, setIsProfile] = useState(true);
+
 
 
   const toggleComponent = () => {
@@ -29,11 +32,11 @@ function Dataset({single,setSingle,dashboardLinks}) {
                 console.log("Metamask is not installed, please install!");
             }
             const con = await modelInstance();
-            const modelData = await con.getAllDataSet();
+            const Data = await con.getAllDataSet();
 
             
-            setAllModelData(modelData);
-            console.log(modelData);
+            setAllDataSet(Data);
+            console.log(Data);
         }
     } catch (error) {
       console.log(error);
@@ -50,7 +53,7 @@ function Dataset({single,setSingle,dashboardLinks}) {
   const handleSearch = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
-    const filtered = allModelData.filter((item) =>
+    const filtered = allDataSet.filter((item) =>
       item.name.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredData(filtered);
