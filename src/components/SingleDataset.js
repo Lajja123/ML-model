@@ -63,127 +63,135 @@ function SingleDataset(props) {
         <Dataset />
       ) : (
         <>
-          
-            <div className="signledataset-main-div">
+          <div className="signledataset-main-div">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                padding: "20px 50px",
+                borderBottom: "1px solid white",
+                fontFamily: "JosefinSans",
+              }}
+            >
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  padding: "20px 50px",
-                  borderBottom: "1px solid white",
-                  fontFamily: "JosefinSans",
+                  width: "50%",
                 }}
               >
-                <div
-                  style={{
-                    width: "50%",
-                  }}
-                >
+                {" "}
+                <h1 className="single-data-title">{dataSetData?.title}</h1>
+                <p style={{ fontSize: "20px" }}>
                   {" "}
-                  <h1 className="single-data-title" >
-                    {dataSetData?.title}
-                  </h1>
-                  <p style={{ fontSize: "20px" }}>
-                    {" "}
-                    {/* {dataSetData.description} */}
-                  </p>
-                </div>
-                <div className="single-dataset-flex-sidebar">
-                  <div>
-                    <button
-                      onClick={() => props.isProfile ? props.toggleComponent() : props.profileLinks("allDataset") }
-                      className="back-btn"
-                    >
-                      ⇦
-                    </button>
-                    <button
-                      className="single-data-btn"
-                      onClick={() => setOpenModal(true)}
-                    >
-                      Create Dataset
-                    </button>{" "}
-                    <CreateDataset
-                      open={openModal}
-                      onClose={() => setOpenModal(false)}
-                    />
-                    <button className="single-data-btn">Download</button>
-                  </div>
-                  <div>
-                    <img
-                      src={`https://gateway.lighthouse.storage/ipfs/${dataSetData.image}`}
-                      className="single-dataset-img"
-                    ></img>
-                  </div>
-                </div>{" "}
+                  {/* {dataSetData.description} */}
+                </p>
               </div>
-              <div className="single-dataset-flex-content">
-                <div
-                  style={{
-                    width: "55%",
-                    fontSize: "20px",
-                    lineHeight: "37px",
-                    letterSpacing: "1px",
-                    fontFamily: "JosefinSans",
-                  }}
-                  className="single-dataset-desc"
-                >
-                  {dataSetData.description}
+              <div className="single-dataset-flex-sidebar">
+                <div>
+                  <button
+                    onClick={() =>
+                      props.isProfile
+                        ? props.toggleComponent()
+                        : props.profileLinks("allDataset")
+                    }
+                    className="back-btn"
+                  >
+                    ⇦
+                  </button>
+                  <button
+                    className="single-data-btn"
+                    onClick={() => setOpenModal(true)}
+                  >
+                    Create Dataset
+                  </button>{" "}
+                  <CreateDataset
+                    open={openModal}
+                    onClose={() => setOpenModal(false)}
+                  />
+                  <button className="single-data-btn">Download</button>
                 </div>
-                <div className="single-dataset">
-                  <div>
-                    <lable
-                      style={{
-                        fontWeight: "700",
-                        fontSize: "20px",
-                        lineHeight: "30px",
-                        fontFamily: "JosefinSans",
-                      }}
-                    >
-                      Categories :
-                    </lable>
-                    <div
-                      style={{
-                        fontWeight: "400",
-                        fontSize: "17px",
-                        lineHeight: "30px",
-                        fontFamily: "JosefinSans",
-                      }}
-                    >
-                      {dataSetData.categories}
-                    </div>
-                  </div>
-                 
-                 
+                <div>
+                  <img
+                    src={`https://ipfs.io/ipfs/${dataSetData.image}`}
+                    className="single-dataset-img"
+                  ></img>
                 </div>
               </div>{" "}
-              {/* <pre>{csvRows}</pre> */}
-              {tableRows.length > 0 && (
-        <div className="container">
-        <div className="scrollable-container">
-          <table>
-            <thead>
-              <tr>
-                {tableHeaders.map((header, index) => (
-                  <th key={index}>{header}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {tableRows.map((row, index) => (
-                <tr key={index}>
-                  {tableHeaders.map((header, index) => (
-                    <td key={index}>{row[header]}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      )}
             </div>
-          
+            <div className="single-dataset-flex-content">
+              <div
+                style={{
+                  width: "55%",
+                  fontSize: "20px",
+                  lineHeight: "37px",
+                  letterSpacing: "1px",
+                  fontFamily: "JosefinSans",
+                }}
+                className="single-dataset-desc"
+              >
+                {dataSetData.description}
+              </div>
+              <div className="single-dataset">
+                <div>
+                  <lable
+                    style={{
+                      fontWeight: "700",
+                      fontSize: "20px",
+                      lineHeight: "30px",
+                      fontFamily: "JosefinSans",
+                    }}
+                  >
+                    Categories :
+                  </lable>
+                  <div
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "17px",
+                      lineHeight: "30px",
+                      fontFamily: "JosefinSans",
+                    }}
+                  >
+                    {dataSetData.categories}
+                  </div>
+                </div>
+              </div>
+            </div>{" "}
+            {/* <pre>{csvRows}</pre> */}
+            {tableRows.length > 0 && (
+              <div
+                className="container"
+                style={{ overflowX: "auto", width: "100%" }}
+              >
+                <div
+                  className="scrollable-container"
+                  style={{
+                    maxWidth: "80%",
+                    maxHeight: "700px",
+                    overflow: "scroll",
+                  }}
+                >
+                  <table>
+                    <thead>
+                      <tr>
+                        {tableHeaders.map((header, index) => (
+                          <th key={index}>{header}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tableRows.map((row, index) => (
+                        <tr key={index}>
+                          {tableHeaders.map((header, index) => (
+                            <td key={index}>{row[header]}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </div>
         </>
       )}
     </>

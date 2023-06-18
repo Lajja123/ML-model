@@ -16,7 +16,7 @@
 
   .single-dataset-flex-sidebar {
     display: flex;
-    // height: 25vh;
+    height: 25vh;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -24,7 +24,6 @@
   }
   .single-dataset-img {
     width: 300px;
-    margin: 10px 0px;
   }
   .single-data-title {
     width: 100%;

@@ -116,34 +116,36 @@ function Model({ single, setSingle }) {
           </div>
 
           <div className="main-dataset-grid">
-          {loading ? (
+            {loading ? (
               <div className="loader-container">
                 <div className="loader-spinner"></div>
               </div>
             ) : (
               <>
                 {" "}
-            {allModelData.map((item, index) => (
-              <>
-                <div
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    backgroundColor: "black",
-                  }}
-                >
-                  <div>       
-                     <img
-                    src={`https://gateway.lighthouse.storage/ipfs/${item.image}`}
-                    alt={`Image ${index}`}
-                    className="dataset-img"
-                  />
-                  </div>
+                {allModelData.map((item, index) => (
+                  <>
+                    <div
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        backgroundColor: "black",
 
-                  <div className="alldataset-grid">
-                    <h4 key={index}>{item.name}</h4>
-                    {/* /* <div key={index}>
+                        boxShadow: "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+                      }}
+                    >
+                      <div>
+                        <img
+                          src={`https://ipfs.io/ipfs/${item.image}`}
+                          alt={`Image ${index}`}
+                          className="dataset-img"
+                        />
+                      </div>
+
+                      <div className="alldataset-grid">
+                        <h4 key={index}>{item.name}</h4>
+                        {/* /* <div key={index}>
                       {item.file_type} ( {item.file_size})
                     </div> */}
                         <div

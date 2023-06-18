@@ -39,8 +39,8 @@ function CreateModel({ open, onClose }) {
       console.log("in upload model function");
       const file = Data.file; // Access the file from the array
       const output = await lighthouse.upload(
-        file,
-        "ee42a13a.3117f0d2e3bc4e73bb459ea3612a2471",
+        [file],
+        "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
         progressCallback
       );
       console.log("File Status:", output);
@@ -57,7 +57,7 @@ function CreateModel({ open, onClose }) {
       const image = Data.image; // Access the file from the array
       const output = await lighthouse.upload(
         image,
-        "ee42a13a.3117f0d2e3bc4e73bb459ea3612a2471",
+        "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
         progressCallback
       );
       console.log("Image Status:", output);
@@ -185,7 +185,7 @@ function CreateModel({ open, onClose }) {
                       accept=".jpg, .png, .jpeg"
                       onChange={(e) => {
                         setInputImg(e.target.files[0]);
-                        setData({ ...Data, image: e.target.files });
+                        setData({ ...Data, image: e.target.value });
                       }}
                       style={{ marginLeft: "40px" }}
                     />
