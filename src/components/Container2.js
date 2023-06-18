@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/singledataset.scss";
 import { useState } from "react";
 import Compute1 from "./Compute1";
 import "../styles/popup.scss";
 import axios from "axios";
-import img1 from "../components/assets/dataset2.jpg";
+// import img1 from "../components/assets/dataset2.jpg";
+// import img1 from "../components/assets/cont1.jpg";
+import img1 from "../components/assets/cont1.jpg";
+import { useAccount } from "wagmi";
+import { Database, Registry } from "@tableland/sdk";
+import { Wallet, providers } from "ethers";
 
 function Container2() {
+  const {address} = useAccount();
   const [openCompute, setOpenCompute] = useState(false);
   const [btnloading, setbtnloading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -17,6 +23,8 @@ function Container2() {
   const [fields, setFields] = useState([""]); // Array to store the form field values
   const [jobId, setJobId] = useState("");
   const [cid, setCid] = useState("");
+  const [mappings, setMappings] =  useState([]);
+  const [showButton, setShowButton] = useState(true)
 
   // const togglePopup = () => {
   //   setIsVisible(isVisible);
@@ -46,7 +54,7 @@ function Container2() {
 
   const handleExecute = () => {
     setbtnloading(true);
-    const apiUrl = "http://localhost:5000/execute/container1";
+    const apiUrl = "http://localhost:5500/execute/container2";
     const requestData = {
       notebookUrl: notebookUrl,
       inputs: datasetUrls.map((url) => ({ url: url })),
@@ -57,16 +65,60 @@ function Container2() {
       .then((response) => {
         const { jobId, cid } = response.data;
         setJobId(jobId);
+        console.log(jobId)
         setCid(cid);
-        console.log(response.data);
-        setIsVisible(!isVisible);
         setbtnloading(false);
+        insertTable(jobId)
+        fetchCID(jobId)
       })
       .catch((error) => {
         console.error("Error:", error);
         setbtnloading(false);
       });
   };
+
+
+const fetchCID = (jobId_) => {
+  axios
+    .post(`/execute/container2/${jobId_}`)
+    .then(response => {
+      const { cid } = response.data;
+
+      // Store the fetched CID in state
+      setCid(cid);
+
+      // Hide the CID button
+      setShowButton(false);
+    })
+    .catch(error => {
+      console.error(error);
+      // Handle the error appropriately
+    });
+};
+
+
+
+
+  const insertTable = async(jobId_) =>{
+
+    const privateKey = process.env.REACT_APP_PRIVATEKEY;
+    const wallet = new Wallet(privateKey);
+    // To avoid connecting to the browser wallet (locally, port 8545).
+    // For example: "https://polygon-mumbai.g.alchemy.com/v2/YOUR_ALCHEMY_KEY"
+    const provider = new providers.Web3Provider(window.ethereum);
+    const signer = wallet.connect(provider);
+    // Connect to the database
+    const db = new Database({ signer });
+    console.log(jobId_)
+
+    const { meta: insert } = await db
+  .prepare(`INSERT INTO ${process.env.REACT_APP_TABLELAND_TABLE} (id, address, jobId) VALUES (?, ?, ?);`)
+  .bind(Math.floor(Math.random() * 100), address, jobId_)
+  .run();
+
+  // Wait for transaction finality
+  await insert.txn.wait();
+  }
 
   return (
     <>
@@ -86,7 +138,8 @@ function Container2() {
             >
               <div style={{ width: "50%" }}>
                 {" "}
-                <h1 className="single-data-title">Container2</h1>
+                <h1 className="single-data-title">
+Advanced Visualization and Computation</h1>
                 <p
                   style={{
                     textAlign: "justify",
@@ -97,14 +150,7 @@ function Container2() {
                   }}
                 >
                   {" "}
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
+                  Advanced Visualization and Computation empowers you to create insightful and engaging visual representations of your data and model outputs. Whether you need to plot graphs, generate heatmaps, or visualize complex relationships, it has you covered. By utilizing it, you can seamlessly leverage the capabilities of (Numpy, Scipy, Scikit-learn, Theano, TensorFlow, Keras, PyTorch, Pandas, Matplotlib) these libraries to enhance your understanding of your machine learning models. Simply ensure that your model includes the above-mentioned libraries, and it will handle the rest. It eliminates the need for high-end laptop or computer configurations, enabling you to work with large datasets and complex visualization computations effortlessly.
                 </p>
               </div>
               <div className="single-dataset-flex-sidebar">
@@ -121,13 +167,62 @@ function Container2() {
                 </div>
               </div>{" "}
             </div>
-            <div style={{ padding: "20px 50px" }}>
+           
+            <div style={{ padding: "20px 50px", display:'flex' }}>
+             <div style={{marginBottom:'45px'}}> 
+            <div style={{fontSize:'30px', fontWeight:'650', marginBottom:'20px'}}> Instructions to Compute your Model are as follow:-</div>
+             <div>
+                  <div style={{fontSize:'25px', fontWeight:'500'}}>1. Dataset URLs</div>
+                  <div style={{marginLeft:'20px', fontSize:'20px'}}>
+                        <li> Ensure that your dataset URLs are in the raw GitHub URL format.</li>
+                        <li>The datasets should be publicly accessible on GitHub.</li>
+                        <li>The datasets must be in CSV file format.</li>
+                        <li>To add multiple datasets, click on the "Add" button and provide the additional URLs. </li>
+                        <div style={{backgroundColor:'grey', padding:'15px 25px', fontWeight:'550', margin:'10px 0',borderRadius:'25px', width:'90%' }}>
+                       <p> Example Dataset URLs:</p>
+                        <p>- https://raw.githubusercontent.com/username/repo/master/dataset1.csv</p>
+                        <p>- https://raw.githubusercontent.com/username/repo/master/dataset2.csv</p>
+
+                        </div>
+                  </div>
+              </div> 
+
+              <div>
+              <div style={{fontSize:'25px', fontWeight:'500'}}>2. Model URL</div>
+                  <div style={{marginLeft:'20px', fontSize:'20px'}}>
+                        <li>The model URL should also be in the raw GitHub URL format.</li>
+                        <li>The model repository must be public.</li>
+                        <li>Provide the URL of the main model file.</li>
+                        <div style={{backgroundColor:'grey', padding:'15px 25px', fontWeight:'550', margin:'10px 0',borderRadius:'25px', width:'90%' }}>
+                       <p> Example Model URL:</p>
+                        <p>- https://raw.githubusercontent.com/username/repo/master/model.ipynb</p>
+
+                        </div>
+                  </div>
+
+              </div>
+              <div>
+              <div style={{fontSize:'25px', fontWeight:'500'}}>3. Model Implementation</div>
+                  <div style={{marginLeft:'20px', fontSize:'20px'}}>
+                        <li>Inside your model implementation, make sure to give the file paths of the datasets as follows:</li>
+                        <div style={{backgroundColor:'grey', padding:'15px 25px', fontWeight:'550', margin:'10px 0',borderRadius:'25px', width:'90%'}}>
+                        <p>abc = pd.read_csv("/inputs/abc.csv")</p>
+                        <p>xyz = pd.read_csv("/inputs/xyz.csv")</p>
+
+                        </div>
+                  </div>
+
+              </div>
+            
+            </div>
+
+            <div style={{marginLeft:'15px'}}>
               <h3
                 style={{
                   margin: "0",
                   letterSpacing: "1px",
                   fontFamily: "JosefinSans",
-                  fontSize: "20px",
+                  fontSize: "30px",
                 }}
                 className="dataset-content"
               >
@@ -158,7 +253,7 @@ function Container2() {
                       margin: "0px 20px",
                       padding: "10px",
                       width: "100px",
-                      backgroundColor: "#f7d060",
+                      backgroundColor: "#1a74e2",
                       border: "none",
                       borderRadius: "10px",
                     }}
@@ -275,7 +370,15 @@ function Container2() {
                 )}
               </button>{" "}
               <h3>JOBID: {jobId}</h3>
-              <h3>CID: {jobId}</h3>
+              <h3>
+                CID: {showButton ? (
+                  <button onClick={fetchCID}>Get CID</button>
+                ) : (
+                  {cid}
+                )}
+              </h3>
+              <p>After getting the JobID wait for some time and then click on the Get CID.* </p>
+
               {/* {isVisible && (
                   <div className="popup">
                     <button className="close-button" onClick={togglePopup}>
@@ -287,10 +390,14 @@ function Container2() {
                     </div>
                   </div>
                 )} */}
+                </div>
             </div>{" "}
+            
           </div>
         </>
       )}
+
+     
     </>
   );
 }
