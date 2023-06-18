@@ -11,6 +11,9 @@ import dash from "../components/assets/browser.png";
 import dataset from "../components/assets/dataset.png";
 import model from "../components/assets/model.png";
 import compute from "../components/assets/computeImg.png";
+import * as PushAPI from "@pushprotocol/restapi";
+import { Wallet, providers } from "ethers";
+
 import {
   useConnectModal,
   useAccountModal,
@@ -71,6 +74,49 @@ function Landing() {
   };
   const register = () => {
     navigate("/register");
+  };
+
+  const optIn = async () => {
+    const privateKey = process.env.REACT_APP_PRIVATEKEY;
+    const wallet = new Wallet(privateKey);
+    // To avoid connecting to the browser wallet (locally, port 8545).
+    // For example: "https://polygon-mumbai.g.alchemy.com/v2/YOUR_ALCHEMY_KEY"
+    const provider = new providers.Web3Provider(window.ethereum);
+    const signer = wallet.connect(provider);
+    await PushAPI.channels.subscribe({
+      
+      signer: signer,
+      channelAddress: "eip155:5:0x158a6720c0709F8B55dc9753B92DF1d555A9F577", // channel address in CAIP
+      userAddress: `eip155:5:${address}`, // user address in CAIP
+      onSuccess: () => {
+        console.log("opt in success");
+      },
+      onError: () => {
+        console.error("opt in error");
+      },
+      env: "staging",
+    });
+  };
+
+  const optOut = async () => {
+    const privateKey = process.env.REACT_APP_PRIVATEKEY;
+    const wallet = new Wallet(privateKey);
+    // To avoid connecting to the browser wallet (locally, port 8545).
+    // For example: "https://polygon-mumbai.g.alchemy.com/v2/YOUR_ALCHEMY_KEY"
+    const provider = new providers.Web3Provider(window.ethereum);
+    const signer = wallet.connect(provider);
+    await PushAPI.channels.unsubscribe({
+      signer: signer,
+      channelAddress: "eip155:5:0x158a6720c0709F8B55dc9753B92DF1d555A9F577", // channel address in CAIP
+      userAddress: "eip155:5:0xeB88DDaEdA2261298F1b740137B2ae35aA42A975", // user address in CAIP
+      onSuccess: () => {
+        console.log("opt out success");
+      },
+      onError: () => {
+        console.error("opt out error");
+      },
+      env: "staging",
+    });
   };
   return (
     <>
