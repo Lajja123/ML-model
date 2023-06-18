@@ -99,19 +99,6 @@ img {
 .bold {
   font-weight: 600;
 }
-.button-spin-svg-pic {
-  animation: spin 1s linear infinite;
-  width: 30px;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
 @media screen and (max-width: 500px) {
   .modalContainer {

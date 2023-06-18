@@ -15,18 +15,15 @@ const CellToolbar: React.FC = () => {
         >
           Run
       </Button>
-      <br />
       <Button
         color="secondary"
         onClick={() => dispatch(cellActions.outputsCount(0))}
         >
           Reset outputs count
       </Button>
-      {/* <Text>
+      <Text>
         Outputs count: {cell.outputsCount}
-      </Text> */}
-      <br />
-      <br />
+      </Text>
     </>
   );
 }
