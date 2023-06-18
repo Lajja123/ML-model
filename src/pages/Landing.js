@@ -150,7 +150,7 @@ function Landing() {
       </div> */}
 
         <div className="section3">
-          <div>
+          <div style={{ margin: "30px" }}>
             <p className="section3-right-title">
               Detailed Guide on How the System
             </p>
@@ -232,7 +232,7 @@ function Landing() {
                   src={compute}
                   style={{ width: "50px", margin: "10px" }}
                 ></img>{" "}
-                <b className="card-title">Create Compute:</b>
+                <b className="card-title">Decentralized Compute:</b>
                 <p className="card-dec">
                   To create a model, you can either write code directly in the
                   integrated development environment (IDE) or import code from
