@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import "../styles/navbar.scss";
 import logo from "../components/assets/logo.png";
+import push from "../components/assets/pushprotocol1.png";
 // import ConnectCustomButton from "../components/ConnectCustomButton";
 
 function Navbar() {
@@ -21,7 +22,11 @@ function Navbar() {
               <img src={logo} alt="logo" style={{ width: "350px" }} />
             </Link>
           </span>
-          <ConnectButton className="connect-btn" />
+          <img src={push} style={{ width: "50px" }}></img>
+          <ConnectButton
+            className="connect-btn"
+            style={{ backgroundColor: "white" }}
+          />
           <button
             onClick={handleClick}
             className={isExpanded === false ? "hamburger" : "hamburger active"}

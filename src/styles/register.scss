@@ -1,6 +1,6 @@
 .register-main-div {
   width: 40%;
-  padding: 20px;
+  padding: 30px 20px;
   margin: 20px auto;
   border-radius: 20px;
   background-color: white;
@@ -33,14 +33,14 @@
   font-family: "JosefinSans";
 }
 .form-btn {
-  padding: 10px 20px;
+  padding: 15px 30px;
   border-radius: 10px;
-  font-family: "JosefinSans";
   background-color: #6bd0ff;
   color: black;
   font-family: "JosefinSans";
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
+  width: 50%;
   border: none;
   letter-spacing: 2px;
 }
@@ -62,10 +62,29 @@
   color: black;
 }
 .form-file {
-  width: 35%;
+  width: 80%;
   margin: 0 auto;
 }
 .file-input-container {
-  width: 40%;
-  margin: 0 auto;
+  margin: 20px;
+  border: 1px solid gray;
+  color: black;
+  padding: 10px;
+  text-align: center;
+
+  // font-family: "JosefinSans";
+  font-weight: 600;
+}
+.button-spin-svg-pic {
+  animation: spin 1s linear infinite;
+  width: 30px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
