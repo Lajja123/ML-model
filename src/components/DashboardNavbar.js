@@ -2,6 +2,7 @@ import React from "react";
 import profile from "../components/assets/profile.jpg";
 import { Link } from "react-router-dom";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import push from "../components/assets/pushprotocol1.png";
 
 function DashboardNavbar(props) {
   return (
@@ -43,6 +44,7 @@ function DashboardNavbar(props) {
             />
           </svg>
         </div> */}
+        <img src={push} style={{ width: "50px" }}></img>
         <div style={{ margin: "0px 30px" }}>
           {" "}
           <ConnectButton />
