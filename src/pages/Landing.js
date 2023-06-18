@@ -150,7 +150,7 @@ function Landing() {
       </div> */}
 
         <div className="section3">
-          <div style={{margin:"30px"}}>
+          <div>
             <p className="section3-right-title">
               Detailed Guide on How the System
             </p>

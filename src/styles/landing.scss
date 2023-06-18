@@ -23,12 +23,12 @@
       font-size: 3rem;
       width: 100%;
       word-wrap: break-word;
-      margin-bottom: 10px;
+      margin-bottom: 0;
       margin-top: 0;
     }
     p {
       font-size: 1.2rem;
-      // font-family: "JosefinSans";
+      font-family: "JosefinSans";
       font-style: normal;
       font-weight: 600;
       line-height: 2rem;
@@ -38,9 +38,8 @@
       margin: 0;
       padding-left: 5px;
       font-size: 20px;
-      font-weight: 200;
-      letter-spacing: 2px;
-      width: 80%;
+      font-weight: 500;
+      width: 70%;
     }
     .hero-left-buttons {
       display: flex;
@@ -55,25 +54,24 @@
         background-color: none;
         margin-right: 16px;
         height: 48px;
-        padding: 0 40px;
+        padding: 0 24px;
         font-weight: 700;
-        margin: 20px 0px;
-        font-size: 16px;
-        letter-spacing: 2px;
       }
       button.hero-btn-1 {
         background-color: #6bd0ff;
         color: black;
-       
+        &:hover {
+          // background-color: #f83500;
+        }
       }
-      // button.hero-btn-2 {
-      //   box-shadow: 0 0 0 2px #e6e8ec inset;
-      //   color: #23262f;
-      //   &:hover {
-      //     background-color: #23262f;
-      //     color: #ffffff;
-      //   }
-      // }
+      button.hero-btn-2 {
+        box-shadow: 0 0 0 2px #e6e8ec inset;
+        color: #23262f;
+        &:hover {
+          background-color: #23262f;
+          color: #ffffff;
+        }
+      }
     }
   }
   .hero-right {
@@ -117,7 +115,7 @@
         z-index: 1;
         border-radius: 1rem;
         width: 500px;
-        height: 700px;
+        height: 800px;
       }
       .hero-right-inside-box {
         position: absolute;
@@ -195,11 +193,10 @@
   letter-spacing: 2px;
 }
 .card-dec {
-  // font-family: "Josefin Sans";
+  font-family: "Josefin Sans";
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 25px;
+  font-size: 17px;
   line-height: 20px;
   text-align: justify;
 }
@@ -248,18 +245,21 @@
     width: 90%;
     margin: 0 auto;
     align-items: center;
-   
+    p {
+      font-size: 1rem;
+    }
 
     .fa-circle {
       font-size: 1rem;
     }
     .section3-card {
-     color: black;
+      color: black;
       margin: 20px 0px;
       height: 25vh;
-     background-color: white;
+      background-color: rgba(63, 160, 239, 0.2784313725);
       padding: 40px 20px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); 
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
       border-radius: 20px;
       display: flex;
       flex-direction: column;
@@ -274,6 +274,4 @@
   background-color: #1f2123;
   color: white;
   padding: 5px 0px;
-  font-size: 18px;
-  letter-spacing: 2px;
 }

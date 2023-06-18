@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
 import Navbar from "../pages/Navbar";
@@ -9,10 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 function Registrationpage() {
-  const [file, setFile] = useState(null);
   const [btnloading, setbtnloading] = useState(false);
-  const [showInputField, setShowInputField] = useState(false);
-  const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     file: null,
@@ -35,10 +32,9 @@ function Registrationpage() {
   const uploadImage = async () => {
     try {
       console.log("in upload image function");
-
       const file = userData.file; // Access the file from the array
       const output = await lighthouse.upload(
-        [file],
+        file,
         "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
         progressCallback
       );
@@ -48,10 +44,6 @@ function Registrationpage() {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleClick = () => {
-    fileInputRef.current.click();
   };
 
   const createUserAccount = async () => {
@@ -109,49 +101,22 @@ function Registrationpage() {
         <div className="register-sub-div">
           <div className="form-file">
             <div style={{ width: "50px", margin: "0 auto" }}>
-              {file && (
-                <img
-                  src={URL.createObjectURL(file)}
-                  alt=""
-                  style={{ width: "50px" }}
-                />
-              )}
+              <img src={upload} alt="" style={{ width: "50px" }} />
             </div>
-            <div
-              className="file-input-container"
-              style={{ width: "40%", margin: "15px auto", padding: "0px" }}
-            >
-              <div
-                onClick={() => fileInputRef.current.click()}
-                style={{
-                  cursor: "pointer",
-                  backgroundColor: "lightgray",
-                  color: "black",
-                  padding: "10px",
+            <div className="file-input-container">
+              <input
+                type="file"
+                name="file"
+                onChange={(e) => {
+                  setUserData({ ...userData, file: e.target.value });
                 }}
-              >
-                {file ? (
-                  <span>{file.name}</span>
-                ) : (
-                  <span> Choose profile </span>
-                )}
-                <input
-                  type="file"
-                  hidden
-                  ref={fileInputRef}
-                  name="New File Name"
-                  onChange={(e) => {
-                    setFile(e.target.files[0]);
-                    setUserData({ ...userData, file: e.target.files[0] });
-                  }}
-                  accept=".jpg,.jpeg,.png,.pdf" // Optional: Set accepted file extensions
-                  style={{
-                    fontFamily: "JosefinSans",
-                    fontSize: "13px",
-                    color: "black",
-                  }}
-                />
-              </div>
+                accept=".jpg,.jpeg,.png,.pdf" // Optional: Set accepted file extensions
+                style={{
+                  fontFamily: "JosefinSans",
+                  fontSize: "13px",
+                  color: "black",
+                }}
+              />
             </div>
           </div>
 
@@ -208,7 +173,6 @@ function Registrationpage() {
               type="submit"
               className="form-btn"
               onClick={createUserAccount}
-              disabled={btnloading}
             >
               {" "}
               {btnloading ? (

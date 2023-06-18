@@ -1,21 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import "../styles/register.scss";
 import file from "../components/assets/file.png";
 import "../styles/createdataset.scss";
 import { modelInstance } from "./Contract";
 import lighthouse from "@lighthouse-web3/sdk";
 import { ethers } from "ethers";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function CreateModel({ open, onClose }) {
-  const [file, setFile] = useState(null);
-  const [inputImg, setInputImg] = useState(null);
-  const [btnloading, setbtnloading] = useState(false);
-  const fileInputRefModel = useRef(null);
-  const fileInputRefModelImg = useRef(null);
   const [Data, setData] = useState({
     name: null,
     description: null,
@@ -39,7 +32,7 @@ function CreateModel({ open, onClose }) {
       console.log("in upload model function");
       const file = Data.file; // Access the file from the array
       const output = await lighthouse.upload(
-        [file],
+        file,
         "693bc913.49da890a1fd6411bbb1bfa9e5492966a",
         progressCallback
       );
@@ -50,6 +43,7 @@ function CreateModel({ open, onClose }) {
       console.log(error);
     }
   };
+
 
   const uploadImage = async () => {
     try {
@@ -69,17 +63,6 @@ function CreateModel({ open, onClose }) {
   };
 
   const createModel = async () => {
-    toast.info("Process is in Progress", {
-      position: "top-left",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    setbtnloading(true);
     try {
       console.log("in create account function");
       const output = await uploadModel();
@@ -88,7 +71,7 @@ function CreateModel({ open, onClose }) {
 
       const outputImage = await uploadImage();
       const cidsImage = outputImage.data.Hash;
-      console.log("CidsForImage ", cidsImage);
+      console.log("CidsForImage ",cidsImage);
 
       const { ethereum } = window;
       if (ethereum) {
@@ -108,13 +91,10 @@ function CreateModel({ open, onClose }) {
 
         console.log(tx);
         await tx.wait();
-        setbtnloading(false);
         console.log(con);
-        onClose();
       }
     } catch (error) {
       console.log(error);
-      setbtnloading(false);
     }
   };
 
@@ -139,99 +119,29 @@ function CreateModel({ open, onClose }) {
             <div className="register-sub-div" style={{ margin: "0" }}>
               <div
                 className="form-file"
-                // style={{
-                //   width: "80%",
-                //   display: "flex",
-                //   flexDirection: "column",
-                //   height: "15vh",
-                //   justifyContent: "space-evenly",
-                //   color: "black",
-                // }}
+                style={{
+                  width: "80%",
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "15vh",
+                  justifyContent: "space-evenly",
+                  color: "black",
+                }}
               >
                 <div style={{ width: "50px", margin: "0 auto" }}>
-                  {inputImg && (
-                    <img
-                      src={URL.createObjectURL(inputImg)}
-                      alt=""
-                      style={{ width: "50px" }}
-                    />
-                  )}
+                  <img src={file} alt="" style={{ width: "50px" }} />
                 </div>
-                <div
-                  onClick={() => fileInputRefModelImg.current.click()}
-                  style={{
-                    border: "1px solid",
-                    padding: "10px",
-                    width: "50%",
-                    margin: "0 auto",
-                    cursor: "pointer",
-                    fontSize: "15px",
-                    textAlign: "center",
-                    color: "black",
-                  }}
-                >
-                  {" "}
-                  {inputImg ? (
-                    <span>{inputImg.name}</span>
-                  ) : (
-                    <span> Upload Model Image </span>
-                  )}
-                  <div>
-                    <input
-                      type="file"
-                      name="image"
-                      hidden
-                      ref={fileInputRefModelImg}
-                      accept=".jpg, .png, .jpeg"
-                      onChange={(e) => {
-                        setInputImg(e.target.files[0]);
-                        setData({ ...Data, image: e.target.value });
-                      }}
-                      style={{ marginLeft: "40px" }}
-                    />
-                  </div>
-                </div>
-                <div
-                  className="file-input-container"
-                  style={{
-                    color: "black",
-                    marginBottom: "10px",
-                    padding: "6px",
-                    fontWeight: "400",
-                  }}
-                >
-                  <div
-                    onClick={() => fileInputRefModel.current.click()}
-                    style={{
-                      padding: "8px",
-
-                      margin: "0px auto",
-                      cursor: "pointer",
-                      fontSize: "15px",
-                      textAlign: "start",
-                      color: "black",
+                <div className="file-input-container">
+                  <input
+                    type="file"
+                    name="file"
+                    // accept=".csv"
+                    onChange={(e) => {
+                      setData({ ...Data, file: e.target.files });
                     }}
-                  >
-                    {" "}
-                    {file ? (
-                      <span>{file.name}</span>
-                    ) : (
-                      <span> Upload Your File </span>
-                    )}
-                    <input
-                      type="file"
-                      name="file"
-                      hidden
-                      ref={fileInputRefModel}
-                      // accept=".csv"
-                      onChange={(e) => {
-                        setFile(e.target.files[0]);
-                        setData({ ...Data, file: e.target.files });
-                      }}
-                      style={{ marginLeft: "40px" }}
-                      // multiple
-                    />
-                  </div>
+                    style={{ marginLeft: "40px" }}
+                    // multiple
+                  />
                 </div>
               </div>
               <label className="form-flexlable" style={{ width: "400px" }}>
@@ -258,7 +168,17 @@ function CreateModel({ open, onClose }) {
                   placeholder="Description"
                 />
               </label>
-
+              <div>
+                <input
+                  type="file"
+                  name="image"
+                  accept=".jpg, .png, .jpeg"
+                  onChange={(e) => {
+                    setData({ ...Data, image: e.target.files });
+                  }}
+                  style={{ marginLeft: "40px" }}
+                />
+              </div>
               <div
                 style={{
                   display: "flex",
@@ -298,6 +218,7 @@ function CreateModel({ open, onClose }) {
                     onChange={(e) => {
                       setData({ ...Data, status: e.target.value });
                     }}
+                    checked
                   />
                   <label
                     class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
@@ -316,25 +237,9 @@ function CreateModel({ open, onClose }) {
                   className="form-btn"
                   style={{ width: "100%", margin: "0px 20px" }}
                   onClick={createModel}
-                  disabled={btnloading}
                 >
-                  {btnloading ? (
-                    <svg
-                      className="animate-spin button-spin-svg-pic"
-                      version="1.1"
-                      id="L9"
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      viewBox="0 0 100 100"
-                    >
-                      <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
-                    </svg>
-                  ) : (
-                    <> Create Model</>
-                  )}
+                  Create
                 </button>
-                <ToastContainer />
               </div>
             </div>
           </div>
