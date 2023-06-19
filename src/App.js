@@ -12,7 +12,6 @@ import Profile from "./components/Profile";
 import AllModel from "../src/components/AllModel";
 import AllDataset from "../src/components/AllDataset";
 import Compute1 from "./components/Compute1";
-
 import Landing from "./pages/Landing";
 import SingleModel from "./components/SingleModel";
 
