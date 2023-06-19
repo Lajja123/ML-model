@@ -30,8 +30,6 @@ function Landing() {
   const navigate = useNavigate();
   const { openConnectModal } = useConnectModal();
   const { address } = useAccount();
-  const walletAddress = address;
-  console.log(walletAddress);
 
   const verifyUserAccount = async () => {
     try {
@@ -84,7 +82,6 @@ function Landing() {
     const provider = new providers.Web3Provider(window.ethereum);
     const signer = wallet.connect(provider);
     await PushAPI.channels.subscribe({
-      
       signer: signer,
       channelAddress: "eip155:5:0x158a6720c0709F8B55dc9753B92DF1d555A9F577", // channel address in CAIP
       userAddress: `eip155:5:${address}`, // user address in CAIP
