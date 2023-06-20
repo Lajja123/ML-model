@@ -1,5 +1,4 @@
 import React from "react";
-import { data } from "../dummyData/dataset";
 import { useState, useEffect } from "react";
 import { modelInstance } from "./Contract";
 import { ethers } from "ethers";
@@ -8,10 +7,8 @@ import data3 from "../components/assets/dataset4.jpg";
 
 import "react-toastify/dist/ReactToastify.css";
 import { useAccount } from "wagmi";
-import { useNavigate } from "react-router-dom";
 
 function AllDataset(props) {
-  const navigate = useNavigate();
   const { address } = useAccount();
   const [allDataSet, setAllDataSet] = useState([]);
   const [loading, setLoading] = useState(true);

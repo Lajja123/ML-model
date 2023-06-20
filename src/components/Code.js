@@ -5,8 +5,8 @@ function Code() {
   const [code, setCode] = useState("");
   const handleRunCode = () => {
     try {
-      // Use eval or any other method to execute the code
-      eval(code);
+      const runnableCode = new Function(code);
+      runnableCode();
     } catch (error) {
       console.error(error);
     }

@@ -2,7 +2,7 @@ import "../styles/landing.scss";
 import bg1 from "../components/assets/ml.png";
 import bg2 from "../components/assets/homeImg.png";
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import shape from "../components/assets/banner-shape2.png";
 import Navbar from "./Navbar";
 import wallete from "../components/assets/bitcoin.png";

@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/dataset.scss";
-import { data } from "../dummyData/dataset";
+
 import CreateDataset from "./CreateDataset";
 import { useState, useEffect } from "react";
 import SingleDataset from "./SingleDataset";
@@ -12,7 +12,7 @@ import { ethers } from "ethers";
 function Dataset({ single, setSingle, dashboardLinks }) {
   const [openModal, setOpenModal] = useState(false);
   const [singleDataset, setSingleDataset] = useState(false);
-  const [allModelData, setAllModelData] = useState([]);
+  // const [allModelData, setAllModelData] = useState([]);
   const [allDataSet, setAllDataSet] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");

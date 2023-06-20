@@ -1,5 +1,4 @@
 import React from "react";
-import { data } from "../dummyData/model";
 import { useState, useEffect } from "react";
 import { modelInstance } from "./Contract";
 import lighthouse from "@lighthouse-web3/sdk";
